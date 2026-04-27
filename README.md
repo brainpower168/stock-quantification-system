@@ -1,13 +1,14 @@
 # 炒股大师量化交易系统
 
-[![Version](https://img.shields.io/badge/version-1.0.0-blue)]()
+[![Version](https://img.shields.io/badge/version-2.0.0-blue)]()
 [![License](https://img.shields.io/badge/license-MIT-green)]()
 [![Python](https://img.shields.io/badge/python-3.7+-blueviolet)]()
 
-多因子选股、持仓监控、情绪分析、回测验证于一体的量化交易系统。
+多因子选股、持仓监控、情绪分析、回测验证、AI多模型决策于一体的量化交易系统。
 
 ## ✨ 功能特性
 
+### 基础功能
 - **每日选股** - 问财+妙想+AI投票，Top N推荐
 - **持仓监控** - 止损/止盈预警，DDX退出信号
 - **情绪分析** - 恐贪指数、涨跌停比、北向资金、板块热度
@@ -15,6 +16,14 @@
 - **高收益策略** - 涨停板接力、龙头分歧转一致、事件驱动
 - **HTTP API** - 提供RESTful API，方便其他系统调用
 - **Python客户端** - 提供Python客户端库，方便集成
+
+### 🆕 AI Trading Council (v2.0新增)
+- **多AI模型投票** - LongCat、讯飞星火、智谱GLM等多模型协同决策
+- **记忆系统** - Hindsight记忆集成，从交易中学习
+- **交易编排器** - 选股→AI决策→风控检查→执行交易，一键运行
+- **数据缓存** - 减少API调用，提升效率
+- **多数据源验证** - 国信、妙想、问财、腾讯财经多方对比
+- **表现跟踪** - 策略表现追踪，因子有效性分析
 
 ## 📦 安装
 
@@ -32,16 +41,20 @@ pip install -r requirements.txt
 pip install -e .
 ```
 
-### 方式二：直接使用
+### 方式二：配置API Keys
 
 ```bash
-# 不安装，直接调用脚本
-python quant_system/daily_picker.py --top-n 3
+# 复制环境变量模板
+cp templates/.env.example .env
+
+# 编辑 .env 文件，填入你的 API Keys
+# 必需：LONGCAT_API_KEY, XUNFEI_API_KEY, GLM_API_KEY
+# 数据源：GS_API_KEY, MX_APIKEY, IWENCAI_API_KEY
 ```
 
 ## 🚀 快速开始
 
-### 1. 作为Python包使用
+### 1. 基础功能使用
 
 ```python
 from quant_system import DailyPicker, PositionMonitor, SentimentAnalyzer, Backtester
@@ -65,125 +78,123 @@ sentiment = analyzer.analyze()
 suggestion = analyzer.get_trading_suggestion()
 print(f"市场情绪: {sentiment}")
 print(f"操作建议: {suggestion}")
-
-# 策略回测
-backtester = Backtester()
-result = backtester.run(strategy="limit_up", params={"holding_period": 5})
-validation = backtester.validate_strategy(strategy="limit_up")
-print(f"回测结果: {result}")
-print(f"验证结果: {validation}")
 ```
 
-### 2. 启动API服务
+### 2. AI Trading Council 使用
+
+```python
+from quant_system.ai_council import TradingCouncil, TradingOrchestrator
+
+# 单股AI分析
+council = TradingCouncil()
+result = council.run_council_analysis("600519")
+print(f"共识决策: {result['consensus']}")
+print(f"置信度: {result['confidence']:.2f}")
+
+# 完整交易流程
+orchestrator = TradingOrchestrator()
+result = orchestrator.run(mode="daily")
+print(f"交易信号: {result['signals']}")
+
+# 查看股票记忆
+memory = council.get_stock_memory("600519")
+print(f"历史经验: {memory['experiences']}")
+
+# 反思交易表现
+insights = council.reflect_on_performance(days=30)
+print(f"洞察: {insights}")
+```
+
+### 3. 启动API服务
 
 ```bash
 # 安装API依赖
 pip install fastapi uvicorn
 
 # 启动服务
-cd api
-python quant_api.py
-
-# 或者从项目根目录启动
 uvicorn api.quant_api:app --host 0.0.0.0 --port 8000 --reload
 ```
 
-API服务启动后，可以访问：
-- Swagger文档: http://localhost:8000/docs
-- ReDoc文档: http://localhost:8000/redoc
+## 📖 AI Trading Council API
 
-### 3. 使用Python客户端
+### 命令行使用
 
-```python
-from client.quant_client import QuantClient
+```bash
+# 单股分析
+python -m quant_system.ai_council.council_engine --stock 600519
 
-# 创建客户端
-client = QuantClient(base_url="http://localhost:8000")
+# 批量分析
+python -m quant_system.ai_council.council_engine --stocks 600519,000001,300750
 
-# 健康检查
-health = client.health_check()
-print(f"健康检查: {health}")
+# 查看决策历史
+python -m quant_system.ai_council.council_engine --history --days 7
 
-# 获取每日选股
-picks = client.get_daily_picks(top_n=3)
-print(f"每日选股: {picks}")
+# 查看股票记忆
+python -m quant_system.ai_council.council_engine --memory --stock 600519
 
-# 检查持仓
-positions = [
-    {"symbol": "603931", "cost": 32.00, "shares": 1000, "current_price": 31.50}
-]
-alerts = client.check_positions(positions)
-print(f"持仓预警: {alerts}")
+# 反思交易表现
+python -m quant_system.ai_council.council_engine --reflect --days 30
 
-# 获取市场情绪
-sentiment = client.get_sentiment()
-print(f"市场情绪: {sentiment}")
-
-# 运行回测
-backtest = client.run_backtest(strategy="limit_up", params={"holding_period": 5})
-print(f"回测结果: {backtest}")
+# 运行交易编排器
+python -m quant_system.ai_council.trading_orchestrator --mode daily
 ```
 
-## 📖 API文档
+### 配置文件
 
-启动API服务后，访问 http://localhost:8000/docs 查看完整的API文档（Swagger UI）。
+AI Council 配置文件位于 `config/council_config.example.json`：
 
-### 主要端点
-
-| 端点 | 方法 | 描述 |
-|------|------|------|
-| `/api/daily-pick` | POST | 每日选股 |
-| `/api/check-positions` | POST | 批量检查持仓 |
-| `/api/sentiment` | GET | 市场情绪分析 |
-| `/api/backtest` | POST | 策略回测 |
-| `/api/health` | GET | 健康检查 |
-
-## 🛠️ 配置
-
-配置文件位于 `config/` 目录（如果需要）：
-
-```python
-# config/default.py
-DEFAULT_CONFIG = {
-    'daily_pick': {
-        'top_n': 3,
-        'min_score': 60.0,
-        'weights': {
-            'ddx': 0.30,
-            'momentum': 0.20,
-            'trend': 0.15,
-            'fundamental': 0.15,
-            'sentiment': 0.10,
-            'event': 0.10
-        }
+```json
+{
+  "models": {
+    "longcat": {
+      "enabled": true,
+      "api_key_env": "LONGCAT_API_KEY",
+      "role": "quant_expert",
+      "weight": 1.0
     },
-    'position_monitor': {
-        'stop_loss': -3.0,
-        'stop_profit': 10.0,
-        'trailing_stop': 2.0,
-        'ddx_exit_threshold': -2.0
+    "xunfei": {
+      "enabled": true,
+      "api_key_env": "XUNFEI_API_KEY",
+      "role": "fundamental_analyst",
+      "weight": 1.2
     },
-    'sentiment': {
-        'fear_greed_threshold': 70,
-        'limit_up_threshold': 50,
-        'north_bound_threshold': 100
-    },
-    'backtest': {
-        'start_date': '2020-01-01',
-        'end_date': '2025-12-31',
-        'initial_capital': 100000,
-        'commission': 0.0003,
-        'slippage': 0.001
+    "glm": {
+      "enabled": true,
+      "api_key_env": "GLM_API_KEY",
+      "role": "technical_analyst",
+      "weight": 1.0
     }
+  },
+  "decision_weights": {
+    "capital_flow": 0.35,
+    "technical_indicators": 0.30,
+    "fundamental": 0.15,
+    "sector_momentum": 0.12,
+    "market_sentiment": 0.08
+  }
 }
 ```
+
+## 🛠️ 数据源配置
+
+| 数据源 | 用途 | API Key环境变量 |
+|--------|------|-----------------|
+| 国信证券 | 行情、财务、选股 | GS_API_KEY |
+| 妙想 | 资金流向（最详细） | MX_APIKEY |
+| 问财 | 智能选股 | IWENCAI_API_KEY |
+| 腾讯财经 | 实时股价 | 无需 |
+
+### 多数据源对比策略
+
+重要决策时，系统会自动调用多个数据源对比验证：
+
+- **买入前**：妙想+国信对比资金流向，腾讯+westockdata对比股价
+- **卖出前**：妙想看每日明细，westockdata看技术位
+- **选股**：国信+问财对比结果
 
 ## 🧪 测试
 
 ```bash
-# 安装测试依赖
-pip install pytest pytest-cov
-
 # 运行测试
 pytest tests/ -v
 
@@ -191,25 +202,47 @@ pytest tests/ -v
 pytest tests/ --cov=quant_system --cov-report=html
 ```
 
-## 🤝 贡献
+## 📁 项目结构
 
-欢迎贡献！请阅读 [CONTRIBUTING.md](CONTRIBUTING.md) 了解详情。
+```
+stock-quantification-system/
+├── quant_system/
+│   ├── __init__.py
+│   ├── daily_picker.py          # 每日选股
+│   ├── position_monitor.py      # 持仓监控
+│   ├── sentiment_analyzer.py    # 情绪分析
+│   ├── backtest_engine.py       # 回测引擎
+│   ├── risk_manager.py          # 风控系统
+│   ├── data_sources.py          # 数据源封装
+│   └── ai_council/              # 🆕 AI Trading Council
+│       ├── __init__.py
+│       ├── council_engine.py    # AI多模型投票
+│       ├── hindsight_memory.py  # 记忆系统
+│       ├── trading_orchestrator.py  # 交易编排器
+│       ├── data_cache.py        # 数据缓存
+│       ├── performance_tracker.py   # 表现跟踪
+│       └── ...
+├── config/
+│   └── council_config.example.json  # AI Council配置模板
+├── templates/
+│   └── .env.example             # 环境变量模板
+├── api/
+│   └── quant_api.py             # HTTP API
+├── client/
+│   └── quant_client.py          # Python客户端
+└── tests/                       # 测试
+```
 
 ## 📄 许可证
 
 本项目采用 MIT 许可证 - 查看 [LICENSE](LICENSE) 文件了解详情。
-
-## 📧 联系方式
-
-- 作者：炒股大师
-- 邮箱：your-email@example.com
-- Gitee：[@brainpower168](https://gitee.com/brainpower168)
 
 ## 🙏 致谢
 
 - 问财API提供金融数据
 - 妙想API提供资金流向数据
 - FastAPI提供API框架
+- Hindsight提供记忆系统框架
 
 ---
 

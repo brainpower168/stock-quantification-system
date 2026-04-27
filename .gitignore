@@ -142,3 +142,25 @@ data/cache/
 positions.json
 trade_signal.json
 signal_*.json
+# AI Council 敏感文件
+.env
+.env.*
+*.env
+config/council_config.json
+
+# 数据文件
+data/
+*.jsonl
+*.log
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+
+# IDE
+.idea/
+.vscode/
+*.swp

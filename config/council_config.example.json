@@ -1,0 +1,40 @@
+{
+  "models": {
+    "longcat": {
+      "enabled": true,
+      "api_key_env": "LONGCAT_API_KEY",
+      "base_url": "https://api.longcat.chat/openai",
+      "model": "LongCat-Flash-Lite",
+      "role": "quant_expert",
+      "weight": 1.0,
+      "description": "量化专家 - 技术指标、量化因子、市场情绪"
+    },
+    "xunfei": {
+      "enabled": true,
+      "api_key_env": "XUNFEI_API_KEY",
+      "base_url": "https://maas-coding-api.cn-huabei-1.xf-yun.com/v2",
+      "model": "astron-code-latest",
+      "role": "fundamental_analyst",
+      "weight": 1.2,
+      "description": "基本面分析师 - 财务数据、估值、行业分析"
+    },
+    "glm": {
+      "enabled": true,
+      "api_key_env": "GLM_API_KEY",
+      "base_url": "https://open.bigmodel.cn/api/paas/v4",
+      "model": "glm-4-flash",
+      "role": "technical_analyst",
+      "weight": 1.0,
+      "description": "技术分析师 - K线形态、趋势、支撑阻力"
+    }
+  },
+  "decision_weights": {
+    "capital_flow": 0.35,
+    "technical_indicators": 0.30,
+    "fundamental": 0.15,
+    "sector_momentum": 0.12,
+    "market_sentiment": 0.08
+  },
+  "consensus_threshold": 0.6,
+  "min_confidence": 0.5
+}

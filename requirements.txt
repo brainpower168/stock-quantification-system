@@ -1,26 +1,21 @@
-# 核心依赖
-requests>=2.25.0
-pydantic>=1.8.0
-fastapi>=0.65.0
-uvicorn>=0.14.0
-numpy>=1.20.0
-pandas>=1.3.0
+# 基础依赖
+requests>=2.28.0
+pandas>=1.5.0
+numpy>=1.23.0
 
-# 量化相关
-tushare>=1.2.89          # 金融数据接口
-akshare>=1.10.0          # 另一金融数据接口
-pywencai>=0.0.10         # 问财API
+# AI Council 依赖
+openai>=1.0.0
 
-#  utility
-python-dotenv>=0.19.0    # 环境变量管理
-PyYAML>=5.4.0             # YAML配置文件
-schedule>=1.1.0           # 定时任务
+# 可选依赖
+# dashscope>=1.14.0  # 通义千问
+# anthropic>=0.18.0  # Claude
+# hindsight-client>=0.1.0  # Hindsight记忆系统
 
-# API服务（可选）
-# 如果不需要API服务，可以注释掉下面两行
-# fastapi>=0.65.0
-# uvicorn>=0.14.0
+# API 服务
+fastapi>=0.100.0
+uvicorn>=0.23.0
+pydantic>=2.0.0
 
-# 测试（可选）
-# pytest>=6.0.0
-# pytest-cov>=2.12.0
+# 测试
+pytest>=7.0.0
+pytest-cov>=4.0.0
