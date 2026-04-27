@@ -28,7 +28,7 @@ class DataSource:
         # 问财API Key
         self.iwencai_key = os.environ.get(
             'IWENCAI_API_KEY',
-            'sk-proj-00-L98Flo9agLXezzimqRTP3YCEIzEBTbzvNyuXrad8fH1U-_1Blay2iNgYVBvT1NmB9MkSJk7fZAdsF8zjdna5n5J26Fjvo8NF0T-WNlRTQoz6066x607AbEx1_fcQmUNSajBS_w'
+            'YOUR_IWENCAI_API_KEY_HERE'
         )
         
         # 状态记录
