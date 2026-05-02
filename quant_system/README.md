@@ -1,52 +1,184 @@
-# Quant System v3.0
+# Quant System v4.0
 
-量化交易系统 - 整合brainpower_stock优点 + 题材热点 + 智能卖出
+量化交易系统 - 整合幻方量化三层策略池架构 + 完整风控体系
 
-## 系统架构
+## 系统架构（幻方量化三层策略池）
 
-| 模块 | 文件 | 功能 | 改进 |
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    顶层：风险预算                              │
+│  CVaR模型 + 熔断机制 + 风险预算分配 + 回撤控制                   │
+│  risk_budget_system.py                                       │
+├─────────────────────────────────────────────────────────────┤
+│                    中层：策略工厂                              │
+│  市场状态识别 + 强化学习动态调整 + 元策略生成器                   │
+│  strategy_factory.py                                         │
+├─────────────────────────────────────────────────────────────┤
+│                    底层：因子库                               │
+│  200+因子 + 遗传算法筛选 + 因子有效性评估                        │
+│  factor_library.py                                           │
+└─────────────────────────────────────────────────────────────┘
+```
+
+## 模块总览
+
+| 层级 | 模块 | 文件 | 功能 |
 |------|------|------|------|
-| 特征工程 | `feature_engineer.py` | 59个特征，7大类 | +111% |
-| 三层过滤 | `three_layer_picker.py` | 基本面+技术面+风控 | 系统化 |
-| 回测引擎 | `backtest_engine.py` | 交易成本+绩效评估 | +Alpha/Beta |
-| 组合优化 | `portfolio_optimizer.py` | 马科维茨+风险平价 | 新增 |
-| Stacking | `stacking_ensemble.py` | 多模型融合 | +49%准确率 |
-| **题材热点** | **`theme_hot_tracker.py`** | **涨停基因+板块轮动+热点评分** | **新增** |
-| **智能卖出** | **`smart_sell_strategy.py`** | **分批止盈+反弹卖出+主力判断** | **新增** |
+| **底层** | 因子库 | `factor_library.py` | 200+因子，遗传算法筛选 |
+| **中层** | 策略工厂 | `strategy_factory.py` | 市场状态识别+动态调整 |
+| **顶层** | 风险预算 | `risk_budget_system.py` | CVaR+熔断机制 |
+| **风控** | 事前风控 | `pre_trade_risk_control.py` | ST过滤+流动性过滤 |
+| **风控** | 实时监控 | `portfolio_monitor.py` | Beta+行业集中度+流动性 |
+| **风控** | 事后归因 | `performance_attribution.py` | 每日报告+因子暴露度 |
+| **选股** | 三层过滤 | `three_layer_picker.py` | 基本面+技术面+风控 |
+| **选股** | 题材热点 | `theme_hot_tracker.py` | 涨停基因+板块轮动 |
+| **交易** | 智能卖出 | `smart_sell_strategy.py` | 分批止盈+反弹卖出 |
+| **回测** | 回测引擎 | `backtest_engine.py` | 交易成本+绩效评估 |
+| **组合** | 组合优化 | `portfolio_optimizer.py` | 马科维茨+风险平价 |
+| **ML** | Stacking | `stacking_ensemble.py` | 多模型融合 |
 
-## v3.0 新增功能
+---
 
-### 1. 题材热点追踪 (`theme_hot_tracker.py`)
+## v4.0 新增功能（幻方量化架构）
 
-解决"错过宏和科技涨停、错过气体板块大涨"的问题。
+### 1. 因子库模块（底层）
 
-**核心功能**：
-- 涨停基因识别：分析20日内涨停次数、连续涨停天数
-- 板块轮动分析：追踪热点板块资金流向
-- 题材评分：结合题材权重、涨停基因、资金流向综合评分
-- 连板股识别：2连板以上不看DDX，看题材和资金
+**幻方做法**：200+因子，遗传算法动态筛选有效因子组合
+
+**我们实现**：
+- 量价因子（50+）：收益率、波动率、振幅、成交量、换手率、涨跌停
+- 基本面因子（50+）：估值、盈利能力、成长、财务健康、现金流
+- 情绪因子（30+）：市场情绪、涨停基因、板块热度、新闻情绪
+- 资金流因子（40+）：主力资金、DDX、超大单、北向资金、融资融券
+- 技术因子（30+）：均线、MACD、KDJ、RSI、布林带、ATR
+- 风险因子（20+）：Beta、波动率、下行风险、最大回撤、VaR、CVaR
+- 另类数据因子（10+）：机构调研、高管增减持、龙虎榜、大宗交易
 
 **使用方法**：
 ```python
-from theme_hot_tracker import ThemeStrategy
+from factor_library import FactorEngine
 
-strategy = ThemeStrategy()
-analysis = strategy.analyze_stock(
-    code='002281',
-    name='光迅科技',
-    data=historical_data,
-    fund_flow=8000,  # 主力流入（万元）
-    pct_change=3.5   # 涨幅%
-)
-
-print(f"题材评分: {analysis['theme_score']}")
-print(f"是否买入: {analysis['should_buy']}")
-print(f"原因: {analysis['reason']}")
+engine = FactorEngine()
+factor_vector, factor_dict = engine.process(data, returns)
+print(f"提取因子数: {len(factor_dict)} 个")
 ```
 
-### 2. 智能卖出策略 (`smart_sell_strategy.py`)
+---
 
-解决"卖飞格林达18%、华工科技恐慌卖出"的问题。
+### 2. 策略工厂模块（中层）
+
+**幻方做法**：根据市场状态（波动率、成交量）动态调整策略参数
+
+**我们实现**：
+- 市场状态识别：趋势市 / 震荡市 / 中性
+- ADX指标判断趋势强度
+- 动态调整持仓周期、止损止盈、因子权重
+- 元策略生成器：趋势跟踪 + 均值回归 + 动量策略
+
+**使用方法**：
+```python
+from strategy_factory import StrategyFactory
+
+factory = StrategyFactory()
+strategy = factory.adjust_strategy(data)
+
+print(f"市场状态: {strategy['market_state']}")
+print(f"持仓周期: {strategy['strategy_params']['holding_period']}天")
+print(f"止损: {strategy['strategy_params']['stop_loss']*100}%")
+```
+
+---
+
+### 3. 风险预算模块（顶层）
+
+**幻方做法**：CVaR模型控制组合风险，单策略最大回撤≤2%，熔断机制
+
+**我们实现**：
+- CVaR（条件风险价值）模型
+- 熔断机制：回撤>2%、连续3天亏损、单日亏损>5%
+- 风险预算分配：根据波动率分配仓位
+- 回撤控制：实时监控，接近限制时预警
+
+**使用方法**：
+```python
+from risk_budget_system import RiskBudgetSystem
+
+system = RiskBudgetSystem(total_capital=1000000)
+
+# 交易前检查
+check = system.check_before_trade(daily_pnl=-0.02)
+print(f"可交易: {check['can_trade']}")
+print(f"当前回撤: {check['drawdown']['drawdown']*100:.2f}%")
+```
+
+---
+
+### 4. 事前风控模块
+
+**幻方做法**：排除ST股、流动性不足标的，仓位控制
+
+**我们实现**：
+- ST股过滤：排除ST、*ST、退市风险股
+- 流动性过滤：市值>20亿、成交量>10万股、换手率>1%
+- 仓位控制：单股≤20%、单行业≤40%、总仓位≤80%
+- 买入前检查：6项检查清单
+
+**使用方法**：
+```python
+from pre_trade_risk_control import PreTradeRiskControl
+
+control = PreTradeRiskControl(total_capital=1000000)
+
+# 筛选股票
+result = control.screen_stocks(stock_list)
+print(f"通过筛选: {len(result['passed_stocks'])} 只")
+
+# 买入前检查
+check = control.check_before_buy('002475', '电子', 100000, stock_info)
+print(f"可以买入: {check['can_buy']}")
+```
+
+---
+
+## 风控体系对比
+
+| 维度 | 幻方量化 | 我们的系统 |
+|------|----------|------------|
+| **事前风控** | CVaR模型、回撤≤2%、排除ST、熔断机制 | ✅ CVaR模型、回撤≤2%、ST过滤、熔断机制 |
+| **事中监控** | 实时监控Beta、行业集中度、流动性 | ✅ Beta监控、行业集中度、流动性预警 |
+| **事后归因** | 每日分析、因子暴露度周报 | ✅ 每日报告、因子归因分析 |
+
+---
+
+## 改进效果
+
+| 指标 | v3.0 | v4.0 | 提升 |
+|------|------|------|------|
+| 因子数 | 59 | 200+ | +239% |
+| 风险模型 | 固定止损 | CVaR动态 | 专业化 |
+| 熔断机制 | 无 | 3种熔断 | 新增 |
+| 市场适应 | 固定策略 | 动态调整 | 智能化 |
+
+---
+
+## 依赖
+
+```
+numpy
+pandas
+scikit-learn
+scipy
+xgboost
+torch (可选，用于LSTM)
+```
+
+---
+
+## 作者
+
+DuMate AI
+日期：2026-05-01
+版本：v4.0（幻方量化架构）
 
 **核心功能**：
 - 分批止盈：10%卖1/3，20%卖一半，30%全清
