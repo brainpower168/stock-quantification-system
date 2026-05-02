@@ -767,93 +767,178 @@ class EnhancedFactorLibrary:
         """
         订单流因子 - 基于DDX深度挖掘
 
-        需要数据源：妙想API、问财API
+        数据来源：
+        - 妙想API：DDX、DDY、DDZ、主力资金流向
+        - 问财API：备用数据源
         """
         factors = {}
 
-        # DDX因子（如果有）
+        # ===== DDX因子 =====
         if "ddx" in data.columns:
-            factors["DDX"] = data["ddx"].iloc[-1]
-            factors["DDX_5D_AVG"] = data["ddx"].rolling(5).mean().iloc[-1]
-            factors["DDX_10D_AVG"] = data["ddx"].rolling(10).mean().iloc[-1]
-            factors["DDX_20D_AVG"] = data["ddx"].rolling(20).mean().iloc[-1]
+            ddx = data["ddx"]
+            factors["DDX"] = ddx.iloc[-1]
+            factors["DDX_5D_AVG"] = ddx.rolling(5).mean().iloc[-1]
+            factors["DDX_10D_AVG"] = ddx.rolling(10).mean().iloc[-1]
+            factors["DDX_20D_AVG"] = ddx.rolling(20).mean().iloc[-1]
 
-            # DDX趋势
-            factors["DDX_TREND_5D"] = (
-                data["ddx"]
-                .rolling(5)
-                .apply(
-                    lambda x: np.polyfit(range(len(x)), x, 1)[0] if len(x) > 1 else 0
-                )
-                .iloc[-1]
-            )
+            # DDX趋势（线性回归斜率）
+            if len(ddx) >= 5:
+                factors["DDX_TREND_5D"] = np.polyfit(range(5), ddx.iloc[-5:].values, 1)[
+                    0
+                ]
+            if len(ddx) >= 10:
+                factors["DDX_TREND_10D"] = np.polyfit(
+                    range(10), ddx.iloc[-10:].values, 1
+                )[0]
 
             # DDX连续性
-            factors["DDX_POSITIVE_DAYS_5D"] = (
-                (data["ddx"] > 0).rolling(5).sum().iloc[-1]
-            )
-            factors["DDX_POSITIVE_DAYS_10D"] = (
-                (data["ddx"] > 0).rolling(10).sum().iloc[-1]
-            )
+            factors["DDX_POSITIVE_DAYS_5D"] = (ddx.iloc[-5:] > 0).sum()
+            factors["DDX_POSITIVE_DAYS_10D"] = (ddx.iloc[-10:] > 0).sum()
+            factors["DDX_POSITIVE_DAYS_20D"] = (ddx.iloc[-20:] > 0).sum()
 
-        # DDY因子（如果有）
+            # DDX变化率
+            if len(ddx) >= 2:
+                factors["DDX_CHANGE"] = ddx.iloc[-1] - ddx.iloc[-2]
+            if len(ddx) >= 5:
+                factors["DDX_CHANGE_5D"] = ddx.iloc[-1] - ddx.iloc[-5]
+
+        # ===== DDY因子 =====
         if "ddy" in data.columns:
-            factors["DDY"] = data["ddy"].iloc[-1]
-            factors["DDY_5D_AVG"] = data["ddy"].rolling(5).mean().iloc[-1]
-            factors["DDY_10D_AVG"] = data["ddy"].rolling(10).mean().iloc[-1]
+            ddy = data["ddy"]
+            factors["DDY"] = ddy.iloc[-1]
+            factors["DDY_5D_AVG"] = ddy.rolling(5).mean().iloc[-1]
+            factors["DDY_10D_AVG"] = ddy.rolling(10).mean().iloc[-1]
+            factors["DDY_POSITIVE_DAYS_5D"] = (ddy.iloc[-5:] > 0).sum()
 
-        # DDZ因子（如果有）
+        # ===== DDZ因子 =====
         if "ddz" in data.columns:
-            factors["DDZ"] = data["ddz"].iloc[-1]
-            factors["DDZ_5D_AVG"] = data["ddz"].rolling(5).mean().iloc[-1]
+            ddz = data["ddz"]
+            factors["DDZ"] = ddz.iloc[-1]
+            factors["DDZ_5D_AVG"] = ddz.rolling(5).mean().iloc[-1]
 
-        # 主力资金流向（如果有）
+        # ===== 主力资金流向 =====
         if "main_flow" in data.columns:
-            factors["MAIN_FLOW"] = data["main_flow"].iloc[-1]
-            factors["MAIN_FLOW_5D_SUM"] = data["main_flow"].rolling(5).sum().iloc[-1]
-            factors["MAIN_FLOW_10D_SUM"] = data["main_flow"].rolling(10).sum().iloc[-1]
-            factors["MAIN_FLOW_20D_SUM"] = data["main_flow"].rolling(20).sum().iloc[-1]
+            main_flow = data["main_flow"]
+            factors["MAIN_FLOW"] = main_flow.iloc[-1]
+            factors["MAIN_FLOW_5D_SUM"] = main_flow.iloc[-5:].sum()
+            factors["MAIN_FLOW_10D_SUM"] = main_flow.iloc[-10:].sum()
+            factors["MAIN_FLOW_20D_SUM"] = main_flow.iloc[-20:].sum()
 
             # 主力资金趋势
-            factors["MAIN_FLOW_TREND_5D"] = (
-                data["main_flow"]
-                .rolling(5)
-                .apply(
-                    lambda x: np.polyfit(range(len(x)), x, 1)[0] if len(x) > 1 else 0
-                )
-                .iloc[-1]
-            )
+            if len(main_flow) >= 5:
+                factors["MAIN_FLOW_TREND_5D"] = np.polyfit(
+                    range(5), main_flow.iloc[-5:].values, 1
+                )[0]
+            if len(main_flow) >= 10:
+                factors["MAIN_FLOW_TREND_10D"] = np.polyfit(
+                    range(10), main_flow.iloc[-10:].values, 1
+                )[0]
 
             # 主力流入天数
-            factors["MAIN_INFLOW_DAYS_5D"] = (
-                (data["main_flow"] > 0).rolling(5).sum().iloc[-1]
-            )
-            factors["MAIN_INFLOW_DAYS_10D"] = (
-                (data["main_flow"] > 0).rolling(10).sum().iloc[-1]
-            )
+            factors["MAIN_INFLOW_DAYS_5D"] = (main_flow.iloc[-5:] > 0).sum()
+            factors["MAIN_INFLOW_DAYS_10D"] = (main_flow.iloc[-10:] > 0).sum()
 
-        # 超大单/大单/中单/小单（如果有）
+        # ===== 超大单/大单/中单/小单 =====
         for order_type in ["super_large", "large", "medium", "small"]:
             col_name = f"{order_type}_flow"
             if col_name in data.columns:
-                factors[f"{order_type.upper()}_FLOW"] = data[col_name].iloc[-1]
-                factors[f"{order_type.upper()}_FLOW_5D_SUM"] = (
-                    data[col_name].rolling(5).sum().iloc[-1]
-                )
+                flow_data = data[col_name]
+                factors[f"{order_type.upper()}_FLOW"] = flow_data.iloc[-1]
+                factors[f"{order_type.upper()}_FLOW_5D_SUM"] = flow_data.iloc[-5:].sum()
 
         return factors
 
-    # ==================== 11. 基本面因子（30+） ====================
+    # ==================== 14. 基本面因子（30+） ====================
     def _fundamental_factors(self, data: pd.DataFrame) -> Dict:
-        """基本面因子"""
+        """
+        基本面因子
+
+        数据来源：
+        - 国信API：PE、PB、ROE、营收增长、净利润增长等
+        - 妙想API：财务指标
+        """
         factors = {}
 
-        # 估值因子
+        # ===== 估值因子 =====
         for metric in ["pe", "pb", "ps", "pcf"]:
             if metric in data.columns:
                 factors[metric.upper()] = data[metric].iloc[-1]
 
-        # 盈利能力因子
+        # ===== 盈利能力因子 =====
+        for metric in ["roe", "roa", "gross_margin", "net_margin", "operating_margin"]:
+            if metric in data.columns:
+                factors[metric.upper()] = data[metric].iloc[-1]
+
+        # ===== 成长因子 =====
+        for metric in [
+            "revenue_growth",
+            "profit_growth",
+            "eps_growth",
+            "operating_profit_growth",
+        ]:
+            if metric in data.columns:
+                factors[metric.upper()] = data[metric].iloc[-1]
+
+        # ===== 财务健康因子 =====
+        for metric in [
+            "debt_ratio",
+            "current_ratio",
+            "quick_ratio",
+            "interest_coverage",
+        ]:
+            if metric in data.columns:
+                factors[metric.upper()] = data[metric].iloc[-1]
+
+        # ===== 现金流因子 =====
+        for metric in ["operating_cash_flow", "free_cash_flow", "cash_flow_per_share"]:
+            if metric in data.columns:
+                factors[metric.upper()] = data[metric].iloc[-1]
+
+        # ===== 其他基本面因子 =====
+        for metric in ["total_assets", "total_revenue", "net_profit", "total_equity"]:
+            if metric in data.columns:
+                factors[metric.upper()] = data[metric].iloc[-1]
+
+        return factors
+
+    # ==================== 15. 情绪因子（10+） ====================
+    def _sentiment_factors(self, data: pd.DataFrame) -> Dict:
+        """
+        情绪因子
+
+        数据来源：
+        - 新闻搜索API：新闻情绪分析
+        - 东方财富股吧：讨论热度
+        - 雪球：关注度和讨论量
+        """
+        factors = {}
+
+        # ===== 情绪评分 =====
+        for metric in ["sentiment_score", "news_sentiment", "social_sentiment"]:
+            if metric in data.columns:
+                factors[metric.upper()] = data[metric].iloc[-1]
+
+        # ===== 新闻因子 =====
+        for metric in ["news_count", "news_positive_count", "news_negative_count"]:
+            if metric in data.columns:
+                factors[metric.upper()] = data[metric].iloc[-1]
+
+        # ===== 讨论热度 =====
+        for metric in ["discussion_count", "post_count", "comment_count"]:
+            if metric in data.columns:
+                factors[metric.upper()] = data[metric].iloc[-1]
+
+        # ===== 情绪比例 =====
+        for metric in ["positive_ratio", "negative_ratio", "neutral_ratio"]:
+            if metric in data.columns:
+                factors[metric.upper()] = data[metric].iloc[-1]
+
+        # ===== 热度排名 =====
+        for metric in ["hot_rank", "attention_score", "search_volume"]:
+            if metric in data.columns:
+                factors[metric.upper()] = data[metric].iloc[-1]
+
+        return factors
         for metric in ["roe", "roa", "gross_margin", "net_margin"]:
             if metric in data.columns:
                 factors[metric.upper()] = data[metric].iloc[-1]

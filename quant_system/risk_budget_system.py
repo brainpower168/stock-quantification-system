@@ -74,14 +74,19 @@ class CVaRModel:
 
 
 class CircuitBreaker:
-    """熔断机制"""
+    """熔断机制 - 幻方量化风控体系"""
 
     def __init__(self):
-        # 熔断参数
-        self.max_drawdown = 0.02  # 单策略最大回撤2%
+        # 熔断参数（参考幻方量化）
+        self.max_drawdown = 0.05  # 单策略最大回撤5%（原2%）
         self.consecutive_loss_days = 3  # 连续亏损天数
-        self.daily_loss_threshold = -0.03  # 单日亏损阈值
-        self.total_loss_threshold = -0.05  # 总亏损阈值
+        self.daily_loss_threshold = -0.03  # 单日亏损阈值3%
+        self.total_loss_threshold = -0.05  # 总亏损阈值5%
+        self.daily_drawdown_threshold = 0.05  # 日回撤5%熔断（新增）
+
+        # 单笔止损参数（新增）
+        self.single_trade_stop_loss = 0.05  # 单笔止损5%（原20%）
+        self.single_trade_max_position = 0.20  # 单股最大仓位20%
 
         # 状态
         self.loss_days = 0
@@ -90,6 +95,11 @@ class CircuitBreaker:
         self.trigger_time = None
         self.cooldown_days = 0
         self.cooldown_period = 5  # 冷却期5天
+
+        # 日回撤跟踪（新增）
+        self.daily_start_value = 0  # 日初账户价值
+        self.current_value = 0  # 当前账户价值
+        self.daily_drawdown = 0  # 当日回撤
 
     def check(self, daily_pnl: float, current_drawdown: float) -> Dict:
         """
@@ -113,10 +123,24 @@ class CircuitBreaker:
                 "action": "暂停交易，观察市场",
             }
 
-        # 1. 回撤熔断
+        # 1. 日回撤熔断（新增）
+        if self.daily_drawdown >= self.daily_drawdown_threshold:
+            self.triggered = True
+            self.trigger_reason = f"日回撤熔断：{self.daily_drawdown * 100:.2f}% >= 5%"
+            self.trigger_time = datetime.now()
+            self.cooldown_days = self.cooldown_period
+
+            return {
+                "can_trade": False,
+                "triggered": True,
+                "reason": self.trigger_reason,
+                "action": "立即停止交易，当日不再开新仓",
+            }
+
+        # 2. 总回撤熔断
         if current_drawdown < -self.max_drawdown:
             self.triggered = True
-            self.trigger_reason = f"回撤熔断：{current_drawdown * 100:.2f}% < -2%"
+            self.trigger_reason = f"总回撤熔断：{current_drawdown * 100:.2f}% < -5%"
             self.trigger_time = datetime.now()
             self.cooldown_days = self.cooldown_period
 
@@ -127,7 +151,7 @@ class CircuitBreaker:
                 "action": "立即停止交易，重新评估策略",
             }
 
-        # 2. 连续亏损熔断
+        # 3. 连续亏损熔断
         if daily_pnl < self.daily_loss_threshold:
             self.loss_days += 1
             if self.loss_days >= self.consecutive_loss_days:
@@ -145,7 +169,7 @@ class CircuitBreaker:
         else:
             self.loss_days = 0  # 重置
 
-        # 3. 总亏损熔断
+        # 4. 单日大幅亏损熔断
         if daily_pnl < self.total_loss_threshold:
             self.triggered = True
             self.trigger_reason = f"单日亏损熔断：{daily_pnl * 100:.2f}% < -5%"
@@ -165,6 +189,64 @@ class CircuitBreaker:
             "reason": "正常交易",
             "action": "继续执行策略",
         }
+
+    def check_single_trade(
+        self, entry_price: float, current_price: float, position_value: float
+    ) -> Dict:
+        """
+        检查单笔交易是否触发止损（新增）
+
+        参数:
+            entry_price: 买入价
+            current_price: 当前价
+            position_value: 持仓市值
+
+        返回:
+            {
+                'should_stop': 是否止损,
+                'loss_pct': 亏损百分比,
+                'action': 行动建议
+            }
+        """
+        if entry_price <= 0:
+            return {"should_stop": False, "loss_pct": 0, "action": "持仓正常"}
+
+        # 计算亏损百分比
+        loss_pct = (current_price - entry_price) / entry_price
+
+        # 检查是否触发止损
+        if loss_pct <= -self.single_trade_stop_loss:
+            return {
+                "should_stop": True,
+                "loss_pct": loss_pct,
+                "action": f"触发止损：亏损{abs(loss_pct) * 100:.2f}% >= 5%，立即卖出",
+            }
+
+        return {
+            "should_stop": False,
+            "loss_pct": loss_pct,
+            "action": f"持仓正常，当前{'盈利' if loss_pct > 0 else '亏损'}{abs(loss_pct) * 100:.2f}%",
+        }
+
+    def update_daily_drawdown(self, start_value: float, current_value: float):
+        """
+        更新日回撤（新增）
+
+        参数:
+            start_value: 日初账户价值
+            current_value: 当前账户价值
+        """
+        self.daily_start_value = start_value
+        self.current_value = current_value
+
+        if start_value > 0:
+            self.daily_drawdown = (start_value - current_value) / start_value
+        else:
+            self.daily_drawdown = 0
+
+    def reset_daily(self):
+        """重置日回撤（每日开盘调用）"""
+        self.daily_drawdown = 0
 
     def reset(self):
         """重置熔断状态"""
