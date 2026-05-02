@@ -37,6 +37,9 @@ class EnhancedFactorLibrary:
             "technical_price": self._technical_price_factors,
             "technical_pattern": self._technical_pattern_factors,
             "technical_statistic": self._technical_statistic_factors,
+            "technical_transform": self._technical_transform_factors,
+            "momentum_change": self._momentum_change_factors,
+            "trend_strength": self._trend_strength_factors,
             "order_flow": self._order_flow_factors,
             "fundamental": self._fundamental_factors,
             "sentiment": self._sentiment_factors,
@@ -600,7 +603,166 @@ class EnhancedFactorLibrary:
 
         return factors
 
-    # ==================== 10. 订单流因子（20+） ====================
+    # ==================== 10. TA-Lib数学变换（15个） ====================
+    def _technical_transform_factors(self, data: pd.DataFrame) -> Dict:
+        """TA-Lib数学变换函数"""
+        factors = {}
+        close = data["close"].values
+
+        try:
+            # ACOS - 反余弦
+            factors["ACOS"] = talib.ACOS(close)[-1]
+
+            # ASIN - 反正弦
+            factors["ASIN"] = talib.ASIN(close)[-1]
+
+            # ATAN - 反正切
+            factors["ATAN"] = talib.ATAN(close)[-1]
+
+            # CEIL - 向上取整
+            factors["CEIL"] = talib.CEIL(close)[-1]
+
+            # COS - 余弦
+            factors["COS"] = talib.COS(close)[-1]
+
+            # COSH - 双曲余弦
+            factors["COSH"] = talib.COSH(close)[-1]
+
+            # EXP - 指数
+            factors["EXP"] = talib.EXP(close)[-1]
+
+            # FLOOR - 向下取整
+            factors["FLOOR"] = talib.FLOOR(close)[-1]
+
+            # LN - 自然对数
+            factors["LN"] = talib.LN(close)[-1]
+
+            # LOG10 - 常用对数
+            factors["LOG10"] = talib.LOG10(close)[-1]
+
+            # SIN - 正弦
+            factors["SIN"] = talib.SIN(close)[-1]
+
+            # SINH - 双曲正弦
+            factors["SINH"] = talib.SINH(close)[-1]
+
+            # SQRT - 平方根
+            factors["SQRT"] = talib.SQRT(close)[-1]
+
+            # TAN - 正切
+            factors["TAN"] = talib.TAN(close)[-1]
+
+            # TANH - 双曲正切
+            factors["TANH"] = talib.TANH(close)[-1]
+
+        except Exception as e:
+            pass
+
+        return factors
+
+    # ==================== 11. 动量变化率因子（20个） ====================
+    def _momentum_change_factors(self, data: pd.DataFrame) -> Dict:
+        """动量变化率因子"""
+        factors = {}
+        close = data["close"]
+        volume = data["volume"]
+
+        # ROC变化率（多个周期）
+        for period in [3, 5, 10, 20]:
+            if len(close) >= period:
+                factors[f"ROC_{period}D"] = (
+                    close.iloc[-1] / close.iloc[-period] - 1
+                ) * 100
+
+        # ROC加速度（ROC的变化率）
+        for period in [5, 10]:
+            if len(close) >= period * 2:
+                roc1 = (close.iloc[-1] / close.iloc[-period] - 1) * 100
+                roc2 = (close.iloc[-period] / close.iloc[-period * 2] - 1) * 100
+                factors[f"ROC_ACCEL_{period}D"] = roc1 - roc2
+
+        # 价格动量（价格相对于N日均线的偏离）
+        for period in [5, 10, 20, 60]:
+            if len(close) >= period:
+                ma = close.rolling(period).mean().iloc[-1]
+                factors[f"PRICE_MOMENTUM_{period}D"] = (close.iloc[-1] / ma - 1) * 100
+
+        # 成交量动量
+        for period in [5, 10, 20]:
+            if len(volume) >= period:
+                vol_ma = volume.rolling(period).mean().iloc[-1]
+                factors[f"VOLUME_MOMENTUM_{period}D"] = (
+                    volume.iloc[-1] / vol_ma - 1
+                ) * 100
+
+        # 价格加速度（二阶导数）
+        for period in [5, 10]:
+            if len(close) >= period * 3:
+                ret1 = close.pct_change(period).iloc[-1]
+                ret2 = close.pct_change(period).iloc[-period - 1]
+                factors[f"PRICE_ACCEL_{period}D"] = ret1 - ret2
+
+        return factors
+
+    # ==================== 12. 趋势强度因子（15个） ====================
+    def _trend_strength_factors(self, data: pd.DataFrame) -> Dict:
+        """趋势强度因子"""
+        factors = {}
+        close = data["close"]
+        high = data["high"]
+        low = data["low"]
+
+        # ADX趋势强度（已提取，这里添加更多周期）
+        try:
+            close_arr = close.values
+            high_arr = high.values
+            low_arr = low.values
+
+            # ADX多周期
+            for period in [7, 21]:
+                factors[f"ADX_{period}"] = talib.ADX(
+                    high_arr, low_arr, close_arr, timeperiod=period
+                )[-1]
+
+            # +DI/-DI差值（趋势方向强度）
+            for period in [7, 14, 21]:
+                plus_di = talib.PLUS_DI(
+                    high_arr, low_arr, close_arr, timeperiod=period
+                )[-1]
+                minus_di = talib.MINUS_DI(
+                    high_arr, low_arr, close_arr, timeperiod=period
+                )[-1]
+                factors[f"DI_DIFF_{period}"] = plus_di - minus_di
+                factors[f"DI_RATIO_{period}"] = plus_di / (minus_di + 0.01)
+
+        except:
+            pass
+
+        # 价格相对位置（趋势强度）
+        for period in [20, 60]:
+            if len(close) >= period:
+                high_n = high.rolling(period).max().iloc[-1]
+                low_n = low.rolling(period).min().iloc[-1]
+                close_val = close.iloc[-1]
+
+                # 价格在区间中的位置
+                factors[f"PRICE_RANK_{period}D"] = (close_val - low_n) / (
+                    high_n - low_n + 0.01
+                )
+
+                # 价格距离高点的距离
+                factors[f"DIST_TO_HIGH_{period}D"] = (
+                    (high_n - close_val) / close_val * 100
+                )
+
+                # 价格距离低点的距离
+                factors[f"DIST_TO_LOW_{period}D"] = (
+                    (close_val - low_n) / close_val * 100
+                )
+
+        return factors
+
+    # ==================== 13. 订单流因子（20+） ====================
     def _order_flow_factors(self, data: pd.DataFrame) -> Dict:
         """
         订单流因子 - 基于DDX深度挖掘
