@@ -7,6 +7,7 @@
 3. 卖出时自动计算盈亏，更新记录
 4. 选股时参考历史交易，动态调整因子权重
 5. 定期自动复盘，生成优化建议
+6. 高胜率选股模式：5重确认+买点评估+从历史学习
 """
 
 import os
@@ -22,6 +23,7 @@ from risk_budget_system import CircuitBreaker, CVaRModel
 from data_fetcher import DataFetcher
 from trade_journal import TradeJournal
 from auto_review import AutoReview
+from high_winrate_selector import HighWinrateSelector
 
 warnings.filterwarnings("ignore")
 
@@ -53,6 +55,7 @@ class UnifiedTradingSystem:
         self.data_fetcher = DataFetcher()
         self.trade_journal = TradeJournal()
         self.auto_review = AutoReview()
+        self.high_winrate_selector = HighWinrateSelector()  # 高胜率选股模式
 
         # 加载历史交易记录（用于优化选股）
         self.history_weights = self._load_history_weights()
@@ -332,6 +335,118 @@ class UnifiedTradingSystem:
             json.dump(recommendations, f, ensure_ascii=False, indent=2)
 
         print(f"\n[自动记录] 推荐已保存到交易记录")
+
+    def analyze_high_winrate(
+        self,
+        stock_code: str,
+        stock_name: str,
+        current_price: float = None,
+        price_change_pct: float = None,
+        auto_record: bool = True,
+    ) -> Dict:
+        """
+        高胜率选股模式分析（5重确认+买点评估）
+
+        参数:
+            stock_code: 股票代码
+            stock_name: 股票名称
+            current_price: 当前价格
+            price_change_pct: 今日涨幅
+            auto_record: 是否自动记录
+
+        返回:
+            分析结果
+        """
+        print(f"\n[高胜率模式] {stock_name}({stock_code})")
+        print("=" * 60)
+
+        # 调用高胜率选股模块
+        result = self.high_winrate_selector.analyze_stock(
+            stock_code=stock_code,
+            stock_name=stock_name,
+            current_price=current_price,
+            price_change_pct=price_change_pct,
+        )
+
+        # 自动记录推荐
+        if auto_record and result["recommendation"] == "strong_buy":
+            self._record_recommendation(
+                {
+                    "stock_code": stock_code,
+                    "stock_name": stock_name,
+                    "datetime": result["datetime"],
+                    "recommendation": result["recommendation"],
+                    "score": result["score"],
+                    "factors": result["factors"],
+                    "stop_loss": result["stop_loss"],
+                    "target_price": result["target_price"],
+                    "position_size": result["position_size"],
+                    "buy_point_quality": result["buy_point_quality"],
+                    "confirmations": result["confirmations"],
+                    "status": "pending",
+                }
+            )
+
+        return result
+
+    def batch_analyze_high_winrate(self, stock_list: List[Dict]) -> List[Dict]:
+        """
+        批量高胜率选股分析
+
+        参数:
+            stock_list: 股票列表 [{"code": "600519", "name": "贵州茅台", "price": 1800, "change": 0.02}, ...]
+
+        返回:
+            分析结果列表（按评分排序）
+        """
+        print(f"\n[批量高胜率分析] {len(stock_list)}只股票")
+        print("=" * 60)
+
+        results = self.high_winrate_selector.batch_analyze(stock_list)
+
+        # 自动记录强烈推荐的股票
+        for result in results:
+            if result["recommendation"] == "strong_buy":
+                self._record_recommendation(
+                    {
+                        "stock_code": result["stock_code"],
+                        "stock_name": result["stock_name"],
+                        "datetime": result["datetime"],
+                        "recommendation": result["recommendation"],
+                        "score": result["score"],
+                        "factors": result["factors"],
+                        "stop_loss": result["stop_loss"],
+                        "target_price": result["target_price"],
+                        "position_size": result["position_size"],
+                        "buy_point_quality": result["buy_point_quality"],
+                        "confirmations": result["confirmations"],
+                        "status": "pending",
+                    }
+                )
+
+        return results
+
+    def learn_from_trade_result(self, trade_result: Dict):
+        """
+        从交易结果中学习（更新因子权重）
+
+        参数:
+            trade_result: 交易结果
+                - stock_code: 股票代码
+                - pnl_pct: 盈亏比例
+                - factors: 因子数据
+                - confirmations: 确认结果
+        """
+        print(f"\n[学习] 从交易结果中学习...")
+
+        # 调用高胜率选股模块的学习方法
+        self.high_winrate_selector.learn_from_trade(trade_result)
+
+        # 同步更新到统一系统的权重
+        self.history_weights = self.high_winrate_selector.learned_weights
+        self._save_history_weights(self.history_weights)
+
+        print(f"  因子权重已更新并保存")
 
     def execute_buy(
         self,
