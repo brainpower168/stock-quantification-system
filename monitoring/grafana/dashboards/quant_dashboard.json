@@ -1,0 +1,246 @@
+{
+  "dashboard": {
+    "title": "量化交易监控面板",
+    "tags": ["quant", "trading", "stocks"],
+    "timezone": "browser",
+    "panels": [
+      {
+        "title": "持仓总览",
+        "type": "stat",
+        "gridPos": {"x": 0, "y": 0, "w": 6, "h": 4},
+        "targets": [
+          {
+            "expr": "sum(position_market_value)",
+            "legendFormat": "总市值"
+          }
+        ],
+        "options": {
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": ["lastNotNull"],
+            "fields": "",
+            "values": false
+          }
+        },
+        "fieldConfig": {
+          "defaults": {
+            "unit": "currencyCNY",
+            "decimals": 2
+          }
+        }
+      },
+      {
+        "title": "总盈亏",
+        "type": "stat",
+        "gridPos": {"x": 6, "y": 0, "w": 6, "h": 4},
+        "targets": [
+          {
+            "expr": "sum(position_profit_loss)",
+            "legendFormat": "总盈亏"
+          }
+        ],
+        "options": {
+          "colorMode": "value",
+          "graphMode": "area"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "unit": "currencyCNY",
+            "decimals": 2,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {"value": null, "color": "red"},
+                {"value": 0, "color": "yellow"},
+                {"value": 1000, "color": "green"}
+              ]
+            }
+          }
+        }
+      },
+      {
+        "title": "盈亏率",
+        "type": "gauge",
+        "gridPos": {"x": 12, "y": 0, "w": 6, "h": 4},
+        "targets": [
+          {
+            "expr": "avg(position_profit_loss_pct) * 100",
+            "legendFormat": "平均盈亏率"
+          }
+        ],
+        "options": {
+          "showThresholdLabels": true,
+          "showThresholdMarkers": true
+        },
+        "fieldConfig": {
+          "defaults": {
+            "unit": "percent",
+            "decimals": 2,
+            "min": -10,
+            "max": 20,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {"value": null, "color": "red"},
+                {"value": -5, "color": "yellow"},
+                {"value": 0, "color": "green"},
+                {"value": 10, "color": "dark-green"}
+              ]
+            }
+          }
+        }
+      },
+      {
+        "title": "活跃持仓数",
+        "type": "stat",
+        "gridPos": {"x": 18, "y": 0, "w": 6, "h": 4},
+        "targets": [
+          {
+            "expr": "active_positions",
+            "legendFormat": "持仓数"
+          }
+        ]
+      },
+      {
+        "title": "持仓明细",
+        "type": "table",
+        "gridPos": {"x": 0, "y": 4, "w": 12, "h": 8},
+        "targets": [
+          {
+            "expr": "position_market_value",
+            "format": "table",
+            "instant": true,
+            "legendFormat": "{{stock_name}}"
+          }
+        ],
+        "transformations": [
+          {
+            "id": "organize",
+            "options": {
+              "excludeByName": {"Time": true, "__name__": true},
+              "indexByName": {"stock_name": 0, "stock_code": 1, "Value": 2},
+              "renameByName": {
+                "stock_name": "股票名称",
+                "stock_code": "股票代码",
+                "Value": "市值"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "title": "资金流向监控",
+        "type": "graph",
+        "gridPos": {"x": 12, "y": 4, "w": 12, "h": 8},
+        "targets": [
+          {
+            "expr": "fund_main_inflow",
+            "legendFormat": "{{stock_name}}"
+          }
+        ],
+        "yaxes": [
+          {"format": "short", "label": "亿元"},
+          {"format": "short"}
+        ],
+        "alert": {
+          "conditions": [
+            {
+              "evaluator": {"params": [-1], "type": "lt"},
+              "operator": {"type": "and"},
+              "query": {"params": ["A", "5m", "now"]},
+              "reducer": {"params": [], "type": "avg"},
+              "type": "query"
+            }
+          ],
+          "executionErrorState": "alerting",
+          "frequency": "5m",
+          "handler": 1,
+          "name": "资金流出预警",
+          "noDataState": "no_data",
+          "notifications": []
+        }
+      },
+      {
+        "title": "DDX趋势",
+        "type": "graph",
+        "gridPos": {"x": 0, "y": 12, "w": 12, "h": 6},
+        "targets": [
+          {
+            "expr": "fund_ddx",
+            "legendFormat": "{{stock_name}}"
+          }
+        ],
+        "yaxes": [
+          {"format": "short", "label": "DDX"},
+          {"format": "short"}
+        ],
+        "thresholds": [
+          {"value": 0, "colorMode": "critical", "fill": true, "line": true}
+        ]
+      },
+      {
+        "title": "信号统计",
+        "type": "piechart",
+        "gridPos": {"x": 12, "y": 12, "w": 6, "h": 6},
+        "targets": [
+          {
+            "expr": "signal_count",
+            "legendFormat": "{{type}}"
+          }
+        ],
+        "options": {
+          "legend": {"displayMode": "table", "placement": "right"},
+          "pieType": "pie",
+          "reduceOptions": {
+            "calcs": ["lastNotNull"],
+            "fields": "",
+            "values": false
+          }
+        }
+      },
+      {
+        "title": "系统状态",
+        "type": "stat",
+        "gridPos": {"x": 18, "y": 12, "w": 6, "h": 6},
+        "targets": [
+          {
+            "expr": "api_success_rate * 100",
+            "legendFormat": "API成功率"
+          },
+          {
+            "expr": "cache_hit_rate * 100",
+            "legendFormat": "缓存命中率"
+          }
+        ],
+        "options": {
+          "colorMode": "background",
+          "orientation": "horizontal"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "unit": "percent",
+            "decimals": 1,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {"value": null, "color": "red"},
+                {"value": 80, "color": "yellow"},
+                {"value": 95, "color": "green"}
+              ]
+            }
+          }
+        }
+      }
+    ],
+    "refresh": "30s",
+    "schemaVersion": 38,
+    "version": 1,
+    "time": {
+      "from": "now-6h",
+      "to": "now"
+    }
+  }
+}
