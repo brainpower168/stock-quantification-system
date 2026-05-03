@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "skills": {
+    "video-content-analyzer-plus": {
+      "name": "视频内容智能分析工具",
+      "zip_url": "https://lightmake.site/api/v1/download?slug=video-content-analyzer-plus",
+      "source": "skillhub",
+      "version": "1.0.0"
+    },
+    "tencent-finance-stock-price": {
+      "name": "tencent-finance-stock-price",
+      "zip_url": "https://lightmake.site/api/v1/download?slug=tencent-finance-stock-price",
+      "source": "skillhub",
+      "version": "1.1.0"
+    },
+    "hithink-market-query": {
+      "name": "hithink-market-query",
+      "zip_url": "http://ms.10jqka.com.cn/gateway/market/api/v1/skills/square/download?name=hithink-market-query",
+      "source": "skillhub",
+      "version": ""
+    },
+    "toutiao-article-reade": {
+      "name": "头条文章阅读",
+      "zip_url": "https://lightmake.site/api/v1/download?slug=toutiao-article-reade",
+      "source": "skillhub",
+      "version": "1.0.0"
+    }
+  }
+}

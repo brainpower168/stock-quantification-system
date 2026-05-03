@@ -1,0 +1,10 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "skills": {
+    "paths": [
+      "C:\\Users\\zhuyi\\AppData\\Roaming\\qianfan-desktop-app\\qianfan_desk_xdg\\global\\data\\skills",
+      "C:\\Users\\zhuyi\\AppData\\Roaming\\qianfan-desktop-app\\qianfan_desk_xdg\\55d1508241624f56a3a831bde4da9cfb\\data\\skills\\official",
+      "C:\\Users\\zhuyi\\AppData\\Roaming\\qianfan-desktop-app\\qianfan_desk_xdg\\55d1508241624f56a3a831bde4da9cfb\\data\\skills\\user"
+    ]
+  }
+}
