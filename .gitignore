@@ -142,6 +142,7 @@ data/cache/
 positions.json
 trade_signal.json
 signal_*.json
+
 # AI Council 敏感文件
 .env
 .env.*
@@ -164,3 +165,53 @@ venv/
 .idea/
 .vscode/
 *.swp
+
+# 临时文件
+*.tmp
+*.temp
+*.log
+*.bak
+
+# 数据文件
+data/*.duckdb
+data/*.db
+data/*.sqlite
+*.csv
+
+# 截图和图片
+*.png
+*.jpg
+*.jpeg
+*.gif
+
+# 文档
+*.docx
+*.pdf
+*.txt
+
+# 压缩包
+*.zip
+*.tar.gz
+*.rar
+
+# 临时目录
+.import_skill_download_*/
+.import_skill_unzip_*/
+.clawhub/
+.dumate/
+.playwright-cli/
+
+# 配置文件（可能包含敏感信息）
+.env
+config/secrets.json
+*.pem
+*.key
+
+# 系统文件
+.DS_Store
+Thumbs.db
+nul
+
+# 其他
+memory.md
+scheduler/

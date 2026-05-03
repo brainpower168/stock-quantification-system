@@ -1,0 +1,45 @@
+{
+  "models": {
+    "longcat": {
+      "name": "LongCat-Flash-Lite",
+      "role": "量化专家",
+      "api_key_env": "LONGCAT_API_KEY",
+      "base_url": "https://api.longcat.chat/openai",
+      "weight": 1.0
+    },
+    "xunfei": {
+      "name": "spark-lite",
+      "role": "基本面分析师",
+      "api_key_env": "XUNFEI_API_KEY",
+      "base_url": "https://spark-api-open.lingxi.com/v1",
+      "weight": 1.0
+    },
+    "zhipu": {
+      "name": "glm-4-flash",
+      "role": "技术分析师",
+      "api_key_env": "ZHIPU_API_KEY",
+      "base_url": "https://open.bigmodel.cn/api/paas/v4",
+      "weight": 1.0
+    }
+  },
+  "decision_thresholds": {
+    "strong_buy": 0.7,
+    "buy": 0.3,
+    "hold": -0.3,
+    "sell": -0.7
+  },
+  "risk_limits": {
+    "max_position_pct": 20,
+    "max_loss_pct": 5,
+    "min_ddx_10d": 0
+  },
+  "api_keys": {
+    "wencai": "sk-proj-00-L98Flo9agLXezzimqRTP3YCEIzEBTbzvNyuXrad8fH1U-_1Blay2iNgYVBvT1NmB9MkSJk7fZAdsF8zjdna5n5J26Fjvo8NF0T-WNlRTQoz6066x607AbEx1_fcQmUNSajBS_w",
+    "miao": "mkt_TWs49QJsDQJn-tVRHqPwmdWmTFO5_vqSpwUPfN-Ti6M"
+  },
+  "user_positions": {
+    "002384": {"name": "东山精密", "cost": 171.0, "shares": 100},
+    "000988": {"name": "华工科技", "cost": 120.50, "shares": 100},
+    "603179": {"name": "新泉股份", "cost": 67.30, "shares": 100}
+  }
+}

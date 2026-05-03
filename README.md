@@ -1,12 +1,25 @@
 # 炒股大师量化交易系统
 
-[![Version](https://img.shields.io/badge/version-2.0.0-blue)]()
+[![Version](https://img.shields.io/badge/version-3.0.0-blue)]()
 [![License](https://img.shields.io/badge/license-MIT-green)]()
 [![Python](https://img.shields.io/badge/python-3.7+-blueviolet)]()
 
 多因子选股、持仓监控、情绪分析、回测验证、AI多模型决策于一体的量化交易系统。
 
-## ✨ 功能特性
+## 系统架构
+
+```
+量化系统 v3.0
+├── 数据层：DuckDB存储、数据缓存
+├── 因子层：205个因子库
+├── 策略层：智能选股、行业对冲
+├── 分析层：热点监控、市场状态检测
+├── 回测层：高性能回测引擎（JIT加速）
+├── 决策层：增强版AI决策系统
+└── 交易层：实盘交易接口（预留）
+```
+
+## 核心功能
 
 ### 基础功能
 - **每日选股** - 问财+妙想+AI投票，Top N推荐
@@ -17,7 +30,7 @@
 - **HTTP API** - 提供RESTful API，方便其他系统调用
 - **Python客户端** - 提供Python客户端库，方便集成
 
-### 🆕 AI Trading Council (v2.0新增)
+### AI Trading Council (v2.0新增)
 - **多AI模型投票** - LongCat、讯飞星火、智谱GLM等多模型协同决策
 - **记忆系统** - Hindsight记忆集成，从交易中学习
 - **交易编排器** - 选股→AI决策→风控检查→执行交易，一键运行
@@ -25,7 +38,15 @@
 - **多数据源验证** - 国信、妙想、问财、腾讯财经多方对比
 - **表现跟踪** - 策略表现追踪，因子有效性分析
 
-## 📦 安装
+### v3.0 新增功能
+- **热点事件监控** - 30秒实时刷新，智能影响深度判定
+- **高性能回测引擎** - JIT加速，59万条/秒
+- **市场状态检测** - 波动率、趋势强度、市场状态识别
+- **增强版AI决策** - 四步决策流程，5级评级输出
+- **行业对冲策略** - 智能行业配对，风险对冲建议
+- **DuckDB数据存储** - 高性能列式存储，亚秒级查询
+
+## 安装
 
 ### 方式一：从源码安装（推荐）
 
@@ -52,7 +73,7 @@ cp templates/.env.example .env
 # 数据源：GS_API_KEY, MX_APIKEY, IWENCAI_API_KEY
 ```
 
-## 🚀 快速开始
+## 快速开始
 
 ### 1. 基础功能使用
 
@@ -105,7 +126,34 @@ insights = council.reflect_on_performance(days=30)
 print(f"洞察: {insights}")
 ```
 
-### 3. 启动API服务
+### 3. 量化系统 v3.0 使用
+
+```python
+from quant_system.quant_system import QuantSystem
+
+# 创建系统实例
+system = QuantSystem()
+
+# 单股分析
+result = system.analyze_stock("600519", industry="白酒")
+print(f"评级: {result['decision']['rating']}")
+print(f"置信度: {result['decision']['confidence']:.0%}")
+
+# 批量筛选
+df = system.screen_stocks(["600519", "000001", "300750"], top_n=10)
+
+# 组合分析
+positions = [
+    {"stock_code": "600519", "stock_name": "贵州茅台", "industry": "白酒", "position_value": 100000},
+    {"stock_code": "300750", "stock_name": "宁德时代", "industry": "新能源", "position_value": 120000},
+]
+portfolio_result = system.analyze_portfolio(positions)
+
+# 热点事件
+events = system.get_hot_events(limit=20)
+```
+
+### 4. 启动API服务
 
 ```bash
 # 安装API依赖
@@ -115,74 +163,14 @@ pip install fastapi uvicorn
 uvicorn api.quant_api:app --host 0.0.0.0 --port 8000 --reload
 ```
 
-## 📖 AI Trading Council API
+## 数据源配置
 
-### 命令行使用
-
-```bash
-# 单股分析
-python -m quant_system.ai_council.council_engine --stock 600519
-
-# 批量分析
-python -m quant_system.ai_council.council_engine --stocks 600519,000001,300750
-
-# 查看决策历史
-python -m quant_system.ai_council.council_engine --history --days 7
-
-# 查看股票记忆
-python -m quant_system.ai_council.council_engine --memory --stock 600519
-
-# 反思交易表现
-python -m quant_system.ai_council.council_engine --reflect --days 30
-
-# 运行交易编排器
-python -m quant_system.ai_council.trading_orchestrator --mode daily
-```
-
-### 配置文件
-
-AI Council 配置文件位于 `config/council_config.example.json`：
-
-```json
-{
-  "models": {
-    "longcat": {
-      "enabled": true,
-      "api_key_env": "LONGCAT_API_KEY",
-      "role": "quant_expert",
-      "weight": 1.0
-    },
-    "xunfei": {
-      "enabled": true,
-      "api_key_env": "XUNFEI_API_KEY",
-      "role": "fundamental_analyst",
-      "weight": 1.2
-    },
-    "glm": {
-      "enabled": true,
-      "api_key_env": "GLM_API_KEY",
-      "role": "technical_analyst",
-      "weight": 1.0
-    }
-  },
-  "decision_weights": {
-    "capital_flow": 0.35,
-    "technical_indicators": 0.30,
-    "fundamental": 0.15,
-    "sector_momentum": 0.12,
-    "market_sentiment": 0.08
-  }
-}
-```
-
-## 🛠️ 数据源配置
-
-| 数据源 | 用途 | API Key环境变量 |
-|--------|------|-----------------|
-| 国信证券 | 行情、财务、选股 | GS_API_KEY |
-| 妙想 | 资金流向（最详细） | MX_APIKEY |
-| 问财 | 智能选股 | IWENCAI_API_KEY |
-| 腾讯财经 | 实时股价 | 无需 |
+| 优先级 | 数据源 | 用途 | API Key环境变量 | 调用限制 |
+|--------|--------|------|-----------------|----------|
+| 1 | 妙想 | DDX、资金流向、选股 | MX_APIKEY | 无限制 |
+| 2 | 问财 | DDX、资金流向、选股 | IWENCAI_API_KEY | 每日有限 |
+| 3 | 国信 | 实时行情、财务数据 | GS_API_KEY | 无限制 |
+| 4 | 腾讯财经 | 实时股价 | 无需 | 无限制 |
 
 ### 多数据源对比策略
 
@@ -192,7 +180,31 @@ AI Council 配置文件位于 `config/council_config.example.json`：
 - **卖出前**：妙想看每日明细，westockdata看技术位
 - **选股**：国信+问财对比结果
 
-## 🧪 测试
+## 策略系统
+
+### 自适应策略
+- 震荡市 → 均值回归策略（布林带）
+- 牛市 → 趋势策略（MA金叉）
+- 熊市 → 风控策略（空仓）
+
+### 实战策略
+- 尾盘30分钟选股
+- 2560战法
+- 一夜持股法
+- 最笨交易法
+- 麻雀战法
+- 突破信号策略
+- 题材炒作策略
+
+## 风控系统
+
+- 单股最大仓位：20%
+- 止损比例：5%
+- 止盈比例：10%
+- 行业集中度监控
+- 组合风险评估
+
+## 测试
 
 ```bash
 # 运行测试
@@ -202,7 +214,7 @@ pytest tests/ -v
 pytest tests/ --cov=quant_system --cov-report=html
 ```
 
-## 📁 项目结构
+## 项目结构
 
 ```
 stock-quantification-system/
@@ -214,7 +226,14 @@ stock-quantification-system/
 │   ├── backtest_engine.py       # 回测引擎
 │   ├── risk_manager.py          # 风控系统
 │   ├── data_sources.py          # 数据源封装
-│   └── ai_council/              # 🆕 AI Trading Council
+│   ├── quant_system.py          # 🆕 统一入口
+│   ├── hot_event_monitor.py     # 🆕 热点监控
+│   ├── high_performance_backtest.py  # 🆕 高性能回测
+│   ├── market_state_detector.py # 🆕 市场状态检测
+│   ├── enhanced_ai_decision.py  # 🆕 增强版AI决策
+│   ├── industry_hedge_strategy.py  # 🆕 行业对冲
+│   ├── duckdb_storage.py        # 🆕 DuckDB存储
+│   └── ai_council/              # AI Trading Council
 │       ├── __init__.py
 │       ├── council_engine.py    # AI多模型投票
 │       ├── hindsight_memory.py  # 记忆系统
@@ -233,11 +252,29 @@ stock-quantification-system/
 └── tests/                       # 测试
 ```
 
-## 📄 许可证
+## 更新日志
+
+### v3.0 (2026-05-04)
+- 新增热点事件监控系统
+- 新增高性能回测引擎（JIT加速）
+- 新增市场状态检测
+- 新增增强版AI决策系统
+- 新增行业对冲策略
+- 新增DuckDB数据存储
+- 统一量化系统入口
+
+### v2.0
+- 新增AI Trading Council多模型投票
+- 新增Hindsight记忆系统
+- 新增交易编排器
+- 新增数据缓存
+- 新增多数据源验证
+
+## 许可证
 
 本项目采用 MIT 许可证 - 查看 [LICENSE](LICENSE) 文件了解详情。
 
-## 🙏 致谢
+## 致谢
 
 - 问财API提供金融数据
 - 妙想API提供资金流向数据
@@ -246,4 +283,4 @@ stock-quantification-system/
 
 ---
 
-**⚠️ 免责声明**：本系统仅供学习研究使用，不构成任何投资建议。股市有风险，投资需谨慎。
+**免责声明**：本系统仅供学习研究使用，不构成任何投资建议。股市有风险，投资需谨慎。

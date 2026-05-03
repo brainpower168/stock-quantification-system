@@ -1,0 +1,17 @@
+global:
+  scrape_interval: 30s
+  evaluation_interval: 30s
+
+scrape_configs:
+  # 量化系统指标
+  - job_name: 'quant_system'
+    static_configs:
+      - targets: ['host.docker.internal:9091']  # Windows/Mac
+        # Linux: ['localhost:9091']
+    metrics_path: '/metrics'
+    scrape_interval: 30s
+
+  # Prometheus自身监控
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']

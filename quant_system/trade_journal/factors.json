@@ -1,0 +1,32 @@
+[
+  {
+    "trade_id": "600519_20260502_091437",
+    "factor_name": "ddx_10d",
+    "factor_value": 2.5,
+    "factor_category": "ddx"
+  },
+  {
+    "trade_id": "600519_20260502_091437",
+    "factor_name": "main_flow",
+    "factor_value": 5.2,
+    "factor_category": "fund_flow"
+  },
+  {
+    "trade_id": "600519_20260502_091437",
+    "factor_name": "rsi",
+    "factor_value": 45,
+    "factor_category": "technical"
+  },
+  {
+    "trade_id": "600519_20260502_091437",
+    "factor_name": "pe",
+    "factor_value": 35,
+    "factor_category": "fundamental"
+  },
+  {
+    "trade_id": "600519_20260502_091437",
+    "factor_name": "sentiment_score",
+    "factor_value": 75,
+    "factor_category": "sentiment"
+  }
+]
