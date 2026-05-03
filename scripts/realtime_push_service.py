@@ -14,9 +14,6 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 
 from signal_pusher import SignalPusher, SignalType, SignalPriority
-from daily_stock_selector import DailyStockSelector
-from council_engine import CouncilEngine
-from position_monitor import PositionMonitor
 
 
 class RealtimePushService:
@@ -24,36 +21,6 @@ class RealtimePushService:
 
     def __init__(self):
         self.pusher = SignalPusher()
-        self.selector = DailyStockSelector()
-        self.council = CouncilEngine()
-        self.monitor = PositionMonitor()
-
-        # 订阅持仓预警
-        self.monitor.subscribe_alert(self._on_position_alert)
-
-    def _on_position_alert(self, alert):
-        """持仓预警回调"""
-        priority = (
-            SignalPriority.HIGH
-            if alert["severity"] == "HIGH"
-            else SignalPriority.MEDIUM
-        )
-
-        signal_type = SignalType.STOP_LOSS
-        if "止盈" in alert["message"]:
-            signal_type = SignalType.TAKE_PROFIT
-        elif "资金" in alert["message"]:
-            signal_type = SignalType.FUND_FLOW
-
-        self.pusher.push_signal(
-            signal_type=signal_type,
-            stock_code=alert["stock_code"],
-            stock_name=alert["stock_name"],
-            title=f"持仓预警 - {alert['alert_type']}",
-            message=alert["message"],
-            priority=priority,
-            push_dingtalk=True,
-        )
 
     def push_stock_picks(self, recommendations: dict):
         """推送选股结果"""
@@ -144,52 +111,35 @@ class RealtimePushService:
             push_dingtalk=True,
         )
 
-    def run_daily_task(self):
-        """运行每日任务"""
-        print(f"\n=== {datetime.now().strftime('%Y-%m-%d %H:%M:%S')} 开始每日任务 ===")
+    def push_position_alert(
+        self,
+        stock_code: str,
+        stock_name: str,
+        alert_type: str,
+        message: str,
+        data: dict,
+    ):
+        """推送持仓预警"""
+        signal_type = SignalType.STOP_LOSS
+        if "止盈" in message:
+            signal_type = SignalType.TAKE_PROFIT
+        elif "资金" in message:
+            signal_type = SignalType.FUND_FLOW
 
-        # 1. 选股
-        print("\n1. 选股中...")
-        top_stocks = self.selector.get_top_main_inflow(top_n=20)
-        recommendations = self.selector.grade_stocks(top_stocks)
-        self.push_stock_picks(recommendations)
-        print(f"   已推送选股结果")
+        priority = (
+            SignalPriority.HIGH if "止损" in alert_type else SignalPriority.MEDIUM
+        )
 
-        # 2. 持仓监控
-        print("\n2. 检查持仓...")
-        alerts = self.monitor.check_alerts()
-        print(f"   发现 {len(alerts)} 个预警")
-
-        # 3. 资金流向监控
-        print("\n3. 检查资金流向...")
-        flows = self.monitor.check_fund_flows()
-        for flow in flows:
-            if abs(flow["main_inflow"]) > 1e8:  # 超过1亿
-                self.push_fund_flow_alert(flow["stock_code"], flow["stock_name"], flow)
-
-        print(f"\n✅ 每日任务完成")
-
-    def start_monitoring(self, interval: int = 300):
-        """
-        启动持续监控
-
-        Args:
-            interval: 检查间隔（秒），默认5分钟
-        """
-        print(f"\n=== 启动实时监控 ===")
-        print(f"检查间隔: {interval}秒")
-        print(f"按 Ctrl+C 停止")
-
-        # 启动WebSocket服务器
-        if self.pusher.start_ws_server():
-            print("WebSocket服务器已启动")
-
-        try:
-            while True:
-                self.run_daily_task()
-                time.sleep(interval)
-        except KeyboardInterrupt:
-            print("\n\n监控已停止")
+        self.pusher.push_signal(
+            signal_type=signal_type,
+            stock_code=stock_code,
+            stock_name=stock_name,
+            title=f"持仓预警 - {alert_type}",
+            message=message,
+            data=data,
+            priority=priority,
+            push_dingtalk=True,
+        )
 
 
 def main():
@@ -197,15 +147,6 @@ def main():
     import argparse
 
     parser = argparse.ArgumentParser(description="实时推送服务")
-    parser.add_argument(
-        "--mode",
-        choices=["once", "monitor"],
-        default="once",
-        help="运行模式: once=单次运行, monitor=持续监控",
-    )
-    parser.add_argument(
-        "--interval", type=int, default=300, help="监控间隔（秒），默认300秒"
-    )
     parser.add_argument("--test", action="store_true", help="测试模式，发送测试信号")
 
     args = parser.parse_args()
@@ -227,15 +168,10 @@ def main():
             priority=SignalPriority.HIGH,
         )
 
-        print("✅ 测试信号已发送")
-
-    elif args.mode == "once":
-        # 单次运行
-        service.run_daily_task()
-
-    else:
-        # 持续监控
-        service.start_monitoring(args.interval)
+        print("✅ 测试信号已发送到钉钉")
+        print("\n最近信号:")
+        for signal in service.pusher.get_recent_signals(3):
+            print(f"- {signal['title']}: {signal['stock_name']}")
 
 
 if __name__ == "__main__":
