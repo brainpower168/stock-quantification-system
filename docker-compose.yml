@@ -1,0 +1,83 @@
+version: '3.8'
+
+services:
+  # 量化系统 API
+  quant-api:
+    build: .
+    container_name: quant-api
+    ports:
+      - "8000:8000"
+    environment:
+      - IWENCAI_API_KEY=${IWENCAI_API_KEY}
+      - MX_APIKEY=${MX_APIKEY}
+      - LONGCAT_API_KEY=${LONGCAT_API_KEY}
+      - LOG_LEVEL=INFO
+      - DB_TYPE=sqlite
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/v1/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Redis 缓存（可选）
+  redis:
+    image: redis:7-alpine
+    container_name: quant-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+
+  # PostgreSQL 数据库（可选）
+  postgres:
+    image: postgres:15-alpine
+    container_name: quant-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=quantdb
+      - POSTGRES_USER=quant
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-quant123}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  # 监控系统（可选）
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: quant-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+    restart: unless-stopped
+
+  # Grafana 可视化（可选）
+  grafana:
+    image: grafana/grafana:latest
+    container_name: quant-grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD:-admin123}
+    volumes:
+      - grafana_data:/var/lib/grafana
+    depends_on:
+      - prometheus
+    restart: unless-stopped
+
+volumes:
+  redis_data:
+  postgres_data:
+  prometheus_data:
+  grafana_data:

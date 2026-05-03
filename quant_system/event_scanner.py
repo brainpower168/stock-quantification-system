@@ -14,6 +14,13 @@ from typing import List, Dict, Optional, Tuple
 from pathlib import Path
 from enum import Enum
 
+try:
+    from .logger import get_logger
+    logger = get_logger('event_scanner')
+except ImportError:
+    import logging
+    logger = logging.getLogger(__name__)
+
 
 class EventType(Enum):
     """事件类型枚举"""
@@ -86,7 +93,7 @@ class EventScanner:
         if date is None:
             date = datetime.datetime.now().strftime('%Y-%m-%d')
         
-        print(f"[{date}] 扫描事件驱动机会...")
+        logger.info(f"[{date}] 扫描事件驱动机会...")
         
         events = []
         
@@ -333,3 +340,56 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+    def _scan_announcements(self, date: str) -> List[Dict]:
+        """扫描公告事件"""
+        events = []
+        try:
+            # 接入巨潮资讯网或东方财富公告数据
+            # 简化版本：从缓存读取
+            cache_file = self.data_dir / f'announcements_{date}.json'
+            if cache_file.exists():
+                with open(cache_file, 'r', encoding='utf-8') as f:
+                    announcements = json.load(f)
+                for ann in announcements:
+                    event = self.parse_announcement(ann.get('text', ''))
+                    if event:
+                        event['stock_code'] = ann.get('code')
+                        event['stock_name'] = ann.get('name')
+                        events.append(event)
+        except Exception as e:
+            logger.debug(f"扫描公告失败：{e}")
+        return events
+    
+    def _scan_research_reports(self, date: str) -> List[Dict]:
+        """扫描研报事件"""
+        events = []
+        try:
+            # 接入东方财富 Choice 或慧博投研资讯
+            # 简化版本：暂不实现
+            pass
+        except Exception as e:
+            logger.debug(f"扫描研报失败：{e}")
+        return events
+    
+    def _scan_news(self, date: str) -> List[Dict]:
+        """扫描新闻事件"""
+        events = []
+        try:
+            # 接入新闻 API
+            # 简化版本：暂不实现
+            pass
+        except Exception as e:
+            logger.debug(f"扫描新闻失败：{e}")
+        return events
+    
+    def _scan_policy(self, date: str) -> List[Dict]:
+        """扫描政策事件"""
+        events = []
+        try:
+            # 接入政府网站政策发布
+            # 简化版本：暂不实现
+            pass
+        except Exception as e:
+            logger.debug(f"扫描政策失败：{e}")
+        return events

@@ -1,0 +1,77 @@
+name: Deploy Documentation
+
+on:
+  push:
+    branches: [ main, master ]
+    paths:
+      - '*.md'
+      - 'docs/**'
+  workflow_dispatch:
+
+jobs:
+  # ============ 文档部署 ============
+  deploy-docs:
+    name: 📖 Deploy Documentation
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+      
+      - name: Install MkDocs
+        run: |
+          pip install mkdocs mkdocs-material mkdocstrings
+      
+      - name: Build documentation
+        run: |
+          mkdir -p docs
+          cat README.md QUICKSTART.md OPTIMIZATION_SUMMARY.md > docs/index.md
+          cp OPTIMIZATION_REPORT.md docs/optimization.md
+          
+          cat > mkdocs.yml << 'EOF'
+site_name: 量化交易系统文档
+site_description: 股票量化交易系统完整文档
+site_author: 炒股大师量化系统
+repo_url: https://github.com/your-username/stock-quantification-system
+
+theme:
+  name: material
+  language: zh
+  palette:
+    primary: blue
+    accent: blue
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - toc.integrate
+
+nav:
+  - Home: index.md
+  - 优化报告: optimization.md
+  - API 文档: api.md
+
+plugins:
+  - search
+  - mkdocstrings
+
+markdown_extensions:
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - toc:
+      permalink: true
+EOF
+      
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        if: github.ref == 'refs/heads/main'
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./site

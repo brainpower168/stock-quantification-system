@@ -673,3 +673,158 @@ if __name__ == "__main__":
     print("\n" + "=" * 60)
     print("测试完成!")
     print("=" * 60)
+
+
+class SellChecklist:
+    """卖出检查清单 - 避免错误卖出"""
+    
+    def __init__(self):
+        self.checklist = []
+    
+    def add_check(self, name: str, passed: bool, reason: str = ""):
+        """添加检查项"""
+        self.checklist.append({
+            'name': name,
+            'passed': passed,
+            'reason': reason,
+        })
+    
+    def get_result(self) -> Dict:
+        """获取检查结果"""
+        passed_count = sum(1 for item in self.checklist if item['passed'])
+        total_count = len(self.checklist)
+        
+        return {
+            'all_passed': all(item['passed'] for item in self.checklist),
+            'passed_count': passed_count,
+            'total_count': total_count,
+            'details': self.checklist,
+        }
+    
+    def should_sell(self, critical_fail_count: int = 2) -> bool:
+        """
+        判断是否应该卖出
+        
+        Args:
+            critical_fail_count: 关键失败项达到多少个就卖出
+        
+        Returns:
+            True if should sell, False otherwise
+        """
+        if self.all_passed():
+            return False
+        
+        # 检查失败的关键项
+        critical_fails = sum(
+            1 for item in self.checklist 
+            if not item['passed'] and 'critical' in item['name'].lower()
+        )
+        
+        return critical_fails >= critical_fail_count
+    
+    def all_passed(self) -> bool:
+        """是否全部通过"""
+        return all(item['passed'] for item in self.checklist)
+    
+    def get_failed_items(self) -> List[str]:
+        """获取失败的检查项"""
+        return [
+            f"{item['name']}: {item['reason']}"
+            for item in self.checklist
+            if not item['passed']
+        ]
+
+
+# 添加到 SmartSellStrategy 中
+def run_sell_checklist(self, position: Dict, market_data: Dict, 
+                       fund_flow: Dict, tech_analysis: Dict) -> Dict:
+    """
+    运行卖出检查清单
+    
+    Returns:
+        {
+            'checklist_result': Dict,
+            'should_sell': bool,
+            'recommendation': str,
+        }
+    """
+    checklist = SellChecklist()
+    
+    # 1. 主力资金检查（关键）
+    if fund_flow.get('trend') == 'strong_outflow':
+        checklist.add_check(
+            "主力资金检查 (关键)",
+            False,
+            f"主力资金大幅流出：{fund_flow.get('total_flow_5d', 0):.0f}万"
+        )
+    else:
+        checklist.add_check("主力资金检查 (关键)", True)
+    
+    # 2. 技术位检查
+    if tech_analysis.get('trend') == 'down':
+        checklist.add_check(
+            "技术趋势检查",
+            False,
+            "技术趋势向下"
+        )
+    else:
+        checklist.add_check("技术趋势检查", True)
+    
+    # 3. 止损线检查（关键）
+    profit_pct = (position['current_price'] - position['entry_price']) / position['entry_price']
+    if profit_pct < self.stop_loss_pct:
+        checklist.add_check(
+            "止损线检查 (关键)",
+            False,
+            f"亏损 {profit_pct*100:.1f}%，超过止损线 {self.stop_loss_pct*100:.1f}%"
+        )
+    else:
+        checklist.add_check("止损线检查 (关键)", True, f"亏损在可控范围内")
+    
+    # 4. 止盈线检查
+    take_profit = self.take_profit_levels[0]
+    if profit_pct > take_profit:
+        checklist.add_check(
+            "止盈线检查",
+            False,
+            f"盈利 {profit_pct*100:.1f}%，达到止盈线 {take_profit*100:.1f}%"  
+        )
+    else:
+        checklist.add_check("止盈线检查", True, f"盈利 {profit_pct*100:.1f}%")
+    
+    # 5. 市场情绪检查
+    if market_data.get('sentiment') == 'extreme_fear':
+        checklist.add_check(
+            "市场情绪检查",
+            False,
+            "市场极度恐慌，可能有反弹机会"
+        )
+    else:
+        checklist.add_check("市场情绪检查", True)
+    
+    result = checklist.get_result()
+    
+    return {
+        'checklist_result': result,
+        'should_sell': checklist.should_sell(critical_fail_count=2),
+        'recommendation': self._generate_recommendation(checklist, profit_pct),
+    }
+
+
+def _generate_recommendation(self, checklist: SellChecklist, profit_pct: float) -> str:
+    """生成卖出建议"""
+    failed = checklist.get_failed_items()
+    
+    if not failed:
+        return "持有 - 所有检查通过"
+    
+    if '主力资金检查 (关键)' in failed[0]:
+        return "建议卖出 - 主力资金大幅流出"
+    
+    if profit_pct < self.stop_loss_pct:
+        return "必须止损 - 已达到止损线"
+    
+    if profit_pct > self.take_profit_levels[0]:
+        return "考虑止盈 - 已达到止盈线"
+    
+    return f"谨慎持有 - 有{len(failed)}项检查不通过"

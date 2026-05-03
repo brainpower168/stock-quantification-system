@@ -1,0 +1,19 @@
+# 性能分析器 - Profiler
+# 添加 psutil 到 requirements.txt
+psutil>=5.9.0
+
+# 内存分析
+memory-profiler>=0.61.0
+
+# CPU 分析
+py-spy>=0.3.0
+
+# 行级分析
+line-profiler>=4.0.0
+
+#火焰图
+py-spy>=0.3.0
+
+# Web 性能分析
+asv>=0.5.0
+pytest-benchmark>=4.0.0

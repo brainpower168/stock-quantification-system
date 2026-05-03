@@ -14,6 +14,13 @@ from typing import List, Dict, Optional, Tuple
 from pathlib import Path
 from collections import defaultdict
 
+try:
+    from .logger import get_logger
+    logger = get_logger('north_money')
+except ImportError:
+    import logging
+    logger = logging.getLogger(__name__)
+
 
 class NorthMoneyTracker:
     """北向资金追踪器"""
@@ -61,7 +68,7 @@ class NorthMoneyTracker:
         if date is None:
             date = datetime.datetime.now().strftime('%Y-%m-%d')
         
-        print(f"[{date}] 获取北向资金数据...")
+        logger.info(f"[{date}] 获取北向资金数据...")
         
         # TODO: 调用数据源API获取北向资金数据
         # 可以使用 akshare 的 hsgt capital flow 接口
@@ -328,3 +335,71 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+    def _fetch_north_flow_from_iwencai(self, date: str) -> Optional[Dict]:
+        """从问财 API 获取北向资金数据"""
+        try:
+            import urllib.request
+            import ssl
+            import json
+            
+            iwencai_key = os.getenv('IWENCAI_API_KEY', '')
+            if not iwencai_key:
+                return None
+            
+            ctx = ssl.create_default_context()
+            ctx.check_hostname = False
+            ctx.verify_mode = ssl.CERT_NONE
+            
+            url = 'https://openapi.iwencai.com/v1/query2data'
+            headers = {
+                'Content-Type': 'application/json',
+                'Authorization': f'Bearer {iwencai_key}'
+            }
+            
+            query = f"沪深港通资金流向 {date}"
+            body = json.dumps({'query': query, 'token': iwencai_key}).encode()
+            
+            req = urllib.request.Request(url, data=body, headers=headers, method='POST')
+            resp = urllib.request.urlopen(req, context=ctx, timeout=10)
+            result = json.loads(resp.read())
+            
+            if result.get('status_code') == 0 or result.get('code') == 0:
+                data = result.get('data', {})
+                return {
+                    'date': date,
+                    'north_net_inflow': float(data.get('北向资金净流入', 0) or 0),
+                    'north_buy_amount': float(data.get('北向资金买入金额', 0) or 0),
+                    'north_sell_amount': float(data.get('北向资金卖出金额', 0) or 0),
+                    'shanghai_connect_net': float(data.get('沪股通净流入', 0) or 0),
+                    'shenzhen_connect_net': float(data.get('深股通净流入', 0) or 0),
+                }
+        except Exception as e:
+            logger.debug(f"问财 API 获取北向资金失败：{e}")
+        return None
+    
+    def _fetch_north_flow_from_akshare(self, date: str) -> Optional[Dict]:
+        """从 akshare 获取北向资金数据（需安装 akshare）"""
+        try:
+            import akshare as ak
+            df = ak.stock_hsgt_north_net_flow_in_em()
+            
+            # 获取指定日期数据
+            df['日期'] = pd.to_datetime(df['日期']).dt.strftime('%Y-%m-%d')
+            day_data = df[df['日期'] == date]
+            
+            if len(day_data) > 0:
+                row = day_data.iloc[0]
+                return {
+                    'date': date,
+                    'north_net_inflow': float(row.get('北向资金净流入', 0)),
+                    'north_buy_amount': float(row.get('买入成交金额', 0)),
+                    'north_sell_amount': float(row.get('卖出成交金额', 0)),
+                    'shanghai_connect_net': float(row.get('沪股通净流入', 0)),
+                    'shenzhen_connect_net': float(row.get('深股通净流入', 0)),
+                }
+        except ImportError:
+            logger.debug("akshare 未安装")
+        except Exception as e:
+            logger.debug(f"akshare 获取北向资金失败：{e}")
+        return None
