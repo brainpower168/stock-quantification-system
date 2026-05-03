@@ -383,19 +383,20 @@ class DatabaseManager:
 
 
 # 全局数据库实例
-db_manager: Optional[DatabaseManager] = None
+_db_manager: Optional[DatabaseManager] = None
 
 
 def init_database(db_type: str = 'sqlite', db_path: str = 'data/quant_system.db',
                  database_url: Optional[str] = None) -> DatabaseManager:
     """初始化数据库"""
-    global db_manager
-    db_manager = DatabaseManager(db_type, db_path, database_url)
-    return db_manager
+    global _db_manager
+    _db_manager = DatabaseManager(db_type, db_path, database_url)
+    return _db_manager
 
 
 def get_database() -> DatabaseManager:
     """获取数据库实例"""
-    if db_manager is None:
-        db_manager = DatabaseManager()
-    return db_manager
+    global _db_manager
+    if _db_manager is None:
+        _db_manager = DatabaseManager()
+    return _db_manager
