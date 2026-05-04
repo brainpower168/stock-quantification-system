@@ -26,10 +26,12 @@ import numpy as np
 from duckdb_storage import DuckDBStorage, DataConfig
 from hot_event_monitor import HotEventMonitor, HotEvent, ImpactDepth
 from high_performance_backtest import HighPerformanceBacktestEngine
+from backtest_engine_fixed import FixedBacktestEngine, CommissionConfig, SlippageConfig
 from market_state_detector import MarketStateDetector, MarketState, MarketRegime
 from enhanced_ai_decision import EnhancedAIDecisionSystem
 from industry_hedge_strategy import IndustryHedgeStrategy
 from enhanced_factor_library import EnhancedFactorLibrary
+from risk_manager_advanced import EnhancedRiskManager
 
 
 @dataclass
@@ -86,7 +88,10 @@ class QuantSystem:
 
         print("\n[5/7] 初始化回测引擎...")
         self.backtest_engine = HighPerformanceBacktestEngine()
-        print("  ✅ 高性能回测引擎已就绪")
+        self.backtest_engine_fixed = FixedBacktestEngine(
+            commission_config=CommissionConfig(), slippage_config=SlippageConfig()
+        )
+        print("  ✅ 高性能回测引擎已就绪（含修复版）")
 
         print("\n[6/7] 初始化AI决策系统...")
         self.ai_decision = EnhancedAIDecisionSystem()
@@ -94,7 +99,11 @@ class QuantSystem:
 
         print("\n[7/7] 初始化行业对冲策略...")
         self.hedge_strategy = IndustryHedgeStrategy()
+        self.risk_manager = EnhancedRiskManager(
+            total_capital=self.config.initial_capital
+        )
         print("  ✅ 行业对冲策略已就绪")
+        print("  ✅ 增强版风控系统已就绪")
 
         print("\n" + "=" * 70)
         print("量化系统 v3.0 启动完成！")
@@ -307,6 +316,7 @@ class QuantSystem:
         data: pd.DataFrame,
         strategy_func: callable,
         strategy_name: str = "自定义策略",
+        use_fixed_engine: bool = True,
     ) -> Dict:
         """
         回测策略
@@ -315,6 +325,7 @@ class QuantSystem:
             data: 历史数据
             strategy_func: 策略函数
             strategy_name: 策略名称
+            use_fixed_engine: 是否使用修复后的回测引擎（默认True，推荐）
 
         Returns:
             回测结果
@@ -323,13 +334,23 @@ class QuantSystem:
         print(f"策略回测: {strategy_name}")
         print(f"{'=' * 70}")
 
-        result = self.backtest_engine.run_backtest(
-            data=data,
-            strategy_func=strategy_func,
-            initial_capital=self.config.initial_capital,
-            stop_loss=self.config.stop_loss_ratio,
-            take_profit=self.config.take_profit_ratio,
-        )
+        # 选择回测引擎
+        if use_fixed_engine:
+            print("\n使用修复后的回测引擎（无未来函数 + 完整交易成本）")
+            result = self.backtest_engine_fixed.run_backtest(
+                data=data,
+                strategy_func=strategy_func,
+                initial_capital=self.config.initial_capital,
+            )
+        else:
+            print("\n使用原始回测引擎（存在未来函数，仅供参考）")
+            result = self.backtest_engine.run_backtest(
+                data=data,
+                strategy_func=strategy_func,
+                initial_capital=self.config.initial_capital,
+                stop_loss=self.config.stop_loss_ratio,
+                take_profit=self.config.take_profit_ratio,
+            )
 
         print(f"\n【回测结果】")
         print(f"  总收益率: {result.total_return:.2%}")
@@ -379,6 +400,89 @@ class QuantSystem:
             print(f"   影响深度: {event.impact_depth.value}")
 
         return events
+
+    def check_position_risk(
+        self,
+        positions: List[Dict],
+        check_correlation: bool = True,
+        run_stress_test: bool = True,
+    ) -> Dict:
+        """
+        检查持仓风险
+
+        Args:
+            positions: 持仓列表，格式 [{"code": "600519", "name": "茅台", "shares": 100, "cost_price": 1800.0, "current_price": 1850.0}]
+            check_correlation: 是否检查相关性
+            run_stress_test: 是否运行压力测试
+
+        Returns:
+            风险检查结果
+        """
+        print(f"\n{'=' * 70}")
+        print("持仓风险检查")
+        print(f"{'=' * 70}")
+
+        # 1. 单股风险检查
+        print("\n[1/3] 单股风险检查...")
+        position_risks = []
+        for pos in positions:
+            risk = self.risk_manager.check_position_risk(
+                code=pos["code"],
+                name=pos["name"],
+                shares=pos["shares"],
+                cost_price=pos["cost_price"],
+                current_price=pos["current_price"],
+            )
+            position_risks.append(risk)
+            print(f"  {pos['name']}: 风险等级 {risk.risk_level}")
+
+        # 2. 相关性检查
+        correlation_alerts = []
+        if check_correlation and len(positions) > 1:
+            print("\n[2/3] 相关性检查...")
+            correlation_matrix = self.risk_manager.calculate_portfolio_correlation(
+                positions
+            )
+            high_correlation_pairs = []
+            for i, pos1 in enumerate(positions):
+                for j, pos2 in enumerate(positions):
+                    if (
+                        i < j
+                        and correlation_matrix[i, j] > self.risk_manager.max_correlation
+                    ):
+                        high_correlation_pairs.append(
+                            {
+                                "stock1": pos1["name"],
+                                "stock2": pos2["name"],
+                                "correlation": correlation_matrix[i, j],
+                            }
+                        )
+            if high_correlation_pairs:
+                print(f"  ⚠️ 发现{len(high_correlation_pairs)}对高相关性持仓")
+                correlation_alerts = high_correlation_pairs
+
+        # 3. 压力测试
+        stress_test_results = None
+        if run_stress_test:
+            print("\n[3/3] 压力测试...")
+            stress_test_results = self.risk_manager.run_stress_test(positions)
+            print(
+                f"  轻度下跌(-10%): 损失 {stress_test_results['轻度下跌']['loss_amount']:.0f}元"
+            )
+
+        # 4. 整体风险评估
+        print("\n[整体风险评估]")
+        overall_risk, alerts = self.risk_manager.check_total_risk(positions)
+        print(f"  总风险等级: {overall_risk.value}")
+        print(f"  预警数量: {len(alerts)}")
+
+        return {
+            "position_risks": position_risks,
+            "correlation_alerts": correlation_alerts,
+            "stress_test_results": stress_test_results,
+            "overall_risk": overall_risk.value,
+            "alerts": alerts,
+        }
 
     def _generate_mock_data(self, stock_code: str, days: int = 500) -> pd.DataFrame:
         """生成模拟数据"""
