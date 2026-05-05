@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>初中数学知识图谱导航</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Microsoft YaHei', '微软雅黑', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            padding: 15px 30px;
+            border-radius: 15px;
+            color: white;
+            text-align: center;
+        }
+        
+        .stat-card .number {
+            font-size: 2em;
+            font-weight: bold;
+        }
+        
+        .stat-card .label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 20px;
+        }
+        
+        .sidebar {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            max-height: calc(100vh - 200px);
+            overflow-y: auto;
+        }
+        
+        .sidebar h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+        }
+        
+        .category-list {
+            list-style: none;
+        }
+        
+        .category-item {
+            padding: 10px 15px;
+            margin: 5px 0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .category-item:hover {
+            background: #f0f0ff;
+            transform: translateX(5px);
+        }
+        
+        .category-item.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .category-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em;
+        }
+        
+        .category-icon.topic { background: #e3f2fd; }
+        .category-icon.model { background: #fff3e0; }
+        .category-icon.method { background: #f3e5f5; }
+        .category-icon.theorem { background: #e8f5e9; }
+        .category-icon.formula { background: #fce4ec; }
+        
+        .knowledge-tree {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .tree-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .tree-header h2 {
+            color: #333;
+        }
+        
+        .view-toggle {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .toggle-btn {
+            padding: 8px 20px;
+            border: none;
+            border-radius: 20px;
+            background: #f0f0f0;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .toggle-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .tree-node {
+            margin: 5px 0;
+        }
+        
+        .node-header {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            gap: 10px;
+        }
+        
+        .node-header:hover {
+            background: #f8f9fa;
+        }
+        
+        .node-header.level-1 {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-size: 1.3em;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+        
+        .node-header.level-2 {
+            background: #e8eaf6;
+            color: #3f51b5;
+            font-weight: bold;
+            margin-left: 20px;
+        }
+        
+        .node-header.level-3 {
+            margin-left: 40px;
+            border-left: 3px solid #667eea;
+        }
+        
+        .node-header.level-4 {
+            margin-left: 60px;
+            background: #fafafa;
+            font-size: 0.95em;
+        }
+        
+        .expand-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: rgba(102, 126, 234, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em;
+            transition: transform 0.3s;
+        }
+        
+        .expand-icon.expanded {
+            transform: rotate(90deg);
+        }
+        
+        .node-name {
+            flex: 1;
+        }
+        
+        .node-badge {
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            background: #e8eaf6;
+            color: #3f51b5;
+        }
+        
+        .node-children {
+            display: none;
+        }
+        
+        .node-children.expanded {
+            display: block;
+        }
+        
+        .detail-panel {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .detail-panel.show {
+            display: block;
+        }
+        
+        .detail-panel h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+        
+        .detail-section {
+            margin: 15px 0;
+        }
+        
+        .detail-section h4 {
+            color: #333;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .detail-section p {
+            color: #666;
+            line-height: 1.8;
+        }
+        
+        .tag-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        
+        .tag {
+            padding: 5px 12px;
+            border-radius: 15px;
+            background: white;
+            font-size: 0.85em;
+            color: #667eea;
+            border: 1px solid #667eea;
+        }
+        
+        .example-card {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .example-card h5 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .difficulty-stars {
+            color: #ffc107;
+        }
+        
+        .importance-bar {
+            width: 100px;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .importance-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 50px;
+            color: #999;
+        }
+        
+        @media (max-width: 900px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                max-height: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>初中数学知识图谱导航</h1>
+            <p>多维度知识体系 · 点击展开探索</p>
+        </div>
+        
+        <div class="stats">
+            <div class="stat-card">
+                <div class="number" id="totalNodes">0</div>
+                <div class="label">知识点总数</div>
+            </div>
+            <div class="stat-card">
+                <div class="number" id="totalCategories">0</div>
+                <div class="label">分类维度</div>
+            </div>
+            <div class="stat-card">
+                <div class="number" id="maxDepth">0</div>
+                <div class="label">知识层级</div>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <div class="sidebar">
+                <h2>📂 分类导航</h2>
+                <ul class="category-list" id="categoryList">
+                    <!-- 动态生成 -->
+                </ul>
+            </div>
+            
+            <div class="knowledge-tree">
+                <div class="tree-header">
+                    <h2>🌳 知识图谱</h2>
+                    <div class="view-toggle">
+                        <button class="toggle-btn active" onclick="expandAll()">全部展开</button>
+                        <button class="toggle-btn" onclick="collapseAll()">全部折叠</button>
+                    </div>
+                </div>
+                
+                <div id="treeContent">
+                    <div class="loading">加载中...</div>
+                </div>
+                
+                <div class="detail-panel" id="detailPanel">
+                    <!-- 动态生成详情 -->
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let graphData = null;
+        let currentNode = null;
+        
+        // 加载数据
+        async function loadData() {
+            try {
+                const response = await fetch('data/multi_dimensional_graph.json');
+                graphData = await response.json();
+                renderStats();
+                renderCategories();
+                renderTree();
+            } catch (error) {
+                console.error('加载数据失败:', error);
+                document.getElementById('treeContent').innerHTML = 
+                    '<div class="loading">加载失败，请确保数据文件存在</div>';
+            }
+        }
+        
+        // 渲染统计
+        function renderStats() {
+            document.getElementById('totalNodes').textContent = Object.keys(graphData.nodes).length;
+            document.getElementById('totalCategories').textContent = Object.keys(graphData.categories).length;
+            document.getElementById('maxDepth').textContent = '4级';
+        }
+        
+        // 渲染分类列表
+        function renderCategories() {
+            const categoryList = document.getElementById('categoryList');
+            const categoryIcons = {
+                '主题': '📚',
+                '模型': '🧩',
+                '方法': '🔧',
+                '定理': '📐',
+                '公式': '📝'
+            };
+            
+            let html = '<li class="category-item active" onclick="filterByCategory(\'all\')">' +
+                '<span class="category-icon">📊</span>' +
+                '<span>全部知识点</span>' +
+                '</li>';
+            
+            for (const [id, cat] of Object.entries(graphData.categories)) {
+                const icon = categoryIcons[cat.type] || '📌';
+                html += `<li class="category-item" onclick="filterByCategory('${id}')">
+                    <span class="category-icon ${cat.type}">${icon}</span>
+                    <span>${cat.name}</span>
+                </li>`;
+            }
+            
+            categoryList.innerHTML = html;
+        }
+        
+        // 渲染知识树
+        function renderTree(filterCategory = 'all') {
+            const treeContent = document.getElementById('treeContent');
+            
+            // 找到根节点（level 1）
+            const rootNodes = Object.values(graphData.nodes)
+                .filter(node => node.level === 1)
+                .filter(node => filterCategory === 'all' || node.categories.includes(filterCategory));
+            
+            let html = '';
+            rootNodes.forEach(node => {
+                html += renderNode(node, filterCategory);
+            });
+            
+            treeContent.innerHTML = html || '<div class="loading">暂无数据</div>';
+        }
+        
+        // 渲染单个节点
+        function renderNode(node, filterCategory = 'all') {
+            const hasChildren = node.children && node.children.length > 0;
+            const levelClass = `level-${node.level}`;
+            
+            let childrenHtml = '';
+            if (hasChildren) {
+                const children = node.children
+                    .map(childId => graphData.nodes[childId])
+                    .filter(child => child && (filterCategory === 'all' || child.categories.includes(filterCategory)));
+                
+                if (children.length > 0) {
+                    childrenHtml = `<div class="node-children" id="children-${node.id}">`;
+                    children.forEach(child => {
+                        childrenHtml += renderNode(child, filterCategory);
+                    });
+                    childrenHtml += '</div>';
+                }
+            }
+            
+            const categoryBadges = node.categories
+                .map(catId => graphData.categories[catId])
+                .filter(cat => cat)
+                .map(cat => `<span class="node-badge">${cat.name}</span>`)
+                .join('');
+            
+            return `
+                <div class="tree-node">
+                    <div class="node-header ${levelClass}" onclick="toggleNode('${node.id}')">
+                        ${hasChildren ? '<span class="expand-icon">▶</span>' : '<span style="width:24px"></span>'}
+                        <span class="node-name">${node.name}</span>
+                        ${categoryBadges}
+                    </div>
+                    ${childrenHtml}
+                </div>
+            `;
+        }
+        
+        // 切换节点展开/折叠
+        function toggleNode(nodeId) {
+            const node = graphData.nodes[nodeId];
+            if (!node || !node.children || node.children.length === 0) {
+                // 显示详情
+                showDetail(node);
+                return;
+            }
+            
+            const childrenEl = document.getElementById(`children-${nodeId}`);
+            const headerEl = childrenEl.previousElementSibling;
+            const iconEl = headerEl.querySelector('.expand-icon');
+            
+            if (childrenEl.classList.contains('expanded')) {
+                childrenEl.classList.remove('expanded');
+                iconEl.classList.remove('expanded');
+            } else {
+                childrenEl.classList.add('expanded');
+                iconEl.classList.add('expanded');
+            }
+        }
+        
+        // 显示详情
+        function showDetail(node) {
+            const detailPanel = document.getElementById('detailPanel');
+            
+            if (!node || !node.content) {
+                detailPanel.classList.remove('show');
+                return;
+            }
+            
+            const content = node.content;
+            let html = `<h3>${node.name}</h3>`;
+            
+            // 讲解
+            if (content.explanation) {
+                html += `
+                    <div class="detail-section">
+                        <h4>📖 详细讲解</h4>
+                        <p>${content.explanation}</p>
+                    </div>
+                `;
+            }
+            
+            // 公式
+            if (content.formulas && content.formulas.length > 0) {
+                html += `
+                    <div class="detail-section">
+                        <h4>📐 相关公式</h4>
+                        <div class="tag-list">
+                            ${content.formulas.map(f => `<span class="tag">${f}</span>`).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+            
+            // 例题
+            if (content.examples && content.examples.length > 0) {
+                html += `
+                    <div class="detail-section">
+                        <h4>✏️ 典型例题</h4>
+                        ${content.examples.map((ex, i) => `
+                            <div class="example-card">
+                                <h5>例题 ${i + 1}</h5>
+                                <p>${ex.question || ex}</p>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            }
+            
+            // 提示
+            if (content.tips && content.tips.length > 0) {
+                html += `
+                    <div class="detail-section">
+                        <h4>💡 学习提示</h4>
+                        <ul>
+                            ${content.tips.map(tip => `<li>${tip}</li>`).join('')}
+                        </ul>
+                    </div>
+                `;
+            }
+            
+            // 难度和重要性
+            html += `
+                <div class="detail-section">
+                    <h4>📊 知识点属性</h4>
+                    <p>难度：${'⭐'.repeat(node.difficulty || 3)}</p>
+                    <p>重要性：<span class="importance-bar"><span class="importance-fill" style="width: ${(node.importance || 3) * 20}%"></span></span></p>
+                </div>
+            `;
+            
+            detailPanel.innerHTML = html;
+            detailPanel.classList.add('show');
+        }
+        
+        // 按分类筛选
+        function filterByCategory(categoryId) {
+            // 更新激活状态
+            document.querySelectorAll('.category-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            event.target.closest('.category-item').classList.add('active');
+            
+            // 重新渲染树
+            renderTree(categoryId);
+            
+            // 隐藏详情
+            document.getElementById('detailPanel').classList.remove('show');
+        }
+        
+        // 全部展开
+        function expandAll() {
+            document.querySelectorAll('.node-children').forEach(el => {
+                el.classList.add('expanded');
+            });
+            document.querySelectorAll('.expand-icon').forEach(el => {
+                el.classList.add('expanded');
+            });
+        }
+        
+        // 全部折叠
+        function collapseAll() {
+            document.querySelectorAll('.node-children').forEach(el => {
+                el.classList.remove('expanded');
+            });
+            document.querySelectorAll('.expand-icon').forEach(el => {
+                el.classList.remove('expanded');
+            });
+        }
+        
+        // 初始化
+        loadData();
+    </script>
+</body>
+</html>

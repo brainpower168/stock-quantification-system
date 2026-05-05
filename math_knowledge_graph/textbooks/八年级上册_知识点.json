@@ -1,0 +1,272 @@
+[
+  {
+    "id": "8-11-1",
+    "name": "与三角形有关的线段",
+    "grade": 8,
+    "semester": "上册",
+    "chapter": "三角形",
+    "section": "与三角形有关的线段",
+    "description": "２信息技术应用　画图找规律１０",
+    "difficulty": 3,
+    "keywords": [
+      "信息技术应用",
+      "画图找规律"
+    ],
+    "formulas": [],
+    "examples": [],
+    "exercises": []
+  },
+  {
+    "id": "8-11-2",
+    "name": "与三角形有关的角",
+    "grade": 8,
+    "semester": "上册",
+    "chapter": "三角形",
+    "section": "与三角形有关的角",
+    "description": "１１阅读与思考　为什么要证明１８",
+    "difficulty": 3,
+    "keywords": [
+      "阅读与思考",
+      "为什么要证明"
+    ],
+    "formulas": [],
+    "examples": [],
+    "exercises": []
+  },
+  {
+    "id": "8-11-3",
+    "name": "多边形及其内角和",
+    "grade": 8,
+    "semester": "上册",
+    "chapter": "三角形",
+    "section": "多边形及其内角和",
+    "description": "１９数学活动２６小结２７复习题１１２８",
+    "difficulty": 3,
+    "keywords": [
+      "数学活动",
+      "小结",
+      "复习题"
+    ],
+    "formulas": [],
+    "examples": [],
+    "exercises": []
+  },
+  {
+    "id": "8-12-1",
+    "name": "全等三角形",
+    "grade": 8,
+    "semester": "上册",
+    "chapter": "全等三角形",
+    "section": "全等三角形",
+    "description": "３１",
+    "difficulty": 3,
+    "keywords": [],
+    "formulas": [],
+    "examples": [],
+    "exercises": []
+  },
+  {
+    "id": "8-12-2",
+    "name": "三角形全等的判定",
+    "grade": 8,
+    "semester": "上册",
+    "chapter": "全等三角形",
+    "section": "三角形全等的判定",
+    "description": "３５信息技术应用　探究三角形全等的条件４６",
+    "difficulty": 3,
+    "keywords": [
+      "信息技术应用",
+      "探究三角形全等的条件"
+    ],
+    "formulas": [],
+    "examples": [],
+    "exercises": []
+  },
+  {
+    "id": "8-12-3",
+    "name": "角的平分线的性质",
+    "grade": 8,
+    "semester": "上册",
+    "chapter": "全等三角形",
+    "section": "角的平分线的性质",
+    "description": "４８数学活动５３小结５４复习题１２５５",
+    "difficulty": 3,
+    "keywords": [
+      "数学活动",
+      "小结",
+      "复习题"
+    ],
+    "formulas": [],
+    "examples": [],
+    "exercises": []
+  },
+  {
+    "id": "8-13-1",
+    "name": "轴对称",
+    "grade": 8,
+    "semester": "上册",
+    "chapter": "轴对称",
+    "section": "轴对称",
+    "description": "５８",
+    "difficulty": 3,
+    "keywords": [],
+    "formulas": [],
+    "examples": [],
+    "exercises": []
+  },
+  {
+    "id": "8-13-2",
+    "name": "画轴对称图形",
+    "grade": 8,
+    "semester": "上册",
+    "chapter": "轴对称",
+    "section": "画轴对称图形",
+    "description": "６７信息技术应用　用轴对称进行图案设计７３",
+    "difficulty": 3,
+    "keywords": [
+      "信息技术应用",
+      "用轴对称进行图案设计"
+    ],
+    "formulas": [],
+    "examples": [],
+    "exercises": []
+  },
+  {
+    "id": "8-13-3",
+    "name": "等腰三角形",
+    "grade": 8,
+    "semester": "上册",
+    "chapter": "轴对称",
+    "section": "等腰三角形",
+    "description": "７５实验与探究　三角形中边与角之间的不等关系８４",
+    "difficulty": 3,
+    "keywords": [
+      "实验与探究",
+      "三角形中边与角之间的不等关系"
+    ],
+    "formulas": [],
+    "examples": [],
+    "exercises": []
+  },
+  {
+    "id": "8-13-4",
+    "name": "课题学习　最短路径问题",
+    "grade": 8,
+    "semester": "上册",
+    "chapter": "轴对称",
+    "section": "课题学习　最短路径问题",
+    "description": "８５数学活动８８小结９０复习题１３９１",
+    "difficulty": 3,
+    "keywords": [
+      "数学活动",
+      "小结",
+      "复习题"
+    ],
+    "formulas": [],
+    "examples": [],
+    "exercises": []
+  },
+  {
+    "id": "8-14-1",
+    "name": "整式的乘法",
+    "grade": 8,
+    "semester": "上册",
+    "chapter": "整式的乘法与因式分解",
+    "section": "整式的乘法",
+    "description": "９５",
+    "difficulty": 3,
+    "keywords": [],
+    "formulas": [],
+    "examples": [],
+    "exercises": []
+  },
+  {
+    "id": "8-14-2",
+    "name": "乘法公式",
+    "grade": 8,
+    "semester": "上册",
+    "chapter": "整式的乘法与因式分解",
+    "section": "乘法公式",
+    "description": "１０７阅读与思考　杨辉三角１１３",
+    "difficulty": 3,
+    "keywords": [
+      "阅读与思考",
+      "杨辉三角"
+    ],
+    "formulas": [],
+    "examples": [],
+    "exercises": []
+  },
+  {
+    "id": "8-14-3",
+    "name": "因式分解",
+    "grade": 8,
+    "semester": "上册",
+    "chapter": "整式的乘法与因式分解",
+    "section": "因式分解",
+    "description": "１１４阅读与思考　狓２＋（狆＋狇）狓＋狆狇型式子的因式分解１２１数学活动１２２小结１２３复习题１４１２４",
+    "difficulty": 3,
+    "keywords": [
+      "阅读与思考",
+      "狆＋狇",
+      "狓＋狆狇型式子的因式分解",
+      "数学活动",
+      "小结",
+      "复习题"
+    ],
+    "formulas": [],
+    "examples": [],
+    "exercises": []
+  },
+  {
+    "id": "8-15-1",
+    "name": "分式",
+    "grade": 8,
+    "semester": "上册",
+    "chapter": "分式",
+    "section": "分式",
+    "description": "１２７",
+    "difficulty": 3,
+    "keywords": [],
+    "formulas": [],
+    "examples": [],
+    "exercises": []
+  },
+  {
+    "id": "8-15-2",
+    "name": "分式的运算",
+    "grade": 8,
+    "semester": "上册",
+    "chapter": "分式",
+    "section": "分式的运算",
+    "description": "１３５阅读与思考　容器中的水能倒完吗１４８",
+    "difficulty": 3,
+    "keywords": [
+      "阅读与思考",
+      "容器中的水能倒完吗"
+    ],
+    "formulas": [],
+    "examples": [],
+    "exercises": []
+  },
+  {
+    "id": "8-15-3",
+    "name": "分式方程",
+    "grade": 8,
+    "semester": "上册",
+    "chapter": "分式",
+    "section": "分式方程",
+    "description": "１４９数学活动１５６小结１５７复习题１５１５８部分中英文词汇索引１６０\f书书书",
+    "difficulty": 3,
+    "keywords": [
+      "数学活动",
+      "小结",
+      "复习题",
+      "部分中英文词汇索引",
+      "书书书"
+    ],
+    "formulas": [],
+    "examples": [],
+    "exercises": []
+  }
+]

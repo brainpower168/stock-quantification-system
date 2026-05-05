@@ -1,5 +1,13 @@
 {
   "models": {
+    "deepseek": {
+      "name": "deepseek-v4-flash",
+      "role": "量化专家",
+      "api_key": "sk-CBUqmoVa1Vrupl9RzjSSxSWylZgdg3YQ",
+      "base_url": "https://token.sensenova.cn/v1",
+      "weight": 1.5,
+      "provider": "商汤"
+    },
     "longcat": {
       "name": "LongCat-Flash-Lite",
       "role": "量化专家",

@@ -1,0 +1,3248 @@
+{
+  "nodes": [
+    {
+      "id": "7-1-1",
+      "name": "正数和负数",
+      "grade": 7,
+      "semester": "上",
+      "chapter": "第一章 有理数",
+      "description": "理解正数、负数的概念，会用正负数表示具有相反意义的量",
+      "difficulty": "基础",
+      "keywords": [
+        "正数",
+        "负数",
+        "相反意义的量",
+        "零"
+      ],
+      "formulas": [],
+      "examples": [
+        "收入100元记作+100元，支出50元记作-50元"
+      ],
+      "common_mistakes": [
+        "误认为0是正数",
+        "混淆正负数的意义"
+      ],
+      "prerequisites": [],
+      "derived_to": [
+        "7-1-2"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "7-1-2",
+      "name": "有理数",
+      "grade": 7,
+      "semester": "上",
+      "chapter": "第一章 有理数",
+      "description": "理解有理数的概念，掌握有理数的分类",
+      "difficulty": "基础",
+      "keywords": [
+        "有理数",
+        "整数",
+        "分数",
+        "分类"
+      ],
+      "formulas": [
+        "有理数 = 整数 + 分数",
+        "整数 = 正整数 + 0 + 负整数"
+      ],
+      "examples": [
+        "-3, 0, 1/2, -2.5都是有理数"
+      ],
+      "common_mistakes": [
+        "误认为小数都是有理数",
+        "遗漏0"
+      ],
+      "prerequisites": [
+        "7-1-1"
+      ],
+      "derived_to": [
+        "7-1-3"
+      ],
+      "contains": [
+        "7-1-2-1",
+        "7-1-2-2"
+      ],
+      "related": []
+    },
+    {
+      "id": "7-1-2-1",
+      "name": "数轴",
+      "grade": 7,
+      "semester": "上",
+      "chapter": "第一章 有理数",
+      "description": "理解数轴的概念，掌握数轴的三要素，会用数轴上的点表示有理数",
+      "difficulty": "基础",
+      "keywords": [
+        "数轴",
+        "原点",
+        "正方向",
+        "单位长度"
+      ],
+      "formulas": [],
+      "examples": [
+        "在数轴上表示-2, 0, 3"
+      ],
+      "common_mistakes": [
+        "单位长度不一致",
+        "正方向标错"
+      ],
+      "prerequisites": [
+        "7-1-2"
+      ],
+      "derived_to": [
+        "7-1-2-2",
+        "7-1-2-3"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "7-1-2-2",
+      "name": "相反数",
+      "grade": 7,
+      "semester": "上",
+      "chapter": "第一章 有理数",
+      "description": "理解相反数的概念，会求一个数的相反数",
+      "difficulty": "基础",
+      "keywords": [
+        "相反数",
+        "符号不同",
+        "绝对值相等"
+      ],
+      "formulas": [
+        "a的相反数是-a",
+        "a + (-a) = 0"
+      ],
+      "examples": [
+        "3的相反数是-3",
+        "-5的相反数是5"
+      ],
+      "common_mistakes": [
+        "误认为相反数就是负数",
+        "混淆相反数和倒数"
+      ],
+      "prerequisites": [
+        "7-1-2-1"
+      ],
+      "derived_to": [
+        "7-1-2-3"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "7-1-2-3",
+      "name": "绝对值",
+      "grade": 7,
+      "semester": "上",
+      "chapter": "第一章 有理数",
+      "description": "理解绝对值的概念，会求一个数的绝对值",
+      "difficulty": "基础",
+      "keywords": [
+        "绝对值",
+        "距离",
+        "非负性"
+      ],
+      "formulas": [
+        "|a| ≥ 0",
+        "|a| = a (a>0)",
+        "|a| = 0 (a=0)",
+        "|a| = -a (a<0)"
+      ],
+      "examples": [
+        "|-3| = 3",
+        "|5| = 5",
+        "|0| = 0"
+      ],
+      "common_mistakes": [
+        "误认为绝对值一定是正数",
+        "忽略0的绝对值"
+      ],
+      "prerequisites": [
+        "7-1-2-1",
+        "7-1-2-2"
+      ],
+      "derived_to": [
+        "7-1-3"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "7-1-3",
+      "name": "有理数的加减法",
+      "grade": 7,
+      "semester": "上",
+      "chapter": "第一章 有理数",
+      "description": "掌握有理数加法、减法法则，能进行有理数加减混合运算",
+      "difficulty": "中等",
+      "keywords": [
+        "加法法则",
+        "减法法则",
+        "代数和"
+      ],
+      "formulas": [
+        "同号两数相加，取相同的符号，并把绝对值相加",
+        "异号两数相加，取绝对值较大的符号，并用较大的绝对值减去较小的绝对值",
+        "减去一个数等于加上这个数的相反数"
+      ],
+      "examples": [
+        "(-3) + 5 = 2",
+        "(-2) + (-4) = -6",
+        "3 - (-2) = 5"
+      ],
+      "common_mistakes": [
+        "符号判断错误",
+        "忽略绝对值相减"
+      ],
+      "prerequisites": [
+        "7-1-2-3"
+      ],
+      "derived_to": [
+        "7-1-4"
+      ],
+      "contains": [
+        "7-1-3-1",
+        "7-1-3-2"
+      ],
+      "related": []
+    },
+    {
+      "id": "7-1-4",
+      "name": "有理数的乘除法",
+      "grade": 7,
+      "semester": "上",
+      "chapter": "第一章 有理数",
+      "description": "掌握有理数乘法、除法法则，能进行有理数乘除混合运算",
+      "difficulty": "中等",
+      "keywords": [
+        "乘法法则",
+        "除法法则",
+        "倒数",
+        "乘方"
+      ],
+      "formulas": [
+        "两数相乘，同号得正，异号得负，并把绝对值相乘",
+        "除以一个不为0的数等于乘以这个数的倒数",
+        "aⁿ = a × a × ... × a (n个a)"
+      ],
+      "examples": [
+        "(-2) × 3 = -6",
+        "(-2) × (-3) = 6",
+        "(-6) ÷ (-2) = 3"
+      ],
+      "common_mistakes": [
+        "符号判断错误",
+        "除数不能为0"
+      ],
+      "prerequisites": [
+        "7-1-3"
+      ],
+      "derived_to": [
+        "7-1-5"
+      ],
+      "contains": [
+        "7-1-4-1",
+        "7-1-4-2",
+        "7-1-4-3"
+      ],
+      "related": []
+    },
+    {
+      "id": "7-1-5",
+      "name": "有理数的乘方",
+      "grade": 7,
+      "semester": "上",
+      "chapter": "第一章 有理数",
+      "description": "理解乘方的意义，掌握有理数乘方运算，理解科学记数法",
+      "difficulty": "中等",
+      "keywords": [
+        "乘方",
+        "底数",
+        "指数",
+        "幂",
+        "科学记数法"
+      ],
+      "formulas": [
+        "aⁿ = a × a × ... × a (n个a)",
+        "科学记数法: a × 10ⁿ (1≤|a|<10)"
+      ],
+      "examples": [
+        "2³ = 8",
+        "(-2)³ = -8",
+        "(-2)⁴ = 16"
+      ],
+      "common_mistakes": [
+        "混淆底数和指数",
+        "负数的奇次幂和偶次幂符号"
+      ],
+      "prerequisites": [
+        "7-1-4"
+      ],
+      "derived_to": [
+        "7-2-1"
+      ],
+      "contains": [
+        "7-1-5-1",
+        "7-1-5-2"
+      ],
+      "related": []
+    },
+    {
+      "id": "7-2-1",
+      "name": "整式",
+      "grade": 7,
+      "semester": "上",
+      "chapter": "第二章 整式的加减",
+      "description": "理解单项式、多项式、整式的概念，能确定单项式的系数和次数",
+      "difficulty": "基础",
+      "keywords": [
+        "单项式",
+        "多项式",
+        "整式",
+        "系数",
+        "次数"
+      ],
+      "formulas": [],
+      "examples": [
+        "2x²y是单项式，系数是2，次数是3",
+        "x² + 2x + 1是多项式"
+      ],
+      "common_mistakes": [
+        "混淆系数和次数",
+        "忽略π是常数"
+      ],
+      "prerequisites": [
+        "7-1-5"
+      ],
+      "derived_to": [
+        "7-2-2"
+      ],
+      "contains": [
+        "7-2-1-1",
+        "7-2-1-2"
+      ],
+      "related": []
+    },
+    {
+      "id": "7-2-2",
+      "name": "整式的加减",
+      "grade": 7,
+      "semester": "上",
+      "chapter": "第二章 整式的加减",
+      "description": "理解同类项的概念，掌握合并同类项法则，能进行整式加减运算",
+      "difficulty": "中等",
+      "keywords": [
+        "同类项",
+        "合并同类项",
+        "去括号"
+      ],
+      "formulas": [
+        "合并同类项：系数相加，字母和指数不变"
+      ],
+      "examples": [
+        "2x + 3x = 5x",
+        "3x² - x² = 2x²"
+      ],
+      "common_mistakes": [
+        "非同类项强行合并",
+        "去括号符号错误"
+      ],
+      "prerequisites": [
+        "7-2-1"
+      ],
+      "derived_to": [
+        "7-3-1"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "7-3-1",
+      "name": "一元一次方程",
+      "grade": 7,
+      "semester": "上",
+      "chapter": "第三章 一元一次方程",
+      "description": "理解方程、方程的解的概念，掌握等式的性质",
+      "difficulty": "基础",
+      "keywords": [
+        "方程",
+        "方程的解",
+        "等式性质"
+      ],
+      "formulas": [
+        "等式性质1: a=b → a+c=b+c",
+        "等式性质2: a=b → ac=bc (c≠0)"
+      ],
+      "examples": [
+        "2x + 1 = 5的解是x = 2"
+      ],
+      "common_mistakes": [
+        "混淆方程和代数式",
+        "等式性质应用错误"
+      ],
+      "prerequisites": [
+        "7-2-2"
+      ],
+      "derived_to": [
+        "7-3-2"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "7-3-2",
+      "name": "解一元一次方程",
+      "grade": 7,
+      "semester": "上",
+      "chapter": "第三章 一元一次方程",
+      "description": "掌握解一元一次方程的一般步骤，能熟练解一元一次方程",
+      "difficulty": "中等",
+      "keywords": [
+        "去分母",
+        "去括号",
+        "移项",
+        "合并同类项",
+        "系数化为1"
+      ],
+      "formulas": [],
+      "examples": [
+        "解方程: 2(x-1) = 4 → x = 3"
+      ],
+      "common_mistakes": [
+        "去分母漏乘",
+        "移项不变号",
+        "去括号符号错误"
+      ],
+      "prerequisites": [
+        "7-3-1"
+      ],
+      "derived_to": [
+        "7-3-3"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "7-3-3",
+      "name": "一元一次方程的应用",
+      "grade": 7,
+      "semester": "上",
+      "chapter": "第三章 一元一次方程",
+      "description": "能列一元一次方程解应用题，掌握常见应用题类型",
+      "difficulty": "进阶",
+      "keywords": [
+        "应用题",
+        "行程问题",
+        "工程问题",
+        "利润问题"
+      ],
+      "formulas": [
+        "路程=速度×时间",
+        "工作总量=效率×时间",
+        "利润=售价-进价"
+      ],
+      "examples": [
+        "小明以5km/h的速度行走，2小时走了多少千米？"
+      ],
+      "common_mistakes": [
+        "设未知数不当",
+        "等量关系找错"
+      ],
+      "prerequisites": [
+        "7-3-2"
+      ],
+      "derived_to": [
+        "8-1-1"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "7-4-1",
+      "name": "几何图形",
+      "grade": 7,
+      "semester": "上",
+      "chapter": "第四章 几何图形初步",
+      "description": "认识立体图形和平面图形，理解点、线、面、体的关系",
+      "difficulty": "基础",
+      "keywords": [
+        "立体图形",
+        "平面图形",
+        "点线面体"
+      ],
+      "formulas": [],
+      "examples": [
+        "正方体、长方体、圆柱、圆锥都是立体图形"
+      ],
+      "common_mistakes": [
+        "混淆立体图形和平面图形"
+      ],
+      "prerequisites": [],
+      "derived_to": [
+        "7-4-2"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "7-4-2",
+      "name": "直线、射线、线段",
+      "grade": 7,
+      "semester": "上",
+      "chapter": "第四章 几何图形初步",
+      "description": "理解直线、射线、线段的概念，掌握线段的性质",
+      "difficulty": "基础",
+      "keywords": [
+        "直线",
+        "射线",
+        "线段",
+        "中点"
+      ],
+      "formulas": [
+        "两点之间，线段最短"
+      ],
+      "examples": [
+        "直线AB，射线OA，线段AB"
+      ],
+      "common_mistakes": [
+        "混淆直线、射线、线段",
+        "端点标注错误"
+      ],
+      "prerequisites": [
+        "7-4-1"
+      ],
+      "derived_to": [
+        "7-4-3"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "7-4-3",
+      "name": "角",
+      "grade": 7,
+      "semester": "上",
+      "chapter": "第四章 几何图形初步",
+      "description": "理解角的概念，掌握角的表示方法，会进行角的计算",
+      "difficulty": "基础",
+      "keywords": [
+        "角",
+        "度",
+        "分",
+        "秒",
+        "角平分线"
+      ],
+      "formulas": [
+        "1° = 60'",
+        "1' = 60\"",
+        "角的和差"
+      ],
+      "examples": [
+        "∠AOB = 45°",
+        "角平分线把角分成两个相等的角"
+      ],
+      "common_mistakes": [
+        "度分秒换算错误",
+        "角平分线概念不清"
+      ],
+      "prerequisites": [
+        "7-4-2"
+      ],
+      "derived_to": [
+        "8-2-1"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "7-5-1",
+      "name": "相交线",
+      "grade": 7,
+      "semester": "下",
+      "chapter": "第五章 相交线与平行线",
+      "description": "理解对顶角、邻补角的概念，掌握对顶角相等的性质",
+      "difficulty": "基础",
+      "keywords": [
+        "相交线",
+        "对顶角",
+        "邻补角",
+        "垂直"
+      ],
+      "formulas": [
+        "对顶角相等",
+        "邻补角互补"
+      ],
+      "examples": [
+        "两条直线相交，形成两对对顶角"
+      ],
+      "common_mistakes": [
+        "混淆对顶角和邻补角"
+      ],
+      "prerequisites": [
+        "7-4-3"
+      ],
+      "derived_to": [
+        "7-5-2"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "7-5-2",
+      "name": "平行线及其判定",
+      "grade": 7,
+      "semester": "下",
+      "chapter": "第五章 相交线与平行线",
+      "description": "理解平行线的概念，掌握平行线的判定方法",
+      "difficulty": "中等",
+      "keywords": [
+        "平行线",
+        "同位角",
+        "内错角",
+        "同旁内角"
+      ],
+      "formulas": [
+        "同位角相等，两直线平行",
+        "内错角相等，两直线平行",
+        "同旁内角互补，两直线平行"
+      ],
+      "examples": [
+        "如果∠1=∠2（同位角），则AB∥CD"
+      ],
+      "common_mistakes": [
+        "混淆同位角、内错角、同旁内角"
+      ],
+      "prerequisites": [
+        "7-5-1"
+      ],
+      "derived_to": [
+        "7-5-3"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "7-5-3",
+      "name": "平行线的性质",
+      "grade": 7,
+      "semester": "下",
+      "chapter": "第五章 相交线与平行线",
+      "description": "掌握平行线的性质，能进行相关推理证明",
+      "difficulty": "中等",
+      "keywords": [
+        "平行线性质",
+        "角的关系"
+      ],
+      "formulas": [
+        "两直线平行，同位角相等",
+        "两直线平行，内错角相等",
+        "两直线平行，同旁内角互补"
+      ],
+      "examples": [
+        "如果AB∥CD，则∠1=∠2（同位角）"
+      ],
+      "common_mistakes": [
+        "混淆判定和性质"
+      ],
+      "prerequisites": [
+        "7-5-2"
+      ],
+      "derived_to": [
+        "8-2-1"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "7-6-1",
+      "name": "平方根",
+      "grade": 7,
+      "semester": "下",
+      "chapter": "第六章 实数",
+      "description": "理解平方根、算术平方根的概念，会用计算器求平方根",
+      "difficulty": "基础",
+      "keywords": [
+        "平方根",
+        "算术平方根",
+        "开平方"
+      ],
+      "formulas": [
+        "如果x²=a，则x是a的平方根",
+        "√a表示a的算术平方根"
+      ],
+      "examples": [
+        "4的平方根是±2",
+        "√4 = 2"
+      ],
+      "common_mistakes": [
+        "混淆平方根和算术平方根",
+        "负数没有平方根"
+      ],
+      "prerequisites": [
+        "7-1-5"
+      ],
+      "derived_to": [
+        "7-6-2"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "7-6-2",
+      "name": "立方根",
+      "grade": 7,
+      "semester": "下",
+      "chapter": "第六章 实数",
+      "description": "理解立方根的概念，会用计算器求立方根",
+      "difficulty": "基础",
+      "keywords": [
+        "立方根",
+        "开立方"
+      ],
+      "formulas": [
+        "如果x³=a，则x是a的立方根",
+        "³√a表示a的立方根"
+      ],
+      "examples": [
+        "8的立方根是2",
+        "(-8)的立方根是-2"
+      ],
+      "common_mistakes": [
+        "误认为负数没有立方根"
+      ],
+      "prerequisites": [
+        "7-6-1"
+      ],
+      "derived_to": [
+        "7-6-3"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "7-6-3",
+      "name": "实数",
+      "grade": 7,
+      "semester": "下",
+      "chapter": "第六章 实数",
+      "description": "理解无理数、实数的概念，能对实数进行分类",
+      "difficulty": "中等",
+      "keywords": [
+        "无理数",
+        "实数",
+        "有理数"
+      ],
+      "formulas": [
+        "实数 = 有理数 + 无理数"
+      ],
+      "examples": [
+        "√2, π, 0.1010010001...都是无理数"
+      ],
+      "common_mistakes": [
+        "误认为带根号的数都是无理数"
+      ],
+      "prerequisites": [
+        "7-6-2"
+      ],
+      "derived_to": [
+        "8-1-1"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "7-7-1",
+      "name": "平面直角坐标系",
+      "grade": 7,
+      "semester": "下",
+      "chapter": "第七章 平面直角坐标系",
+      "description": "理解平面直角坐标系的有关概念，能由点确定坐标、由坐标确定点",
+      "difficulty": "基础",
+      "keywords": [
+        "坐标",
+        "象限",
+        "坐标轴"
+      ],
+      "formulas": [],
+      "examples": [
+        "点(2,3)在第一象限",
+        "点(-1,2)在第二象限"
+      ],
+      "common_mistakes": [
+        "混淆横纵坐标顺序",
+        "象限判断错误"
+      ],
+      "prerequisites": [
+        "7-1-2-1"
+      ],
+      "derived_to": [
+        "7-7-2"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "7-7-2",
+      "name": "坐标方法的简单应用",
+      "grade": 7,
+      "semester": "下",
+      "chapter": "第七章 平面直角坐标系",
+      "description": "能用坐标表示地理位置，能用坐标表示平移",
+      "difficulty": "中等",
+      "keywords": [
+        "坐标平移",
+        "地理位置"
+      ],
+      "formulas": [
+        "左右平移：纵坐标不变，横坐标加减",
+        "上下平移：横坐标不变，纵坐标加减"
+      ],
+      "examples": [
+        "点(2,3)向右平移2个单位得到(4,3)"
+      ],
+      "common_mistakes": [
+        "平移方向和坐标变化对应错误"
+      ],
+      "prerequisites": [
+        "7-7-1"
+      ],
+      "derived_to": [
+        "8-3-1"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "7-8-1",
+      "name": "二元一次方程组",
+      "grade": 7,
+      "semester": "下",
+      "chapter": "第八章 二元一次方程组",
+      "description": "理解二元一次方程组的概念，掌握代入消元法和加减消元法",
+      "difficulty": "中等",
+      "keywords": [
+        "二元一次方程组",
+        "代入消元",
+        "加减消元"
+      ],
+      "formulas": [],
+      "examples": [
+        "解方程组: x+y=5, x-y=1 → x=3, y=2"
+      ],
+      "common_mistakes": [
+        "消元时符号错误",
+        "忘记检验"
+      ],
+      "prerequisites": [
+        "7-3-2"
+      ],
+      "derived_to": [
+        "7-8-2"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "7-8-2",
+      "name": "二元一次方程组的应用",
+      "grade": 7,
+      "semester": "下",
+      "chapter": "第八章 二元一次方程组",
+      "description": "能列二元一次方程组解应用题",
+      "difficulty": "进阶",
+      "keywords": [
+        "应用题",
+        "行程问题",
+        "工程问题"
+      ],
+      "formulas": [],
+      "examples": [
+        "鸡兔同笼问题"
+      ],
+      "common_mistakes": [
+        "设未知数不当",
+        "等量关系找错"
+      ],
+      "prerequisites": [
+        "7-8-1"
+      ],
+      "derived_to": [
+        "9-1-1"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "7-9-1",
+      "name": "一元一次不等式",
+      "grade": 7,
+      "semester": "下",
+      "chapter": "第九章 不等式与不等式组",
+      "description": "理解不等式的概念，掌握不等式的性质，能解一元一次不等式",
+      "difficulty": "中等",
+      "keywords": [
+        "不等式",
+        "不等式的性质",
+        "解集"
+      ],
+      "formulas": [
+        "不等式性质1: a>b → a+c>b+c",
+        "不等式性质2: a>b, c>0 → ac>bc",
+        "不等式性质3: a>b, c<0 → ac<bc"
+      ],
+      "examples": [
+        "解不等式: 2x-1>3 → x>2"
+      ],
+      "common_mistakes": [
+        "不等式两边乘除负数时不等号方向改变"
+      ],
+      "prerequisites": [
+        "7-3-2"
+      ],
+      "derived_to": [
+        "7-9-2"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "7-9-2",
+      "name": "一元一次不等式组",
+      "grade": 7,
+      "semester": "下",
+      "chapter": "第九章 不等式与不等式组",
+      "description": "理解一元一次不等式组的概念，能解一元一次不等式组",
+      "difficulty": "中等",
+      "keywords": [
+        "不等式组",
+        "解集",
+        "公共部分"
+      ],
+      "formulas": [],
+      "examples": [
+        "解不等式组: x>1, x<3 → 1<x<3"
+      ],
+      "common_mistakes": [
+        "解集取错",
+        "不等号方向错误"
+      ],
+      "prerequisites": [
+        "7-9-1"
+      ],
+      "derived_to": [
+        "9-2-1"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "7-10-1",
+      "name": "数据的收集与整理",
+      "grade": 7,
+      "semester": "下",
+      "chapter": "第十章 数据的收集、整理与描述",
+      "description": "了解全面调查和抽样调查，能设计简单的调查问卷",
+      "difficulty": "基础",
+      "keywords": [
+        "全面调查",
+        "抽样调查",
+        "样本",
+        "总体"
+      ],
+      "formulas": [],
+      "examples": [
+        "调查全校学生的身高，可以抽样调查"
+      ],
+      "common_mistakes": [
+        "样本不具有代表性"
+      ],
+      "prerequisites": [],
+      "derived_to": [
+        "7-10-2"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "7-10-2",
+      "name": "直方图",
+      "grade": 7,
+      "semester": "下",
+      "chapter": "第十章 数据的收集、整理与描述",
+      "description": "理解频数分布的意义，能画频数分布直方图",
+      "difficulty": "基础",
+      "keywords": [
+        "频数",
+        "频率",
+        "直方图"
+      ],
+      "formulas": [
+        "频率 = 频数 / 总数"
+      ],
+      "examples": [
+        "画学生身高的频数分布直方图"
+      ],
+      "common_mistakes": [
+        "组距选择不当",
+        "频数计算错误"
+      ],
+      "prerequisites": [
+        "7-10-1"
+      ],
+      "derived_to": [
+        "8-6-1"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "8-1-1",
+      "name": "三角形的有关概念",
+      "grade": 8,
+      "semester": "上",
+      "chapter": "第十一章 三角形",
+      "description": "理解三角形的有关概念，掌握三角形三边关系",
+      "difficulty": "基础",
+      "keywords": [
+        "三角形",
+        "边",
+        "角",
+        "顶点",
+        "三边关系"
+      ],
+      "formulas": [
+        "三角形任意两边之和大于第三边"
+      ],
+      "examples": [
+        "三角形ABC的三边分别为3,4,5"
+      ],
+      "common_mistakes": [
+        "三边关系判断错误"
+      ],
+      "prerequisites": [
+        "7-4-3"
+      ],
+      "derived_to": [
+        "8-1-2"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "8-1-2",
+      "name": "三角形的高、中线与角平分线",
+      "grade": 8,
+      "semester": "上",
+      "chapter": "第十一章 三角形",
+      "description": "理解三角形的高、中线、角平分线的概念",
+      "difficulty": "基础",
+      "keywords": [
+        "高",
+        "中线",
+        "角平分线"
+      ],
+      "formulas": [],
+      "examples": [
+        "三角形有三条高，三条中线，三条角平分线"
+      ],
+      "common_mistakes": [
+        "钝角三角形的高画错"
+      ],
+      "prerequisites": [
+        "8-1-1"
+      ],
+      "derived_to": [
+        "8-1-3"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "8-1-3",
+      "name": "三角形的内角和",
+      "grade": 8,
+      "semester": "上",
+      "chapter": "第十一章 三角形",
+      "description": "掌握三角形内角和定理",
+      "difficulty": "中等",
+      "keywords": [
+        "内角和",
+        "外角",
+        "180度"
+      ],
+      "formulas": [
+        "三角形内角和等于180°"
+      ],
+      "examples": [
+        "三角形三个内角分别为60°, 60°, 60°"
+      ],
+      "common_mistakes": [
+        "外角性质应用错误"
+      ],
+      "prerequisites": [
+        "8-1-2"
+      ],
+      "derived_to": [
+        "8-1-4"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "8-1-4",
+      "name": "多边形及其内角和",
+      "grade": 8,
+      "semester": "上",
+      "chapter": "第十一章 三角形",
+      "description": "理解多边形的概念，掌握多边形内角和与外角和公式",
+      "difficulty": "中等",
+      "keywords": [
+        "多边形",
+        "内角和",
+        "外角和"
+      ],
+      "formulas": [
+        "n边形内角和 = (n-2)×180°"
+      ],
+      "examples": [
+        "六边形内角和 = (6-2)×180° = 720°"
+      ],
+      "common_mistakes": [
+        "内角和公式记错"
+      ],
+      "prerequisites": [
+        "8-1-3"
+      ],
+      "derived_to": [
+        "8-2-1"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "8-2-1",
+      "name": "全等三角形",
+      "grade": 8,
+      "semester": "上",
+      "chapter": "第十二章 全等三角形",
+      "description": "理解全等三角形的概念",
+      "difficulty": "基础",
+      "keywords": [
+        "全等",
+        "对应边",
+        "对应角"
+      ],
+      "formulas": [
+        "全等三角形对应边相等，对应角相等"
+      ],
+      "examples": [
+        "△ABC ≌ △DEF"
+      ],
+      "common_mistakes": [
+        "对应关系找错"
+      ],
+      "prerequisites": [
+        "8-1-3",
+        "7-5-3"
+      ],
+      "derived_to": [
+        "8-2-2"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "8-2-2",
+      "name": "三角形全等的判定",
+      "grade": 8,
+      "semester": "上",
+      "chapter": "第十二章 全等三角形",
+      "description": "掌握三角形全等的判定方法：SSS、SAS、ASA、AAS、HL",
+      "difficulty": "中等",
+      "keywords": [
+        "SSS",
+        "SAS",
+        "ASA",
+        "AAS",
+        "HL"
+      ],
+      "formulas": [],
+      "examples": [
+        "已知三边对应相等，用SSS判定全等"
+      ],
+      "common_mistakes": [
+        "SSA不能判定全等"
+      ],
+      "prerequisites": [
+        "8-2-1"
+      ],
+      "derived_to": [
+        "8-2-3"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "8-2-3",
+      "name": "角平分线的性质",
+      "grade": 8,
+      "semester": "上",
+      "chapter": "第十二章 全等三角形",
+      "description": "理解角平分线的性质定理和判定定理",
+      "difficulty": "中等",
+      "keywords": [
+        "角平分线",
+        "距离"
+      ],
+      "formulas": [
+        "角平分线上的点到角两边的距离相等"
+      ],
+      "examples": [
+        "OP是∠AOB的平分线，P到OA、OB的距离相等"
+      ],
+      "common_mistakes": [
+        "混淆性质和判定"
+      ],
+      "prerequisites": [
+        "8-2-2"
+      ],
+      "derived_to": [
+        "8-3-1"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "8-3-1",
+      "name": "轴对称",
+      "grade": 8,
+      "semester": "上",
+      "chapter": "第十三章 轴对称",
+      "description": "理解轴对称和轴对称图形的概念",
+      "difficulty": "基础",
+      "keywords": [
+        "轴对称",
+        "对称轴"
+      ],
+      "formulas": [],
+      "examples": [
+        "等腰三角形是轴对称图形"
+      ],
+      "common_mistakes": [
+        "混淆轴对称和轴对称图形"
+      ],
+      "prerequisites": [
+        "7-7-2"
+      ],
+      "derived_to": [
+        "8-3-2"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "8-3-2",
+      "name": "线段的垂直平分线",
+      "grade": 8,
+      "semester": "上",
+      "chapter": "第十三章 轴对称",
+      "description": "理解线段垂直平分线的性质和判定",
+      "difficulty": "中等",
+      "keywords": [
+        "垂直平分线",
+        "中垂线"
+      ],
+      "formulas": [
+        "线段垂直平分线上的点到线段两端点的距离相等"
+      ],
+      "examples": [
+        "点P在线段AB的垂直平分线上，则PA=PB"
+      ],
+      "common_mistakes": [
+        "混淆性质和判定"
+      ],
+      "prerequisites": [
+        "8-3-1"
+      ],
+      "derived_to": [
+        "8-3-3"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "8-3-3",
+      "name": "等腰三角形",
+      "grade": 8,
+      "semester": "上",
+      "chapter": "第十三章 轴对称",
+      "description": "掌握等腰三角形的性质和判定",
+      "difficulty": "中等",
+      "keywords": [
+        "等腰三角形",
+        "等边三角形"
+      ],
+      "formulas": [
+        "等腰三角形两底角相等"
+      ],
+      "examples": [
+        "等腰三角形顶角40°，底角70°"
+      ],
+      "common_mistakes": [
+        "混淆等腰和等边"
+      ],
+      "prerequisites": [
+        "8-3-2"
+      ],
+      "derived_to": [
+        "8-4-1"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "8-4-1",
+      "name": "整式的乘法",
+      "grade": 8,
+      "semester": "上",
+      "chapter": "第十四章 整式的乘法与因式分解",
+      "description": "掌握整式的乘法运算法则",
+      "difficulty": "中等",
+      "keywords": [
+        "单项式乘单项式",
+        "多项式乘多项式"
+      ],
+      "formulas": [
+        "a^m · a^n = a^(m+n)"
+      ],
+      "examples": [
+        "(2x²) · (3x³) = 6x⁵"
+      ],
+      "common_mistakes": [
+        "指数运算错误"
+      ],
+      "prerequisites": [
+        "7-2-2"
+      ],
+      "derived_to": [
+        "8-4-2"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "8-4-2",
+      "name": "乘法公式",
+      "grade": 8,
+      "semester": "上",
+      "chapter": "第十四章 整式的乘法与因式分解",
+      "description": "掌握平方差公式和完全平方公式",
+      "difficulty": "中等",
+      "keywords": [
+        "平方差公式",
+        "完全平方公式"
+      ],
+      "formulas": [
+        "(a+b)(a-b) = a² - b²",
+        "(a+b)² = a² + 2ab + b²"
+      ],
+      "examples": [
+        "(x+3)(x-3) = x² - 9"
+      ],
+      "common_mistakes": [
+        "完全平方公式漏掉中间项"
+      ],
+      "prerequisites": [
+        "8-4-1"
+      ],
+      "derived_to": [
+        "8-4-3"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "8-4-3",
+      "name": "因式分解",
+      "grade": 8,
+      "semester": "上",
+      "chapter": "第十四章 整式的乘法与因式分解",
+      "description": "理解因式分解的概念，掌握提公因式法和公式法",
+      "difficulty": "进阶",
+      "keywords": [
+        "因式分解",
+        "提公因式",
+        "公式法"
+      ],
+      "formulas": [],
+      "examples": [
+        "x² - 9 = (x+3)(x-3)"
+      ],
+      "common_mistakes": [
+        "因式分解不彻底"
+      ],
+      "prerequisites": [
+        "8-4-2"
+      ],
+      "derived_to": [
+        "9-1-1"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "8-5-1",
+      "name": "分式",
+      "grade": 8,
+      "semester": "上",
+      "chapter": "第十五章 分式",
+      "description": "理解分式的概念，掌握分式的基本性质",
+      "difficulty": "基础",
+      "keywords": [
+        "分式",
+        "分母",
+        "分子"
+      ],
+      "formulas": [
+        "分式的基本性质：分子分母同时乘除不为0的数，分式值不变"
+      ],
+      "examples": [
+        "x/2是分式"
+      ],
+      "common_mistakes": [
+        "忽略分母不为0的条件"
+      ],
+      "prerequisites": [
+        "7-2-1"
+      ],
+      "derived_to": [
+        "8-5-2"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "8-5-2",
+      "name": "分式的运算",
+      "grade": 8,
+      "semester": "上",
+      "chapter": "第十五章 分式",
+      "description": "掌握分式的乘除、加减运算法则",
+      "difficulty": "中等",
+      "keywords": [
+        "分式乘除",
+        "分式加减",
+        "通分"
+      ],
+      "formulas": [
+        "a/b · c/d = ac/bd"
+      ],
+      "examples": [
+        "1/x + 1/y = (x+y)/xy"
+      ],
+      "common_mistakes": [
+        "通分时最小公倍数找错"
+      ],
+      "prerequisites": [
+        "8-5-1"
+      ],
+      "derived_to": [
+        "8-5-3"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "8-5-3",
+      "name": "分式方程",
+      "grade": 8,
+      "semester": "上",
+      "chapter": "第十五章 分式",
+      "description": "理解分式方程的概念，掌握分式方程的解法",
+      "difficulty": "进阶",
+      "keywords": [
+        "分式方程",
+        "去分母",
+        "增根"
+      ],
+      "formulas": [],
+      "examples": [
+        "解方程: 1/x = 2，x = 1/2"
+      ],
+      "common_mistakes": [
+        "忘记检验增根"
+      ],
+      "prerequisites": [
+        "8-5-2",
+        "7-3-2"
+      ],
+      "derived_to": [
+        "9-1-1"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "8-6-1",
+      "name": "二次根式",
+      "grade": 8,
+      "semester": "下",
+      "chapter": "第十六章 二次根式",
+      "description": "理解二次根式的概念，掌握二次根式的性质",
+      "difficulty": "基础",
+      "keywords": [
+        "二次根式",
+        "被开方数"
+      ],
+      "formulas": [
+        "√a ≥ 0 (a≥0)"
+      ],
+      "examples": [
+        "√2, √3都是二次根式"
+      ],
+      "common_mistakes": [
+        "√(a²) = a 忘记绝对值"
+      ],
+      "prerequisites": [
+        "7-6-3"
+      ],
+      "derived_to": [
+        "8-6-2"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "8-6-2",
+      "name": "二次根式的乘除",
+      "grade": 8,
+      "semester": "下",
+      "chapter": "第十六章 二次根式",
+      "description": "掌握二次根式的乘除运算法则",
+      "difficulty": "中等",
+      "keywords": [
+        "二次根式乘法",
+        "二次根式除法"
+      ],
+      "formulas": [
+        "√a · √b = √(ab)"
+      ],
+      "examples": [
+        "√2 · √3 = √6"
+      ],
+      "common_mistakes": [
+        "忽略被开方数的非负性"
+      ],
+      "prerequisites": [
+        "8-6-1"
+      ],
+      "derived_to": [
+        "8-6-3"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "8-6-3",
+      "name": "二次根式的加减",
+      "grade": 8,
+      "semester": "下",
+      "chapter": "第十六章 二次根式",
+      "description": "掌握二次根式的加减运算法则",
+      "difficulty": "中等",
+      "keywords": [
+        "同类二次根式",
+        "合并"
+      ],
+      "formulas": [],
+      "examples": [
+        "√2 + 3√2 = 4√2"
+      ],
+      "common_mistakes": [
+        "非同类二次根式强行合并"
+      ],
+      "prerequisites": [
+        "8-6-2"
+      ],
+      "derived_to": [
+        "9-1-2"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "8-7-1",
+      "name": "勾股定理",
+      "grade": 8,
+      "semester": "下",
+      "chapter": "第十七章 勾股定理",
+      "description": "理解勾股定理，能运用勾股定理进行计算",
+      "difficulty": "中等",
+      "keywords": [
+        "勾股定理",
+        "直角三角形"
+      ],
+      "formulas": [
+        "a² + b² = c²"
+      ],
+      "examples": [
+        "直角三角形两直角边为3,4，斜边为5"
+      ],
+      "common_mistakes": [
+        "非直角三角形误用勾股定理"
+      ],
+      "prerequisites": [
+        "8-1-3"
+      ],
+      "derived_to": [
+        "8-7-2"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "8-7-2",
+      "name": "勾股定理的逆定理",
+      "grade": 8,
+      "semester": "下",
+      "chapter": "第十七章 勾股定理",
+      "description": "理解勾股定理的逆定理",
+      "difficulty": "中等",
+      "keywords": [
+        "逆定理",
+        "直角三角形判定"
+      ],
+      "formulas": [
+        "如果a² + b² = c²，则三角形是直角三角形"
+      ],
+      "examples": [
+        "三边为5,12,13的三角形是直角三角形"
+      ],
+      "common_mistakes": [
+        "混淆勾股定理和逆定理"
+      ],
+      "prerequisites": [
+        "8-7-1"
+      ],
+      "derived_to": [
+        "8-8-1"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "8-8-1",
+      "name": "平行四边形",
+      "grade": 8,
+      "semester": "下",
+      "chapter": "第十八章 平行四边形",
+      "description": "理解平行四边形的概念，掌握平行四边形的性质和判定",
+      "difficulty": "中等",
+      "keywords": [
+        "平行四边形",
+        "对边",
+        "对角"
+      ],
+      "formulas": [
+        "平行四边形对边相等"
+      ],
+      "examples": [
+        "平行四边形ABCD中，AB=CD"
+      ],
+      "common_mistakes": [
+        "混淆性质和判定"
+      ],
+      "prerequisites": [
+        "7-5-3"
+      ],
+      "derived_to": [
+        "8-8-2"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "8-8-2",
+      "name": "矩形、菱形、正方形",
+      "grade": 8,
+      "semester": "下",
+      "chapter": "第十八章 平行四边形",
+      "description": "理解矩形、菱形、正方形的概念",
+      "difficulty": "进阶",
+      "keywords": [
+        "矩形",
+        "菱形",
+        "正方形"
+      ],
+      "formulas": [
+        "矩形四个角都是直角"
+      ],
+      "examples": [
+        "正方形具有矩形和菱形的所有性质"
+      ],
+      "common_mistakes": [
+        "混淆三种特殊平行四边形的性质"
+      ],
+      "prerequisites": [
+        "8-8-1"
+      ],
+      "derived_to": [
+        "9-3-1"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "8-9-1",
+      "name": "变量与函数",
+      "grade": 8,
+      "semester": "下",
+      "chapter": "第十九章 一次函数",
+      "description": "理解变量、常量、函数的概念",
+      "difficulty": "基础",
+      "keywords": [
+        "变量",
+        "常量",
+        "函数"
+      ],
+      "formulas": [],
+      "examples": [
+        "y = 2x + 1中，x是自变量"
+      ],
+      "common_mistakes": [
+        "自变量取值范围确定错误"
+      ],
+      "prerequisites": [
+        "7-7-1"
+      ],
+      "derived_to": [
+        "8-9-2"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "8-9-2",
+      "name": "一次函数",
+      "grade": 8,
+      "semester": "下",
+      "chapter": "第十九章 一次函数",
+      "description": "理解一次函数的概念，掌握一次函数的图象和性质",
+      "difficulty": "中等",
+      "keywords": [
+        "一次函数",
+        "正比例函数"
+      ],
+      "formulas": [
+        "y = kx + b (k≠0)"
+      ],
+      "examples": [
+        "y = 2x + 1是一次函数"
+      ],
+      "common_mistakes": [
+        "k的正负与图象位置关系"
+      ],
+      "prerequisites": [
+        "8-9-1"
+      ],
+      "derived_to": [
+        "8-9-3"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "8-9-3",
+      "name": "一次函数与方程、不等式",
+      "grade": 8,
+      "semester": "下",
+      "chapter": "第十九章 一次函数",
+      "description": "理解一次函数与一元一次方程、不等式的关系",
+      "difficulty": "进阶",
+      "keywords": [
+        "函数与方程",
+        "函数与不等式"
+      ],
+      "formulas": [],
+      "examples": [
+        "y = 2x + 1与x轴交点是方程2x + 1 = 0的解"
+      ],
+      "common_mistakes": [
+        "不理解函数与方程的联系"
+      ],
+      "prerequisites": [
+        "8-9-2",
+        "7-3-2",
+        "7-9-1"
+      ],
+      "derived_to": [
+        "9-2-2"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "8-10-1",
+      "name": "数据的集中趋势",
+      "grade": 8,
+      "semester": "下",
+      "chapter": "第二十章 数据的分析",
+      "description": "理解平均数、中位数、众数的概念",
+      "difficulty": "基础",
+      "keywords": [
+        "平均数",
+        "中位数",
+        "众数"
+      ],
+      "formulas": [
+        "平均数 = 总和 / 个数"
+      ],
+      "examples": [
+        "数据1,2,3,4,5的平均数是3"
+      ],
+      "common_mistakes": [
+        "混淆中位数和平均数"
+      ],
+      "prerequisites": [
+        "7-10-2"
+      ],
+      "derived_to": [
+        "8-10-2"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "8-10-2",
+      "name": "数据的波动程度",
+      "grade": 8,
+      "semester": "下",
+      "chapter": "第二十章 数据的分析",
+      "description": "理解方差的概念，能计算方差",
+      "difficulty": "中等",
+      "keywords": [
+        "方差",
+        "标准差"
+      ],
+      "formulas": [
+        "方差 s² = 1/n × Σ(xi - x̄)²"
+      ],
+      "examples": [
+        "方差越大，数据波动越大"
+      ],
+      "common_mistakes": [
+        "方差公式记错"
+      ],
+      "prerequisites": [
+        "8-10-1"
+      ],
+      "derived_to": [
+        "9-4-1"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "9-1-1",
+      "name": "一元二次方程",
+      "grade": 9,
+      "semester": "上",
+      "chapter": "第二十一章 一元二次方程",
+      "description": "理解一元二次方程的概念，掌握一元二次方程的一般形式",
+      "difficulty": "基础",
+      "keywords": [
+        "一元二次方程",
+        "一般形式",
+        "ax²+bx+c=0"
+      ],
+      "formulas": [
+        "ax² + bx + c = 0 (a≠0)"
+      ],
+      "examples": [
+        "x² - 3x + 2 = 0是一元二次方程"
+      ],
+      "common_mistakes": [
+        "忘记a≠0的条件"
+      ],
+      "prerequisites": [
+        "8-5-3",
+        "8-4-3"
+      ],
+      "derived_to": [
+        "9-1-2"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "9-1-2",
+      "name": "解一元二次方程",
+      "grade": 9,
+      "semester": "上",
+      "chapter": "第二十一章 一元二次方程",
+      "description": "掌握解一元二次方程的方法：配方法、公式法、因式分解法",
+      "difficulty": "中等",
+      "keywords": [
+        "配方法",
+        "公式法",
+        "因式分解法",
+        "求根公式"
+      ],
+      "formulas": [
+        "x = (-b ± √(b²-4ac)) / 2a"
+      ],
+      "examples": [
+        "解x² - 3x + 2 = 0，x=1或x=2"
+      ],
+      "common_mistakes": [
+        "求根公式记错"
+      ],
+      "prerequisites": [
+        "9-1-1",
+        "8-6-3"
+      ],
+      "derived_to": [
+        "9-1-3"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "9-1-3",
+      "name": "一元二次方程的根与系数的关系",
+      "grade": 9,
+      "semester": "上",
+      "chapter": "第二十一章 一元二次方程",
+      "description": "理解一元二次方程的根与系数的关系（韦达定理）",
+      "difficulty": "进阶",
+      "keywords": [
+        "韦达定理",
+        "根与系数"
+      ],
+      "formulas": [
+        "x₁ + x₂ = -b/a",
+        "x₁ · x₂ = c/a"
+      ],
+      "examples": [
+        "x² - 3x + 2 = 0的两根之和为3，积为2"
+      ],
+      "common_mistakes": [
+        "韦达定理符号记错"
+      ],
+      "prerequisites": [
+        "9-1-2"
+      ],
+      "derived_to": [
+        "9-2-1"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "9-2-1",
+      "name": "二次函数",
+      "grade": 9,
+      "semester": "上",
+      "chapter": "第二十二章 二次函数",
+      "description": "理解二次函数的概念，掌握二次函数的图象和性质",
+      "difficulty": "中等",
+      "keywords": [
+        "二次函数",
+        "抛物线",
+        "顶点",
+        "对称轴"
+      ],
+      "formulas": [
+        "y = ax² + bx + c (a≠0)"
+      ],
+      "examples": [
+        "y = x²是二次函数"
+      ],
+      "common_mistakes": [
+        "a的正负与开口方向"
+      ],
+      "prerequisites": [
+        "8-9-2",
+        "9-1-1"
+      ],
+      "derived_to": [
+        "9-2-2"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "9-2-2",
+      "name": "二次函数与一元二次方程",
+      "grade": 9,
+      "semester": "上",
+      "chapter": "第二十二章 二次函数",
+      "description": "理解二次函数与一元二次方程的关系",
+      "difficulty": "进阶",
+      "keywords": [
+        "抛物线与x轴交点",
+        "判别式"
+      ],
+      "formulas": [
+        "Δ = b² - 4ac"
+      ],
+      "examples": [
+        "抛物线与x轴交点是方程的根"
+      ],
+      "common_mistakes": [
+        "不理解函数与方程的关系"
+      ],
+      "prerequisites": [
+        "9-2-1",
+        "9-1-2"
+      ],
+      "derived_to": [
+        "9-3-1"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "9-3-1",
+      "name": "旋转",
+      "grade": 9,
+      "semester": "上",
+      "chapter": "第二十三章 旋转",
+      "description": "理解旋转的概念，掌握旋转的性质",
+      "difficulty": "基础",
+      "keywords": [
+        "旋转",
+        "旋转中心",
+        "旋转角"
+      ],
+      "formulas": [],
+      "examples": [
+        "钟表指针的转动是旋转"
+      ],
+      "common_mistakes": [
+        "旋转方向判断错误"
+      ],
+      "prerequisites": [
+        "8-3-1"
+      ],
+      "derived_to": [
+        "9-3-2"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "9-3-2",
+      "name": "中心对称",
+      "grade": 9,
+      "semester": "上",
+      "chapter": "第二十三章 旋转",
+      "description": "理解中心对称和中心对称图形的概念",
+      "difficulty": "中等",
+      "keywords": [
+        "中心对称",
+        "对称中心"
+      ],
+      "formulas": [],
+      "examples": [
+        "平行四边形是中心对称图形"
+      ],
+      "common_mistakes": [
+        "混淆中心对称和轴对称"
+      ],
+      "prerequisites": [
+        "9-3-1"
+      ],
+      "derived_to": [
+        "9-4-1"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "9-4-1",
+      "name": "圆的有关性质",
+      "grade": 9,
+      "semester": "上",
+      "chapter": "第二十四章 圆",
+      "description": "理解圆的概念，掌握圆的有关性质",
+      "difficulty": "中等",
+      "keywords": [
+        "圆",
+        "半径",
+        "直径",
+        "弦",
+        "弧"
+      ],
+      "formulas": [
+        "圆的周长 = 2πr",
+        "圆的面积 = πr²"
+      ],
+      "examples": [
+        "直径所对的圆周角是直角"
+      ],
+      "common_mistakes": [
+        "圆周角定理应用错误"
+      ],
+      "prerequisites": [
+        "8-1-3"
+      ],
+      "derived_to": [
+        "9-4-2"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "9-4-2",
+      "name": "点、直线、圆和圆的位置关系",
+      "grade": 9,
+      "semester": "上",
+      "chapter": "第二十四章 圆",
+      "description": "理解点、直线、圆和圆的位置关系",
+      "difficulty": "进阶",
+      "keywords": [
+        "点在圆上",
+        "直线与圆相切",
+        "两圆相切"
+      ],
+      "formulas": [],
+      "examples": [
+        "直线与圆有唯一公共点时，直线与圆相切"
+      ],
+      "common_mistakes": [
+        "位置关系判断错误"
+      ],
+      "prerequisites": [
+        "9-4-1"
+      ],
+      "derived_to": [
+        "9-4-3"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "9-4-3",
+      "name": "正多边形和圆",
+      "grade": 9,
+      "semester": "上",
+      "chapter": "第二十四章 圆",
+      "description": "理解正多边形和圆的关系",
+      "difficulty": "中等",
+      "keywords": [
+        "正多边形",
+        "外接圆",
+        "内切圆"
+      ],
+      "formulas": [],
+      "examples": [
+        "正六边形可以分割成6个等边三角形"
+      ],
+      "common_mistakes": [
+        "正多边形中心角计算错误"
+      ],
+      "prerequisites": [
+        "9-4-2"
+      ],
+      "derived_to": [
+        "9-4-4"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "9-4-4",
+      "name": "弧长和扇形面积",
+      "grade": 9,
+      "semester": "上",
+      "chapter": "第二十四章 圆",
+      "description": "掌握弧长和扇形面积的计算公式",
+      "difficulty": "中等",
+      "keywords": [
+        "弧长",
+        "扇形面积"
+      ],
+      "formulas": [
+        "弧长 l = nπr/180",
+        "扇形面积 S = nπr²/360"
+      ],
+      "examples": [
+        "半径为2的圆中，90°的弧长为π"
+      ],
+      "common_mistakes": [
+        "公式记错"
+      ],
+      "prerequisites": [
+        "9-4-3"
+      ],
+      "derived_to": [
+        "9-5-1"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "9-5-1",
+      "name": "随机事件与概率",
+      "grade": 9,
+      "semester": "上",
+      "chapter": "第二十五章 概率初步",
+      "description": "理解随机事件的概念，掌握概率的意义",
+      "difficulty": "基础",
+      "keywords": [
+        "随机事件",
+        "概率",
+        "必然事件",
+        "不可能事件"
+      ],
+      "formulas": [
+        "P(A) = 事件A发生的结果数 / 所有可能结果数"
+      ],
+      "examples": [
+        "掷硬币正面朝上的概率是1/2"
+      ],
+      "common_mistakes": [
+        "混淆概率和频率"
+      ],
+      "prerequisites": [
+        "8-10-2"
+      ],
+      "derived_to": [
+        "9-5-2"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "9-5-2",
+      "name": "用列举法求概率",
+      "grade": 9,
+      "semester": "上",
+      "chapter": "第二十五章 概率初步",
+      "description": "掌握用列举法求概率的方法",
+      "difficulty": "中等",
+      "keywords": [
+        "列举法",
+        "列表法",
+        "树状图"
+      ],
+      "formulas": [],
+      "examples": [
+        "掷两枚硬币，都是正面朝上的概率是1/4"
+      ],
+      "common_mistakes": [
+        "列举不完整"
+      ],
+      "prerequisites": [
+        "9-5-1"
+      ],
+      "derived_to": [],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "9-6-1",
+      "name": "反比例函数",
+      "grade": 9,
+      "semester": "下",
+      "chapter": "第二十六章 反比例函数",
+      "description": "理解反比例函数的概念，掌握反比例函数的图象和性质",
+      "difficulty": "中等",
+      "keywords": [
+        "反比例函数",
+        "双曲线"
+      ],
+      "formulas": [
+        "y = k/x (k≠0)"
+      ],
+      "examples": [
+        "y = 1/x是反比例函数"
+      ],
+      "common_mistakes": [
+        "k的正负与图象位置关系"
+      ],
+      "prerequisites": [
+        "8-9-2"
+      ],
+      "derived_to": [
+        "9-6-2"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "9-6-2",
+      "name": "实际问题与反比例函数",
+      "grade": 9,
+      "semester": "下",
+      "chapter": "第二十六章 反比例函数",
+      "description": "能用反比例函数解决实际问题",
+      "difficulty": "进阶",
+      "keywords": [
+        "应用题",
+        "建模"
+      ],
+      "formulas": [],
+      "examples": [
+        "路程一定时，速度与时间成反比例"
+      ],
+      "common_mistakes": [
+        "建模错误"
+      ],
+      "prerequisites": [
+        "9-6-1"
+      ],
+      "derived_to": [
+        "9-7-1"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "9-7-1",
+      "name": "图形的相似",
+      "grade": 9,
+      "semester": "下",
+      "chapter": "第二十七章 相似",
+      "description": "理解相似图形的概念，掌握相似多边形的性质",
+      "difficulty": "基础",
+      "keywords": [
+        "相似",
+        "相似比",
+        "对应角",
+        "对应边"
+      ],
+      "formulas": [
+        "相似多边形对应边成比例，对应角相等"
+      ],
+      "examples": [
+        "两个正方形相似"
+      ],
+      "common_mistakes": [
+        "相似比顺序搞反"
+      ],
+      "prerequisites": [
+        "8-2-1"
+      ],
+      "derived_to": [
+        "9-7-2"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "9-7-2",
+      "name": "相似三角形",
+      "grade": 9,
+      "semester": "下",
+      "chapter": "第二十七章 相似",
+      "description": "掌握相似三角形的判定和性质",
+      "difficulty": "进阶",
+      "keywords": [
+        "相似三角形",
+        "判定",
+        "性质"
+      ],
+      "formulas": [
+        "相似三角形面积比等于相似比的平方"
+      ],
+      "examples": [
+        "两个等边三角形相似"
+      ],
+      "common_mistakes": [
+        "面积比与相似比的关系"
+      ],
+      "prerequisites": [
+        "9-7-1"
+      ],
+      "derived_to": [
+        "9-7-3"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "9-7-3",
+      "name": "位似",
+      "grade": 9,
+      "semester": "下",
+      "chapter": "第二十七章 相似",
+      "description": "理解位似图形的概念，掌握位似的性质",
+      "difficulty": "中等",
+      "keywords": [
+        "位似",
+        "位似中心",
+        "位似比"
+      ],
+      "formulas": [],
+      "examples": [
+        "放电影时，胶片与屏幕上的图形是位似图形"
+      ],
+      "common_mistakes": [
+        "位似中心找错"
+      ],
+      "prerequisites": [
+        "9-7-2"
+      ],
+      "derived_to": [
+        "9-8-1"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "9-8-1",
+      "name": "锐角三角函数",
+      "grade": 9,
+      "semester": "下",
+      "chapter": "第二十八章 锐角三角函数",
+      "description": "理解锐角三角函数的概念，掌握特殊角的三角函数值",
+      "difficulty": "中等",
+      "keywords": [
+        "正弦",
+        "余弦",
+        "正切",
+        "sin",
+        "cos",
+        "tan"
+      ],
+      "formulas": [
+        "sin A = 对边/斜边",
+        "cos A = 邻边/斜边",
+        "tan A = 对边/邻边"
+      ],
+      "examples": [
+        "sin 30° = 1/2"
+      ],
+      "common_mistakes": [
+        "三角函数定义记错"
+      ],
+      "prerequisites": [
+        "8-7-1"
+      ],
+      "derived_to": [
+        "9-8-2"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "9-8-2",
+      "name": "解直角三角形",
+      "grade": 9,
+      "semester": "下",
+      "chapter": "第二十八章 锐角三角函数",
+      "description": "掌握解直角三角形的方法",
+      "difficulty": "进阶",
+      "keywords": [
+        "解直角三角形",
+        "应用"
+      ],
+      "formulas": [],
+      "examples": [
+        "已知两边，求第三边和角"
+      ],
+      "common_mistakes": [
+        "边角关系应用错误"
+      ],
+      "prerequisites": [
+        "9-8-1"
+      ],
+      "derived_to": [
+        "9-9-1"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "9-9-1",
+      "name": "投影",
+      "grade": 9,
+      "semester": "下",
+      "chapter": "第二十九章 投影与视图",
+      "description": "理解投影的概念，掌握平行投影和中心投影",
+      "difficulty": "基础",
+      "keywords": [
+        "投影",
+        "平行投影",
+        "中心投影"
+      ],
+      "formulas": [],
+      "examples": [
+        "太阳光下的影子是平行投影"
+      ],
+      "common_mistakes": [
+        "混淆平行投影和中心投影"
+      ],
+      "prerequisites": [
+        "9-3-1"
+      ],
+      "derived_to": [
+        "9-9-2"
+      ],
+      "contains": [],
+      "related": []
+    },
+    {
+      "id": "9-9-2",
+      "name": "三视图",
+      "grade": 9,
+      "semester": "下",
+      "chapter": "第二十九章 投影与视图",
+      "description": "理解三视图的概念，能画简单几何体的三视图",
+      "difficulty": "中等",
+      "keywords": [
+        "主视图",
+        "俯视图",
+        "左视图"
+      ],
+      "formulas": [],
+      "examples": [
+        "正方体的三视图都是正方形"
+      ],
+      "common_mistakes": [
+        "三视图位置画错"
+      ],
+      "prerequisites": [
+        "9-9-1"
+      ],
+      "derived_to": [],
+      "contains": [],
+      "related": []
+    }
+  ],
+  "edges": [
+    {
+      "source": "7-1-1",
+      "target": "7-1-2",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "正数和负数是有理数的基础"
+    },
+    {
+      "source": "7-1-2",
+      "target": "7-1-2-1",
+      "relation": "包含关联",
+      "weight": 1.0,
+      "description": "数轴是有理数的子知识点"
+    },
+    {
+      "source": "7-1-2-1",
+      "target": "7-1-2-2",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "数轴是相反数的基础"
+    },
+    {
+      "source": "7-1-2-2",
+      "target": "7-1-2-3",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "相反数是绝对值的基础"
+    },
+    {
+      "source": "7-1-2-3",
+      "target": "7-1-3",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "绝对值是有理数加减法的基础"
+    },
+    {
+      "source": "7-1-3",
+      "target": "7-1-4",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "加减法是乘除法的基础"
+    },
+    {
+      "source": "7-1-4",
+      "target": "7-1-5",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "乘除法是乘方的基础"
+    },
+    {
+      "source": "7-1-5",
+      "target": "7-2-1",
+      "relation": "前置依赖",
+      "weight": 0.8,
+      "description": "乘方与整式相关"
+    },
+    {
+      "source": "7-2-1",
+      "target": "7-2-2",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "整式是整式加减的基础"
+    },
+    {
+      "source": "7-2-2",
+      "target": "7-3-1",
+      "relation": "前置依赖",
+      "weight": 0.8,
+      "description": "整式加减与方程相关"
+    },
+    {
+      "source": "7-3-1",
+      "target": "7-3-2",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "方程概念是解方程的基础"
+    },
+    {
+      "source": "7-3-2",
+      "target": "7-3-3",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "解方程是应用的基础"
+    },
+    {
+      "source": "7-4-1",
+      "target": "7-4-2",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "几何图形是线段的基础"
+    },
+    {
+      "source": "7-4-2",
+      "target": "7-4-3",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "线段是角的基础"
+    },
+    {
+      "source": "7-4-3",
+      "target": "7-5-1",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "角是相交线的基础"
+    },
+    {
+      "source": "7-5-1",
+      "target": "7-5-2",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "相交线是平行线的基础"
+    },
+    {
+      "source": "7-5-2",
+      "target": "7-5-3",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "平行线判定是性质的基础"
+    },
+    {
+      "source": "7-1-5",
+      "target": "7-6-1",
+      "relation": "前置依赖",
+      "weight": 0.8,
+      "description": "乘方与平方根相关"
+    },
+    {
+      "source": "7-6-1",
+      "target": "7-6-2",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "平方根是立方根的基础"
+    },
+    {
+      "source": "7-6-2",
+      "target": "7-6-3",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "立方根是实数的基础"
+    },
+    {
+      "source": "7-1-2-1",
+      "target": "7-7-1",
+      "relation": "前置依赖",
+      "weight": 0.8,
+      "description": "数轴与坐标系相关"
+    },
+    {
+      "source": "7-7-1",
+      "target": "7-7-2",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "坐标系是应用的基础"
+    },
+    {
+      "source": "7-3-2",
+      "target": "7-8-1",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "一元一次方程是二元一次方程组的基础"
+    },
+    {
+      "source": "7-8-1",
+      "target": "7-8-2",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "解方程组是应用的基础"
+    },
+    {
+      "source": "7-3-2",
+      "target": "7-9-1",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "方程与不等式相关"
+    },
+    {
+      "source": "7-9-1",
+      "target": "7-9-2",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "不等式是不等式组的基础"
+    },
+    {
+      "source": "7-10-1",
+      "target": "7-10-2",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "数据收集是直方图的基础"
+    },
+    {
+      "source": "7-1-2-1",
+      "target": "7-1-2-2",
+      "relation": "逻辑推导",
+      "weight": 1.0,
+      "description": "数轴上关于原点对称的点表示相反数"
+    },
+    {
+      "source": "7-1-2-1",
+      "target": "7-1-2-3",
+      "relation": "逻辑推导",
+      "weight": 1.0,
+      "description": "绝对值是数轴上的点到原点的距离"
+    },
+    {
+      "source": "7-5-2",
+      "target": "7-5-3",
+      "relation": "逻辑推导",
+      "weight": 1.0,
+      "description": "平行线判定与性质互为逆命题"
+    },
+    {
+      "source": "7-4-3",
+      "target": "8-1-1",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "角是三角形的基础"
+    },
+    {
+      "source": "8-1-1",
+      "target": "8-1-2",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "三角形概念是高、中线的基础"
+    },
+    {
+      "source": "8-1-2",
+      "target": "8-1-3",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "高、中线是内角和的基础"
+    },
+    {
+      "source": "8-1-3",
+      "target": "8-1-4",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "三角形内角和是多边形的基础"
+    },
+    {
+      "source": "8-1-3",
+      "target": "8-2-1",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "三角形内角和是全等的基础"
+    },
+    {
+      "source": "7-5-3",
+      "target": "8-2-1",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "平行线性质是全等的基础"
+    },
+    {
+      "source": "8-2-1",
+      "target": "8-2-2",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "全等概念是判定的基础"
+    },
+    {
+      "source": "8-2-2",
+      "target": "8-2-3",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "全等判定是角平分线性质的基础"
+    },
+    {
+      "source": "7-7-2",
+      "target": "8-3-1",
+      "relation": "前置依赖",
+      "weight": 0.8,
+      "description": "坐标平移与轴对称相关"
+    },
+    {
+      "source": "8-3-1",
+      "target": "8-3-2",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "轴对称是垂直平分线的基础"
+    },
+    {
+      "source": "8-3-2",
+      "target": "8-3-3",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "垂直平分线是等腰三角形的基础"
+    },
+    {
+      "source": "7-2-2",
+      "target": "8-4-1",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "整式加减是乘法的基础"
+    },
+    {
+      "source": "8-4-1",
+      "target": "8-4-2",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "整式乘法是乘法公式的基础"
+    },
+    {
+      "source": "8-4-2",
+      "target": "8-4-3",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "乘法公式是因式分解的基础"
+    },
+    {
+      "source": "7-2-1",
+      "target": "8-5-1",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "整式是分式的基础"
+    },
+    {
+      "source": "8-5-1",
+      "target": "8-5-2",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "分式概念是运算的基础"
+    },
+    {
+      "source": "8-5-2",
+      "target": "8-5-3",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "分式运算是分式方程的基础"
+    },
+    {
+      "source": "7-3-2",
+      "target": "8-5-3",
+      "relation": "前置依赖",
+      "weight": 0.8,
+      "description": "一元一次方程与分式方程相关"
+    },
+    {
+      "source": "7-6-3",
+      "target": "8-6-1",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "实数是二次根式的基础"
+    },
+    {
+      "source": "8-6-1",
+      "target": "8-6-2",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "二次根式概念是乘除的基础"
+    },
+    {
+      "source": "8-6-2",
+      "target": "8-6-3",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "乘除是加减的基础"
+    },
+    {
+      "source": "8-1-3",
+      "target": "8-7-1",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "三角形内角和是勾股定理的基础"
+    },
+    {
+      "source": "8-7-1",
+      "target": "8-7-2",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "勾股定理是逆定理的基础"
+    },
+    {
+      "source": "7-5-3",
+      "target": "8-8-1",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "平行线性质是平行四边形的基础"
+    },
+    {
+      "source": "8-8-1",
+      "target": "8-8-2",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "平行四边形是特殊平行四边形的基础"
+    },
+    {
+      "source": "7-7-1",
+      "target": "8-9-1",
+      "relation": "前置依赖",
+      "weight": 0.8,
+      "description": "坐标系与函数相关"
+    },
+    {
+      "source": "8-9-1",
+      "target": "8-9-2",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "函数概念是一次函数的基础"
+    },
+    {
+      "source": "8-9-2",
+      "target": "8-9-3",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "一次函数是与方程不等式关系的基础"
+    },
+    {
+      "source": "7-3-2",
+      "target": "8-9-3",
+      "relation": "前置依赖",
+      "weight": 0.8,
+      "description": "一元一次方程与函数相关"
+    },
+    {
+      "source": "7-9-1",
+      "target": "8-9-3",
+      "relation": "前置依赖",
+      "weight": 0.8,
+      "description": "不等式与函数相关"
+    },
+    {
+      "source": "7-10-2",
+      "target": "8-10-1",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "直方图是数据分析的基础"
+    },
+    {
+      "source": "8-10-1",
+      "target": "8-10-2",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "集中趋势是波动程度的基础"
+    },
+    {
+      "source": "8-1-3",
+      "target": "8-1-4",
+      "relation": "逻辑推导",
+      "weight": 1.0,
+      "description": "多边形内角和由三角形内角和推导"
+    },
+    {
+      "source": "8-7-1",
+      "target": "8-7-2",
+      "relation": "逻辑推导",
+      "weight": 1.0,
+      "description": "勾股定理与逆定理互为逆命题"
+    },
+    {
+      "source": "8-4-1",
+      "target": "8-4-3",
+      "relation": "逻辑推导",
+      "weight": 1.0,
+      "description": "因式分解是整式乘法的逆运算"
+    },
+    {
+      "source": "8-5-3",
+      "target": "9-1-1",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "分式方程是一元二次方程的基础"
+    },
+    {
+      "source": "8-4-3",
+      "target": "9-1-1",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "因式分解是解一元二次方程的基础"
+    },
+    {
+      "source": "9-1-1",
+      "target": "9-1-2",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "一元二次方程概念是解法的基础"
+    },
+    {
+      "source": "8-6-3",
+      "target": "9-1-2",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "二次根式是求根公式的基础"
+    },
+    {
+      "source": "9-1-2",
+      "target": "9-1-3",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "解方程是韦达定理的基础"
+    },
+    {
+      "source": "8-9-2",
+      "target": "9-2-1",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "一次函数是二次函数的基础"
+    },
+    {
+      "source": "9-1-1",
+      "target": "9-2-1",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "一元二次方程与二次函数相关"
+    },
+    {
+      "source": "9-2-1",
+      "target": "9-2-2",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "二次函数是与方程关系的基础"
+    },
+    {
+      "source": "9-1-2",
+      "target": "9-2-2",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "一元二次方程与函数相关"
+    },
+    {
+      "source": "8-3-1",
+      "target": "9-3-1",
+      "relation": "前置依赖",
+      "weight": 0.8,
+      "description": "轴对称与旋转相关"
+    },
+    {
+      "source": "9-3-1",
+      "target": "9-3-2",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "旋转是中心对称的基础"
+    },
+    {
+      "source": "8-1-3",
+      "target": "9-4-1",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "三角形内角和是圆的基础"
+    },
+    {
+      "source": "9-4-1",
+      "target": "9-4-2",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "圆的性质是位置关系的基础"
+    },
+    {
+      "source": "9-4-2",
+      "target": "9-4-3",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "位置关系是正多边形的基础"
+    },
+    {
+      "source": "9-4-3",
+      "target": "9-4-4",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "正多边形是弧长扇形的基础"
+    },
+    {
+      "source": "8-10-2",
+      "target": "9-5-1",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "数据分析是概率的基础"
+    },
+    {
+      "source": "9-5-1",
+      "target": "9-5-2",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "概率概念是列举法的基础"
+    },
+    {
+      "source": "8-9-2",
+      "target": "9-6-1",
+      "relation": "前置依赖",
+      "weight": 0.8,
+      "description": "一次函数与反比例函数相关"
+    },
+    {
+      "source": "9-6-1",
+      "target": "9-6-2",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "反比例函数是应用的基础"
+    },
+    {
+      "source": "8-2-1",
+      "target": "9-7-1",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "全等三角形是相似的基础"
+    },
+    {
+      "source": "9-7-1",
+      "target": "9-7-2",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "相似概念是相似三角形的基础"
+    },
+    {
+      "source": "9-7-2",
+      "target": "9-7-3",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "相似三角形是位似的基础"
+    },
+    {
+      "source": "8-7-1",
+      "target": "9-8-1",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "勾股定理是三角函数的基础"
+    },
+    {
+      "source": "9-8-1",
+      "target": "9-8-2",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "三角函数是解直角三角形的基础"
+    },
+    {
+      "source": "9-3-1",
+      "target": "9-9-1",
+      "relation": "前置依赖",
+      "weight": 0.8,
+      "description": "旋转与投影相关"
+    },
+    {
+      "source": "9-9-1",
+      "target": "9-9-2",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "投影是三视图的基础"
+    },
+    {
+      "source": "9-1-1",
+      "target": "9-2-1",
+      "relation": "逻辑推导",
+      "weight": 1.0,
+      "description": "一元二次方程与二次函数互相关联"
+    },
+    {
+      "source": "9-7-1",
+      "target": "9-7-2",
+      "relation": "逻辑推导",
+      "weight": 1.0,
+      "description": "相似三角形由相似图形推导"
+    },
+    {
+      "source": "7-3-3",
+      "target": "8-1-1",
+      "relation": "前置依赖",
+      "weight": 0.8,
+      "description": "方程应用是三角形应用的基础"
+    },
+    {
+      "source": "7-5-3",
+      "target": "8-2-1",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "平行线性质是全等三角形的基础"
+    },
+    {
+      "source": "7-4-3",
+      "target": "8-1-1",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "角是三角形的基础"
+    },
+    {
+      "source": "7-1-2-1",
+      "target": "8-9-1",
+      "relation": "前置依赖",
+      "weight": 0.8,
+      "description": "数轴与函数相关"
+    },
+    {
+      "source": "7-3-2",
+      "target": "9-1-1",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "一元一次方程是一元二次方程的基础"
+    },
+    {
+      "source": "7-2-2",
+      "target": "9-1-1",
+      "relation": "前置依赖",
+      "weight": 0.8,
+      "description": "整式加减与方程相关"
+    },
+    {
+      "source": "8-4-3",
+      "target": "9-1-1",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "因式分解是一元二次方程的基础"
+    },
+    {
+      "source": "8-9-2",
+      "target": "9-2-1",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "一次函数是二次函数的基础"
+    },
+    {
+      "source": "8-7-1",
+      "target": "9-4-1",
+      "relation": "前置依赖",
+      "weight": 0.8,
+      "description": "勾股定理与圆相关"
+    },
+    {
+      "source": "8-7-1",
+      "target": "9-8-1",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "勾股定理是三角函数的基础"
+    },
+    {
+      "source": "8-2-1",
+      "target": "9-7-1",
+      "relation": "前置依赖",
+      "weight": 1.0,
+      "description": "全等三角形是相似的基础"
+    }
+  ]
+}

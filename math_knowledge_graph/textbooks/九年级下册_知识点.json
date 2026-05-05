@@ -1,0 +1,179 @@
+[
+  {
+    "id": "9-26-1",
+    "name": "反比例函数",
+    "grade": 9,
+    "semester": "下册",
+    "chapter": "反比例函数",
+    "section": "反比例函数",
+    "description": "２信息技术应用　探索反比例函数的性质１０",
+    "difficulty": 3,
+    "keywords": [
+      "信息技术应用",
+      "探索反比例函数的性质"
+    ],
+    "formulas": [],
+    "examples": [],
+    "exercises": []
+  },
+  {
+    "id": "9-26-2",
+    "name": "实际问题与反比例函数",
+    "grade": 9,
+    "semester": "下册",
+    "chapter": "反比例函数",
+    "section": "实际问题与反比例函数",
+    "description": "１２阅读与思考　生活中的反比例关系１７数学活动１９小结２０复习题２６２１",
+    "difficulty": 3,
+    "keywords": [
+      "阅读与思考",
+      "生活中的反比例关系",
+      "数学活动",
+      "小结",
+      "复习题"
+    ],
+    "formulas": [],
+    "examples": [],
+    "exercises": []
+  },
+  {
+    "id": "9-27-1",
+    "name": "图形的相似",
+    "grade": 9,
+    "semester": "下册",
+    "chapter": "相似",
+    "section": "图形的相似",
+    "description": "２４",
+    "difficulty": 3,
+    "keywords": [],
+    "formulas": [],
+    "examples": [],
+    "exercises": []
+  },
+  {
+    "id": "9-27-2",
+    "name": "相似三角形",
+    "grade": 9,
+    "semester": "下册",
+    "chapter": "相似",
+    "section": "相似三角形",
+    "description": "２９观察与猜想　奇妙的分形图形４５",
+    "difficulty": 3,
+    "keywords": [
+      "观察与猜想",
+      "奇妙的分形图形"
+    ],
+    "formulas": [],
+    "examples": [],
+    "exercises": []
+  },
+  {
+    "id": "9-27-3",
+    "name": "位似",
+    "grade": 9,
+    "semester": "下册",
+    "chapter": "相似",
+    "section": "位似",
+    "description": "４７信息技术应用　探索位似的性质５３数学活动５４小结５６复习题２７５７\f书书书",
+    "difficulty": 3,
+    "keywords": [
+      "信息技术应用",
+      "探索位似的性质",
+      "数学活动",
+      "小结",
+      "复习题",
+      "书书书"
+    ],
+    "formulas": [],
+    "examples": [],
+    "exercises": []
+  },
+  {
+    "id": "9-28-1",
+    "name": "锐角三角函数",
+    "grade": 9,
+    "semester": "下册",
+    "chapter": "锐角三角函数",
+    "section": "锐角三角函数",
+    "description": "６１阅读与思考　一张古老的“三角函数表”７０",
+    "difficulty": 3,
+    "keywords": [
+      "阅读与思考",
+      "一张古老的“三角函数表”"
+    ],
+    "formulas": [],
+    "examples": [],
+    "exercises": []
+  },
+  {
+    "id": "9-28-2",
+    "name": "解直角三角形及其应用",
+    "grade": 9,
+    "semester": "下册",
+    "chapter": "锐角三角函数",
+    "section": "解直角三角形及其应用",
+    "description": "７２阅读与思考　山坡的高度８０数学活动８１小结８３复习题２８８４",
+    "difficulty": 3,
+    "keywords": [
+      "阅读与思考",
+      "山坡的高度",
+      "数学活动",
+      "小结",
+      "复习题"
+    ],
+    "formulas": [],
+    "examples": [],
+    "exercises": []
+  },
+  {
+    "id": "9-29-1",
+    "name": "投影",
+    "grade": 9,
+    "semester": "下册",
+    "chapter": "投影与视图",
+    "section": "投影",
+    "description": "８７",
+    "difficulty": 3,
+    "keywords": [],
+    "formulas": [],
+    "examples": [],
+    "exercises": []
+  },
+  {
+    "id": "9-29-2",
+    "name": "三视图",
+    "grade": 9,
+    "semester": "下册",
+    "chapter": "投影与视图",
+    "section": "三视图",
+    "description": "９４阅读与思考　视图的产生与应用１０４",
+    "difficulty": 3,
+    "keywords": [
+      "阅读与思考",
+      "视图的产生与应用"
+    ],
+    "formulas": [],
+    "examples": [],
+    "exercises": []
+  },
+  {
+    "id": "9-29-3",
+    "name": "课题学习　制作立体模型",
+    "grade": 9,
+    "semester": "下册",
+    "chapter": "投影与视图",
+    "section": "课题学习　制作立体模型",
+    "description": "１０５数学活动１０７小结１０８复习题２９１０９部分中英文词汇索引１１２\f\f书书书",
+    "difficulty": 3,
+    "keywords": [
+      "数学活动",
+      "小结",
+      "复习题",
+      "部分中英文词汇索引",
+      "书书书"
+    ],
+    "formulas": [],
+    "examples": [],
+    "exercises": []
+  }
+]

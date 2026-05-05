@@ -1,0 +1,302 @@
+[
+  {
+    "id": "7-7-1",
+    "name": "相交线",
+    "grade": 7,
+    "semester": "下册",
+    "chapter": "相交线与平行线",
+    "section": "相交线",
+    "description": "２观察与猜想　看图时的错觉１０",
+    "difficulty": 3,
+    "keywords": [
+      "观察与猜想",
+      "看图时的错觉"
+    ],
+    "formulas": [],
+    "examples": [],
+    "exercises": []
+  },
+  {
+    "id": "7-7-2",
+    "name": "平行线",
+    "grade": 7,
+    "semester": "下册",
+    "chapter": "相交线与平行线",
+    "section": "平行线",
+    "description": "１１",
+    "difficulty": 3,
+    "keywords": [],
+    "formulas": [],
+    "examples": [],
+    "exercises": []
+  },
+  {
+    "id": "7-7-3",
+    "name": "定义、命题、定理",
+    "grade": 7,
+    "semester": "下册",
+    "chapter": "相交线与平行线",
+    "section": "定义、命题、定理",
+    "description": "２２",
+    "difficulty": 3,
+    "keywords": [],
+    "formulas": [],
+    "examples": [],
+    "exercises": []
+  },
+  {
+    "id": "7-7-4",
+    "name": "平移",
+    "grade": 7,
+    "semester": "下册",
+    "chapter": "相交线与平行线",
+    "section": "平移",
+    "description": "２６探究与发现　利用平移设计图案３０数学活动３２小结３４",
+    "difficulty": 3,
+    "keywords": [
+      "探究与发现",
+      "利用平移设计图案",
+      "数学活动",
+      "小结"
+    ],
+    "formulas": [],
+    "examples": [],
+    "exercises": []
+  },
+  {
+    "id": "7-8-1",
+    "name": "平方根",
+    "grade": 7,
+    "semester": "下册",
+    "chapter": "实数",
+    "section": "平方根",
+    "description": "４０",
+    "difficulty": 3,
+    "keywords": [],
+    "formulas": [],
+    "examples": [],
+    "exercises": []
+  },
+  {
+    "id": "7-8-2",
+    "name": "立方根",
+    "grade": 7,
+    "semester": "下册",
+    "chapter": "实数",
+    "section": "立方根",
+    "description": "４８",
+    "difficulty": 3,
+    "keywords": [],
+    "formulas": [],
+    "examples": [],
+    "exercises": []
+  },
+  {
+    "id": "7-8-3",
+    "name": "实数及其简单运算",
+    "grade": 7,
+    "semester": "下册",
+    "chapter": "实数",
+    "section": "实数及其简单运算",
+    "description": "５２阅读与思考　为什么　槡２不是有理数５８数学活动５９小结６０",
+    "difficulty": 3,
+    "keywords": [
+      "阅读与思考",
+      "为什么",
+      "不是有理数",
+      "数学活动",
+      "小结"
+    ],
+    "formulas": [],
+    "examples": [],
+    "exercises": []
+  },
+  {
+    "id": "7-9-1",
+    "name": "用坐标描述平面内点的位置",
+    "grade": 7,
+    "semester": "下册",
+    "chapter": "平面直角坐标系",
+    "section": "用坐标描述平面内点的位置",
+    "description": "６４阅读与思考　用经纬度表示地理位置７１",
+    "difficulty": 3,
+    "keywords": [
+      "阅读与思考",
+      "用经纬度表示地理位置"
+    ],
+    "formulas": [],
+    "examples": [],
+    "exercises": []
+  },
+  {
+    "id": "7-9-2",
+    "name": "坐标方法的简单应用",
+    "grade": 7,
+    "semester": "下册",
+    "chapter": "平面直角坐标系",
+    "section": "坐标方法的简单应用",
+    "description": "７２数学活动８２小结８３",
+    "difficulty": 3,
+    "keywords": [
+      "数学活动",
+      "小结"
+    ],
+    "formulas": [],
+    "examples": [],
+    "exercises": []
+  },
+  {
+    "id": "7-10-1",
+    "name": "二元一次方程组的概念",
+    "grade": 7,
+    "semester": "下册",
+    "chapter": "二元一次方程组",
+    "section": "二元一次方程组的概念",
+    "description": "８８",
+    "difficulty": 3,
+    "keywords": [],
+    "formulas": [],
+    "examples": [],
+    "exercises": []
+  },
+  {
+    "id": "7-10-2",
+    "name": "消元———解二元一次方程组",
+    "grade": 7,
+    "semester": "下册",
+    "chapter": "二元一次方程组",
+    "section": "消元———解二元一次方程组",
+    "description": "９１",
+    "difficulty": 3,
+    "keywords": [],
+    "formulas": [],
+    "examples": [],
+    "exercises": []
+  },
+  {
+    "id": "7-10-3",
+    "name": "实际问题与二元一次方程组",
+    "grade": 7,
+    "semester": "下册",
+    "chapter": "二元一次方程组",
+    "section": "实际问题与二元一次方程组",
+    "description": "１０１",
+    "difficulty": 3,
+    "keywords": [],
+    "formulas": [],
+    "examples": [],
+    "exercises": []
+  },
+  {
+    "id": "7-10-4",
+    "name": "三元一次方程组的解法",
+    "grade": 7,
+    "semester": "下册",
+    "chapter": "二元一次方程组",
+    "section": "三元一次方程组的解法",
+    "description": "１０７图说数学史　中国古代数学的光辉成就———解多元一次方程组１１２阅读与思考　中国古代著名的一次不定方程组问题１１４数学活动１１５小结１１７",
+    "difficulty": 3,
+    "keywords": [
+      "图说数学史",
+      "中国古代数学的光辉成就———解多元一次方程组",
+      "阅读与思考",
+      "中国古代著名的一次不定方程组问题",
+      "数学活动",
+      "小结"
+    ],
+    "formulas": [],
+    "examples": [],
+    "exercises": []
+  },
+  {
+    "id": "7-11-1",
+    "name": "不等式",
+    "grade": 7,
+    "semester": "下册",
+    "chapter": "不等式与不等式组",
+    "section": "不等式",
+    "description": "１２１阅读与思考　用求差法比较大小１３０",
+    "difficulty": 3,
+    "keywords": [
+      "阅读与思考",
+      "用求差法比较大小"
+    ],
+    "formulas": [],
+    "examples": [],
+    "exercises": []
+  },
+  {
+    "id": "7-11-2",
+    "name": "一元一次不等式",
+    "grade": 7,
+    "semester": "下册",
+    "chapter": "不等式与不等式组",
+    "section": "一元一次不等式",
+    "description": "１３１",
+    "difficulty": 3,
+    "keywords": [],
+    "formulas": [],
+    "examples": [],
+    "exercises": []
+  },
+  {
+    "id": "7-11-3",
+    "name": "一元一次不等式组",
+    "grade": 7,
+    "semester": "下册",
+    "chapter": "不等式与不等式组",
+    "section": "一元一次不等式组",
+    "description": "１３８数学活动１４２小结１４３综合与实践　低碳生活１４６",
+    "difficulty": 3,
+    "keywords": [
+      "数学活动",
+      "小结",
+      "综合与实践",
+      "低碳生活"
+    ],
+    "formulas": [],
+    "examples": [],
+    "exercises": []
+  },
+  {
+    "id": "7-12-1",
+    "name": "统计调查",
+    "grade": 7,
+    "semester": "下册",
+    "chapter": "数据的收集、整理与描述",
+    "section": "统计调查",
+    "description": "１５１探究与发现　瓶子中有多少粒豆子１５９",
+    "difficulty": 3,
+    "keywords": [
+      "探究与发现",
+      "瓶子中有多少粒豆子"
+    ],
+    "formulas": [],
+    "examples": [],
+    "exercises": []
+  },
+  {
+    "id": "7-12-2",
+    "name": "用统计图描述数据",
+    "grade": 7,
+    "semester": "下册",
+    "chapter": "数据的收集、整理与描述",
+    "section": "用统计图描述数据",
+    "description": "１６０信息技术应用　利用信息技术工具画统计图１７８图说数学史　统计学点滴１８０数学活动１８２小结１８３综合与实践　白昼时长规律的探究１８８\f书书书",
+    "difficulty": 3,
+    "keywords": [
+      "信息技术应用",
+      "利用信息技术工具画统计图",
+      "图说数学史",
+      "统计学点滴",
+      "数学活动",
+      "小结",
+      "综合与实践",
+      "白昼时长规律的探究",
+      "书书书"
+    ],
+    "formulas": [],
+    "examples": [],
+    "exercises": []
+  }
+]

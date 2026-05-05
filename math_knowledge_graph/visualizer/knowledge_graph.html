@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>初中数学知识图谱导航</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container { max-width: 1400px; margin: 0 auto; }
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        .stat-card {
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            padding: 15px 30px;
+            border-radius: 15px;
+            color: white;
+            text-align: center;
+        }
+        .stat-card .number { font-size: 2em; font-weight: bold; }
+        .main-content {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 20px;
+        }
+        .sidebar {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            max-height: calc(100vh - 200px);
+            overflow-y: auto;
+        }
+        .sidebar h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+        }
+        .category-item {
+            padding: 10px 15px;
+            margin: 5px 0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .category-item:hover {
+            background: #f0f0ff;
+            transform: translateX(5px);
+        }
+        .category-item.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .knowledge-tree {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        .tree-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .tree-header h2 { color: #333; }
+        .toggle-btn {
+            padding: 8px 20px;
+            border: none;
+            border-radius: 20px;
+            background: #f0f0f0;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        .toggle-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .tree-node { margin: 5px 0; }
+        .node-header {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            gap: 10px;
+        }
+        .node-header:hover { background: #f8f9fa; }
+        .node-header.level-1 {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-size: 1.3em;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+        .node-header.level-2 {
+            background: #e8eaf6;
+            color: #3f51b5;
+            font-weight: bold;
+            margin-left: 20px;
+        }
+        .node-header.level-3 {
+            margin-left: 40px;
+            border-left: 3px solid #667eea;
+        }
+        .expand-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: rgba(102, 126, 234, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em;
+            transition: transform 0.3s;
+        }
+        .expand-icon.expanded { transform: rotate(90deg); }
+        .node-name { flex: 1; }
+        .node-badge {
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            background: #e8eaf6;
+            color: #3f51b5;
+        }
+        .node-children { display: none; }
+        .node-children.expanded { display: block; }
+        .detail-panel {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            border-left: 4px solid #667eea;
+        }
+        .detail-panel.show { display: block; }
+        .detail-panel h3 { color: #667eea; margin-bottom: 15px; }
+        .detail-section { margin: 15px 0; }
+        .detail-section h4 { color: #333; margin-bottom: 10px; }
+        .detail-section p { color: #666; line-height: 1.8; }
+        @media (max-width: 900px) {
+            .main-content { grid-template-columns: 1fr; }
+            .sidebar { max-height: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>初中数学知识图谱导航</h1>
+            <p>多维度知识体系 · 点击展开探索</p>
+        </div>
+        
+        <div class="stats">
+            <div class="stat-card">
+                <div class="number">27</div>
+                <div class="label">知识点总数</div>
+            </div>
+            <div class="stat-card">
+                <div class="number">15</div>
+                <div class="label">分类维度</div>
+            </div>
+            <div class="stat-card">
+                <div class="number">4级</div>
+                <div class="label">知识层级</div>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <div class="sidebar">
+                <h2>📂 分类导航</h2>
+                <div id="categoryList"></div>
+            </div>
+            
+            <div class="knowledge-tree">
+                <div class="tree-header">
+                    <h2>🌳 知识图谱</h2>
+                    <div>
+                        <button class="toggle-btn active" onclick="expandAll()">全部展开</button>
+                        <button class="toggle-btn" onclick="collapseAll()">全部折叠</button>
+                    </div>
+                </div>
+                <div id="treeContent"></div>
+                <div class="detail-panel" id="detailPanel"></div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+    // 数据直接嵌入
+    const graphData = {
+        "nodes": {
+            "topic_triangle": {
+                "id": "topic_triangle",
+                "name": "三角形",
+                "level": 1,
+                "categories": ["topic_geometry"],
+                "parent_id": null,
+                "children": ["subtopic_triangle_basic", "subtopic_triangle_properties", "subtopic_triangle_congruence", "subtopic_triangle_similarity", "subtopic_triangle_special", "subtopic_triangle_calculation"],
+                "difficulty": 3,
+                "importance": 5
+            },
+            "subtopic_triangle_basic": {
+                "id": "subtopic_triangle_basic",
+                "name": "三角形的基本概念",
+                "level": 2,
+                "categories": ["topic_geometry"],
+                "parent_id": "topic_triangle",
+                "children": ["kp_triangle_definition", "kp_triangle_elements", "kp_triangle_classification"],
+                "difficulty": 2,
+                "importance": 4
+            },
+            "subtopic_triangle_properties": {
+                "id": "subtopic_triangle_properties",
+                "name": "三角形的性质",
+                "level": 2,
+                "categories": ["topic_geometry"],
+                "parent_id": "topic_triangle",
+                "children": ["kp_triangle_angle_sum", "kp_triangle_exterior_angle", "kp_triangle_inequality", "kp_triangle_midline"],
+                "difficulty": 3,
+                "importance": 5
+            },
+            "subtopic_triangle_congruence": {
+                "id": "subtopic_triangle_congruence",
+                "name": "全等三角形",
+                "level": 2,
+                "categories": ["topic_geometry"],
+                "parent_id": "topic_triangle",
+                "children": ["kp_congruence_sss", "kp_congruence_sas", "kp_congruence_asa", "kp_congruence_aas", "kp_congruence_hl"],
+                "difficulty": 3,
+                "importance": 5
+            },
+            "subtopic_triangle_similarity": {
+                "id": "subtopic_triangle_similarity",
+                "name": "相似三角形",
+                "level": 2,
+                "categories": ["topic_geometry"],
+                "parent_id": "topic_triangle",
+                "children": ["kp_similarity_aa", "kp_similarity_sas", "kp_similarity_sss", "kp_similarity_properties"],
+                "difficulty": 4,
+                "importance": 5
+            },
+            "subtopic_triangle_special": {
+                "id": "subtopic_triangle_special",
+                "name": "特殊三角形",
+                "level": 2,
+                "categories": ["topic_geometry"],
+                "parent_id": "topic_triangle",
+                "children": ["kp_isosceles_triangle", "kp_equilateral_triangle", "kp_right_triangle", "kp_pythagorean_theorem"],
+                "difficulty": 3,
+                "importance": 5
+            },
+            "subtopic_triangle_calculation": {
+                "id": "subtopic_triangle_calculation",
+                "name": "三角形的计算",
+                "level": 2,
+                "categories": ["topic_geometry"],
+                "parent_id": "topic_triangle",
+                "children": [],
+                "difficulty": 3,
+                "importance": 4
+            },
+            "kp_triangle_definition": {
+                "id": "kp_triangle_definition",
+                "name": "三角形的定义",
+                "level": 3,
+                "categories": ["topic_geometry"],
+                "parent_id": "subtopic_triangle_basic",
+                "children": [],
+                "difficulty": 2,
+                "importance": 4,
+                "content": {"explanation": "由不在同一直线上的三条线段首尾顺次连接所组成的封闭图形"}
+            },
+            "kp_triangle_elements": {
+                "id": "kp_triangle_elements",
+                "name": "三角形的元素",
+                "level": 3,
+                "categories": ["topic_geometry"],
+                "parent_id": "subtopic_triangle_basic",
+                "children": [],
+                "difficulty": 2,
+                "importance": 4,
+                "content": {"explanation": "边、角、顶点、高、中线、角平分线"}
+            },
+            "kp_triangle_classification": {
+                "id": "kp_triangle_classification",
+                "name": "三角形的分类",
+                "level": 3,
+                "categories": ["topic_geometry"],
+                "parent_id": "subtopic_triangle_basic",
+                "children": [],
+                "difficulty": 2,
+                "importance": 4,
+                "content": {"explanation": "按边分：等边、等腰、不等边；按角分：锐角、直角、钝角"}
+            },
+            "kp_triangle_angle_sum": {
+                "id": "kp_triangle_angle_sum",
+                "name": "三角形内角和定理",
+                "level": 3,
+                "categories": ["theorem_triangle"],
+                "parent_id": "subtopic_triangle_properties",
+                "children": [],
+                "difficulty": 3,
+                "importance": 5,
+                "content": {"explanation": "三角形三个内角的和等于180°"}
+            },
+            "kp_triangle_exterior_angle": {
+                "id": "kp_triangle_exterior_angle",
+                "name": "三角形外角性质",
+                "level": 3,
+                "categories": ["theorem_triangle"],
+                "parent_id": "subtopic_triangle_properties",
+                "children": [],
+                "difficulty": 3,
+                "importance": 5,
+                "content": {"explanation": "三角形的一个外角等于与它不相邻的两个内角的和"}
+            },
+            "kp_triangle_inequality": {
+                "id": "kp_triangle_inequality",
+                "name": "三角形三边关系",
+                "level": 3,
+                "categories": ["theorem_triangle"],
+                "parent_id": "subtopic_triangle_properties",
+                "children": [],
+                "difficulty": 3,
+                "importance": 5,
+                "content": {"explanation": "三角形任意两边之和大于第三边，任意两边之差小于第三边"}
+            },
+            "kp_triangle_midline": {
+                "id": "kp_triangle_midline",
+                "name": "三角形中位线定理",
+                "level": 3,
+                "categories": ["theorem_triangle"],
+                "parent_id": "subtopic_triangle_properties",
+                "children": [],
+                "difficulty": 3,
+                "importance": 5,
+                "content": {"explanation": "三角形的中位线平行于第三边且等于第三边的一半"}
+            },
+            "kp_congruence_sss": {
+                "id": "kp_congruence_sss",
+                "name": "SSS（边边边）",
+                "level": 3,
+                "categories": ["method_proof"],
+                "parent_id": "subtopic_triangle_congruence",
+                "children": [],
+                "difficulty": 3,
+                "importance": 5,
+                "content": {"explanation": "三边对应相等的两个三角形全等"}
+            },
+            "kp_congruence_sas": {
+                "id": "kp_congruence_sas",
+                "name": "SAS（边角边）",
+                "level": 3,
+                "categories": ["method_proof"],
+                "parent_id": "subtopic_triangle_congruence",
+                "children": [],
+                "difficulty": 3,
+                "importance": 5,
+                "content": {"explanation": "两边及其夹角对应相等的两个三角形全等"}
+            },
+            "kp_congruence_asa": {
+                "id": "kp_congruence_asa",
+                "name": "ASA（角边角）",
+                "level": 3,
+                "categories": ["method_proof"],
+                "parent_id": "subtopic_triangle_congruence",
+                "children": [],
+                "difficulty": 3,
+                "importance": 5,
+                "content": {"explanation": "两角及其夹边对应相等的两个三角形全等"}
+            },
+            "kp_congruence_aas": {
+                "id": "kp_congruence_aas",
+                "name": "AAS（角角边）",
+                "level": 3,
+                "categories": ["method_proof"],
+                "parent_id": "subtopic_triangle_congruence",
+                "children": [],
+                "difficulty": 3,
+                "importance": 5,
+                "content": {"explanation": "两角及其中一角的对边对应相等的两个三角形全等"}
+            },
+            "kp_congruence_hl": {
+                "id": "kp_congruence_hl",
+                "name": "HL（斜边直角边）",
+                "level": 3,
+                "categories": ["method_proof"],
+                "parent_id": "subtopic_triangle_congruence",
+                "children": [],
+                "difficulty": 3,
+                "importance": 5,
+                "content": {"explanation": "斜边和一条直角边对应相等的两个直角三角形全等"}
+            },
+            "kp_similarity_aa": {
+                "id": "kp_similarity_aa",
+                "name": "AA（角角）",
+                "level": 3,
+                "categories": ["method_proof"],
+                "parent_id": "subtopic_triangle_similarity",
+                "children": [],
+                "difficulty": 4,
+                "importance": 5,
+                "content": {"explanation": "两角对应相等的两个三角形相似"}
+            },
+            "kp_similarity_sas": {
+                "id": "kp_similarity_sas",
+                "name": "SAS（边角边）",
+                "level": 3,
+                "categories": ["method_proof"],
+                "parent_id": "subtopic_triangle_similarity",
+                "children": [],
+                "difficulty": 4,
+                "importance": 5,
+                "content": {"explanation": "两边对应成比例且夹角相等的两个三角形相似"}
+            },
+            "kp_similarity_sss": {
+                "id": "kp_similarity_sss",
+                "name": "SSS（边边边）",
+                "level": 3,
+                "categories": ["method_proof"],
+                "parent_id": "subtopic_triangle_similarity",
+                "children": [],
+                "difficulty": 4,
+                "importance": 5,
+                "content": {"explanation": "三边对应成比例的两个三角形相似"}
+            },
+            "kp_similarity_properties": {
+                "id": "kp_similarity_properties",
+                "name": "相似三角形的性质",
+                "level": 3,
+                "categories": ["theorem_triangle"],
+                "parent_id": "subtopic_triangle_similarity",
+                "children": [],
+                "difficulty": 4,
+                "importance": 5,
+                "content": {"explanation": "对应角相等，对应边成比例，面积比等于相似比的平方"}
+            },
+            "kp_isosceles_triangle": {
+                "id": "kp_isosceles_triangle",
+                "name": "等腰三角形",
+                "level": 3,
+                "categories": ["topic_geometry"],
+                "parent_id": "subtopic_triangle_special",
+                "children": [],
+                "difficulty": 3,
+                "importance": 5,
+                "content": {"explanation": "两边相等的三角形，底角相等，顶角平分线、底边中线、底边高三线合一"}
+            },
+            "kp_equilateral_triangle": {
+                "id": "kp_equilateral_triangle",
+                "name": "等边三角形",
+                "level": 3,
+                "categories": ["topic_geometry"],
+                "parent_id": "subtopic_triangle_special",
+                "children": [],
+                "difficulty": 3,
+                "importance": 5,
+                "content": {"explanation": "三边相等的三角形，三个内角都是60°"}
+            },
+            "kp_right_triangle": {
+                "id": "kp_right_triangle",
+                "name": "直角三角形",
+                "level": 3,
+                "categories": ["topic_geometry"],
+                "parent_id": "subtopic_triangle_special",
+                "children": [],
+                "difficulty": 3,
+                "importance": 5,
+                "content": {"explanation": "有一个角是90°的三角形"}
+            },
+            "kp_pythagorean_theorem": {
+                "id": "kp_pythagorean_theorem",
+                "name": "勾股定理",
+                "level": 3,
+                "categories": ["theorem_triangle"],
+                "parent_id": "subtopic_triangle_special",
+                "children": [],
+                "difficulty": 3,
+                "importance": 5,
+                "content": {"explanation": "直角三角形两直角边的平方和等于斜边的平方"}
+            }
+        },
+        "categories": {
+            "topic_geometry": {"id": "topic_geometry", "name": "几何", "type": "主题"},
+            "topic_algebra": {"id": "topic_algebra", "name": "代数", "type": "主题"},
+            "topic_function": {"id": "topic_function", "name": "函数", "type": "主题"},
+            "topic_statistics": {"id": "topic_statistics", "name": "统计与概率", "type": "主题"},
+            "model_basic": {"id": "model_basic", "name": "基本模型", "type": "模型"},
+            "model_advanced": {"id": "model_advanced", "name": "进阶模型", "type": "模型"},
+            "method_proof": {"id": "method_proof", "name": "证明方法", "type": "方法"},
+            "method_calculation": {"id": "method_calculation", "name": "计算方法", "type": "方法"},
+            "method_construction": {"id": "method_construction", "name": "作图方法", "type": "方法"},
+            "theorem_triangle": {"id": "theorem_triangle", "name": "三角形定理", "type": "定理"},
+            "theorem_circle": {"id": "theorem_circle", "name": "圆相关定理", "type": "定理"},
+            "theorem_quadrilateral": {"id": "theorem_quadrilateral", "name": "四边形定理", "type": "定理"},
+            "formula_area": {"id": "formula_area", "name": "面积公式", "type": "公式"},
+            "formula_volume": {"id": "formula_volume", "name": "体积公式", "type": "公式"},
+            "formula_equation": {"id": "formula_equation", "name": "方程公式", "type": "公式"}
+        }
+    };
+
+    let currentFilter = 'all';
+
+    // 渲染分类列表
+    function renderCategories() {
+        const categoryList = document.getElementById('categoryList');
+        const categoryIcons = {'主题': '📚', '模型': '🧩', '方法': '🔧', '定理': '📐', '公式': '📝'};
+        
+        let html = '<div class="category-item active" onclick="filterByCategory(\'all\')">📊 全部知识点</div>';
+        
+        for (const [id, cat] of Object.entries(graphData.categories)) {
+            const icon = categoryIcons[cat.type] || '📌';
+            html += `<div class="category-item" onclick="filterByCategory('${id}')">${icon} ${cat.name}</div>`;
+        }
+        
+        categoryList.innerHTML = html;
+    }
+
+    // 渲染知识树
+    function renderTree() {
+        const treeContent = document.getElementById('treeContent');
+        const rootNodes = Object.values(graphData.nodes).filter(node => node.level === 1);
+        
+        let html = '';
+        rootNodes.forEach(node => {
+            html += renderNode(node);
+        });
+        
+        treeContent.innerHTML = html;
+    }
+
+    // 渲染单个节点
+    function renderNode(node) {
+        const hasChildren = node.children && node.children.length > 0;
+        const levelClass = `level-${node.level}`;
+        
+        let childrenHtml = '';
+        if (hasChildren) {
+            const children = node.children
+                .map(childId => graphData.nodes[childId])
+                .filter(child => child && (currentFilter === 'all' || child.categories.includes(currentFilter)));
+            
+            if (children.length > 0) {
+                childrenHtml = `<div class="node-children" id="children-${node.id}">`;
+                children.forEach(child => {
+                    childrenHtml += renderNode(child);
+                });
+                childrenHtml += '</div>';
+            }
+        }
+        
+        const categoryBadges = node.categories
+            .slice(0, 2)
+            .map(catId => graphData.categories[catId])
+            .filter(cat => cat)
+            .map(cat => `<span class="node-badge">${cat.name}</span>`)
+            .join('');
+        
+        return `
+            <div class="tree-node">
+                <div class="node-header ${levelClass}" onclick="toggleNode('${node.id}')">
+                    ${hasChildren ? '<span class="expand-icon">▶</span>' : '<span style="width:24px"></span>'}
+                    <span class="node-name">${node.name}</span>
+                    ${categoryBadges}
+                </div>
+                ${childrenHtml}
+            </div>
+        `;
+    }
+
+    // 切换节点展开/折叠
+    function toggleNode(nodeId) {
+        const node = graphData.nodes[nodeId];
+        if (!node || !node.children || node.children.length === 0) {
+            showDetail(node);
+            return;
+        }
+        
+        const childrenEl = document.getElementById(`children-${nodeId}`);
+        const headerEl = childrenEl.previousElementSibling;
+        const iconEl = headerEl.querySelector('.expand-icon');
+        
+        if (childrenEl.classList.contains('expanded')) {
+            childrenEl.classList.remove('expanded');
+            if (iconEl) iconEl.classList.remove('expanded');
+        } else {
+            childrenEl.classList.add('expanded');
+            if (iconEl) iconEl.classList.add('expanded');
+        }
+    }
+
+    // 显示详情
+    function showDetail(node) {
+        const detailPanel = document.getElementById('detailPanel');
+        
+        if (!node || !node.content) {
+            detailPanel.classList.remove('show');
+            return;
+        }
+        
+        const content = node.content;
+        let html = `<h3>${node.name}</h3>`;
+        
+        if (content.explanation) {
+            html += `<div class="detail-section"><h4>📖 详细讲解</h4><p>${content.explanation}</p></div>`;
+        }
+        
+        html += `<div class="detail-section"><h4>📊 知识点属性</h4><p>难度：${'⭐'.repeat(node.difficulty || 3)}</p></div>`;
+        
+        detailPanel.innerHTML = html;
+        detailPanel.classList.add('show');
+    }
+
+    // 按分类筛选
+    function filterByCategory(categoryId) {
+        currentFilter = categoryId;
+        document.querySelectorAll('.category-item').forEach(item => item.classList.remove('active'));
+        event.target.classList.add('active');
+        renderTree();
+        document.getElementById('detailPanel').classList.remove('show');
+    }
+
+    // 全部展开
+    function expandAll() {
+        document.querySelectorAll('.node-children').forEach(el => el.classList.add('expanded'));
+        document.querySelectorAll('.expand-icon').forEach(el => el.classList.add('expanded'));
+    }
+
+    // 全部折叠
+    function collapseAll() {
+        document.querySelectorAll('.node-children').forEach(el => el.classList.remove('expanded'));
+        document.querySelectorAll('.expand-icon').forEach(el => el.classList.remove('expanded'));
+    }
+
+    // 初始化
+    renderCategories();
+    renderTree();
+    </script>
+</body>
+</html>

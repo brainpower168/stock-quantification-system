@@ -1,0 +1,224 @@
+[
+  {
+    "id": "8-16-1",
+    "name": "二次根式",
+    "grade": 8,
+    "semester": "下册",
+    "chapter": "二次根式",
+    "section": "二次根式",
+    "description": "２",
+    "difficulty": 3,
+    "keywords": [],
+    "formulas": [],
+    "examples": [],
+    "exercises": []
+  },
+  {
+    "id": "8-16-2",
+    "name": "二次根式的乘除",
+    "grade": 8,
+    "semester": "下册",
+    "chapter": "二次根式",
+    "section": "二次根式的乘除",
+    "description": "６",
+    "difficulty": 3,
+    "keywords": [],
+    "formulas": [],
+    "examples": [],
+    "exercises": []
+  },
+  {
+    "id": "8-16-3",
+    "name": "二次根式的加减",
+    "grade": 8,
+    "semester": "下册",
+    "chapter": "二次根式",
+    "section": "二次根式的加减",
+    "description": "１２阅读与思考　海伦秦九韶公式１６数学活动１７小结１８复习题１６１９",
+    "difficulty": 3,
+    "keywords": [
+      "阅读与思考",
+      "海伦秦九韶公式",
+      "数学活动",
+      "小结",
+      "复习题"
+    ],
+    "formulas": [],
+    "examples": [],
+    "exercises": []
+  },
+  {
+    "id": "8-17-1",
+    "name": "勾股定理",
+    "grade": 8,
+    "semester": "下册",
+    "chapter": "勾股定理",
+    "section": "勾股定理",
+    "description": "２２阅读与思考　勾股定理的证明３０",
+    "difficulty": 3,
+    "keywords": [
+      "阅读与思考",
+      "勾股定理的证明"
+    ],
+    "formulas": [],
+    "examples": [],
+    "exercises": []
+  },
+  {
+    "id": "8-17-2",
+    "name": "勾股定理的逆定理",
+    "grade": 8,
+    "semester": "下册",
+    "chapter": "勾股定理",
+    "section": "勾股定理的逆定理",
+    "description": "３１阅读与思考　费马大定理３５数学活动３６小结３７复习题１７３８",
+    "difficulty": 3,
+    "keywords": [
+      "阅读与思考",
+      "费马大定理",
+      "数学活动",
+      "小结",
+      "复习题"
+    ],
+    "formulas": [],
+    "examples": [],
+    "exercises": []
+  },
+  {
+    "id": "8-18-1",
+    "name": "平行四边形",
+    "grade": 8,
+    "semester": "下册",
+    "chapter": "平行四边形",
+    "section": "平行四边形",
+    "description": "４１",
+    "difficulty": 3,
+    "keywords": [],
+    "formulas": [],
+    "examples": [],
+    "exercises": []
+  },
+  {
+    "id": "8-18-2",
+    "name": "特殊的平行四边形",
+    "grade": 8,
+    "semester": "下册",
+    "chapter": "平行四边形",
+    "section": "特殊的平行四边形",
+    "description": "５２实验与探究　丰富多彩的正方形６３数学活动６４小结６６复习题１８６７",
+    "difficulty": 3,
+    "keywords": [
+      "实验与探究",
+      "丰富多彩的正方形",
+      "数学活动",
+      "小结",
+      "复习题"
+    ],
+    "formulas": [],
+    "examples": [],
+    "exercises": []
+  },
+  {
+    "id": "8-19-1",
+    "name": "函数",
+    "grade": 8,
+    "semester": "下册",
+    "chapter": "一次函数",
+    "section": "函数",
+    "description": "７１阅读与思考　科学家如何测算岩石的年龄８５",
+    "difficulty": 3,
+    "keywords": [
+      "阅读与思考",
+      "科学家如何测算岩石的年龄"
+    ],
+    "formulas": [],
+    "examples": [],
+    "exercises": []
+  },
+  {
+    "id": "8-19-2",
+    "name": "一次函数",
+    "grade": 8,
+    "semester": "下册",
+    "chapter": "一次函数",
+    "section": "一次函数",
+    "description": "８６信息技术应用　用计算机画函数图象１０１",
+    "difficulty": 3,
+    "keywords": [
+      "信息技术应用",
+      "用计算机画函数图象"
+    ],
+    "formulas": [],
+    "examples": [],
+    "exercises": []
+  },
+  {
+    "id": "8-19-3",
+    "name": "课题学习　选择方案",
+    "grade": 8,
+    "semester": "下册",
+    "chapter": "一次函数",
+    "section": "课题学习　选择方案",
+    "description": "１０２数学活动１０５小结１０６复习题１９１０７",
+    "difficulty": 3,
+    "keywords": [
+      "数学活动",
+      "小结",
+      "复习题"
+    ],
+    "formulas": [],
+    "examples": [],
+    "exercises": []
+  },
+  {
+    "id": "8-20-1",
+    "name": "数据的集中趋势",
+    "grade": 8,
+    "semester": "下册",
+    "chapter": "数据的分析",
+    "section": "数据的集中趋势",
+    "description": "１１１",
+    "difficulty": 3,
+    "keywords": [],
+    "formulas": [],
+    "examples": [],
+    "exercises": []
+  },
+  {
+    "id": "8-20-2",
+    "name": "数据的波动程度",
+    "grade": 8,
+    "semester": "下册",
+    "chapter": "数据的分析",
+    "section": "数据的波动程度",
+    "description": "１２４阅读与思考　数据波动程度的几种度量１２９",
+    "difficulty": 3,
+    "keywords": [
+      "阅读与思考",
+      "数据波动程度的几种度量"
+    ],
+    "formulas": [],
+    "examples": [],
+    "exercises": []
+  },
+  {
+    "id": "8-20-3",
+    "name": "课题学习　体质健康测试中的数据分析",
+    "grade": 8,
+    "semester": "下册",
+    "chapter": "数据的分析",
+    "section": "课题学习　体质健康测试中的数据分析",
+    "description": "１３１数学活动１３４小结１３５复习题２０１３６部分中英文词汇索引１３８\f书书书",
+    "difficulty": 3,
+    "keywords": [
+      "数学活动",
+      "小结",
+      "复习题",
+      "部分中英文词汇索引",
+      "书书书"
+    ],
+    "formulas": [],
+    "examples": [],
+    "exercises": []
+  }
+]

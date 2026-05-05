@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>初中数学知识图谱</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            color: #fff;
+        }
+        
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+        
+        /* 左侧面板 */
+        .sidebar {
+            width: 320px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            overflow-y: auto;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, #00d4ff, #7b2ff7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .search-box {
+            margin-bottom: 20px;
+        }
+        
+        .search-box input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            font-size: 14px;
+        }
+        
+        .search-box input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .filter-section {
+            margin-bottom: 20px;
+        }
+        
+        .filter-title {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 10px;
+        }
+        
+        .grade-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .grade-btn {
+            padding: 8px 16px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            background: transparent;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .grade-btn:hover, .grade-btn.active {
+            background: linear-gradient(90deg, #00d4ff, #7b2ff7);
+            border-color: transparent;
+        }
+        
+        .stats {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .stats-title {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 10px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+        }
+        
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            background: linear-gradient(90deg, #00d4ff, #7b2ff7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        /* 知识点详情面板 */
+        .node-detail {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+        
+        .node-detail.hidden {
+            display: none;
+        }
+        
+        .node-name {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .node-chapter {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 15px;
+        }
+        
+        .node-section {
+            margin-bottom: 15px;
+        }
+        
+        .node-section-title {
+            font-size: 13px;
+            color: #00d4ff;
+            margin-bottom: 5px;
+        }
+        
+        .node-section-content {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+        }
+        
+        .formula-box {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            margin: 5px 0;
+        }
+        
+        .tag {
+            display: inline-block;
+            padding: 3px 8px;
+            background: rgba(0, 212, 255, 0.2);
+            border-radius: 3px;
+            font-size: 12px;
+            margin: 2px;
+        }
+        
+        /* 主图区域 */
+        .main-content {
+            flex: 1;
+            position: relative;
+        }
+        
+        #graph-container {
+            width: 100%;
+            height: 100%;
+        }
+        
+        /* 图例 */
+        .legend {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 15px;
+            border-radius: 10px;
+        }
+        
+        .legend-title {
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin: 5px 0;
+            font-size: 12px;
+        }
+        
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        
+        /* 控制按钮 */
+        .controls {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .control-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: all 0.3s;
+        }
+        
+        .control-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        /* 节点样式 */
+        .node {
+            cursor: pointer;
+        }
+        
+        .node circle {
+            stroke-width: 2px;
+            transition: all 0.3s;
+        }
+        
+        .node:hover circle {
+            stroke-width: 4px;
+            filter: drop-shadow(0 0 10px currentColor);
+        }
+        
+        .node text {
+            font-size: 12px;
+            pointer-events: none;
+        }
+        
+        /* 边样式 */
+        .link {
+            fill: none;
+            stroke-opacity: 0.6;
+        }
+        
+        .link.prerequisite {
+            stroke: #00d4ff;
+        }
+        
+        .link.derived {
+            stroke: #7b2ff7;
+        }
+        
+        .link.contains {
+            stroke: #ff6b6b;
+        }
+        
+        /* 工具提示 */
+        .tooltip {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 13px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+            max-width: 300px;
+            z-index: 100;
+        }
+        
+        /* 加载动画 */
+        .loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+        
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            border-top-color: #00d4ff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 左侧面板 -->
+        <div class="sidebar">
+            <div class="logo">🧮 数学知识图谱</div>
+            
+            <div class="search-box">
+                <input type="text" id="search-input" placeholder="搜索知识点...">
+            </div>
+            
+            <div class="filter-section">
+                <div class="filter-title">年级筛选</div>
+                <div class="grade-buttons">
+                    <button class="grade-btn active" data-grade="all">全部</button>
+                    <button class="grade-btn" data-grade="7">七年级</button>
+                    <button class="grade-btn" data-grade="8">八年级</button>
+                    <button class="grade-btn" data-grade="9">九年级</button>
+                </div>
+            </div>
+            
+            <div class="filter-section">
+                <div class="filter-title">学期筛选</div>
+                <div class="grade-buttons">
+                    <button class="grade-btn active" data-semester="all">全部</button>
+                    <button class="grade-btn" data-semester="上">上册</button>
+                    <button class="grade-btn" data-semester="下">下册</button>
+                </div>
+            </div>
+            
+            <div class="stats">
+                <div class="stats-title">知识图谱统计</div>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-value" id="total-nodes">0</div>
+                        <div class="stat-label">知识点</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="total-edges">0</div>
+                        <div class="stat-label">关联关系</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="total-chapters">0</div>
+                        <div class="stat-label">章节</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="total-formulas">0</div>
+                        <div class="stat-label">公式</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="node-detail hidden" id="node-detail">
+                <div class="node-name" id="detail-name"></div>
+                <div class="node-chapter" id="detail-chapter"></div>
+                
+                <div class="node-section">
+                    <div class="node-section-title">📝 描述</div>
+                    <div class="node-section-content" id="detail-description"></div>
+                </div>
+                
+                <div class="node-section" id="formulas-section">
+                    <div class="node-section-title">📐 公式</div>
+                    <div class="node-section-content" id="detail-formulas"></div>
+                </div>
+                
+                <div class="node-section" id="keywords-section">
+                    <div class="node-section-title">🏷️ 关键词</div>
+                    <div class="node-section-content" id="detail-keywords"></div>
+                </div>
+                
+                <div class="node-section" id="prerequisites-section">
+                    <div class="node-section-title">⬆️ 前置知识</div>
+                    <div class="node-section-content" id="detail-prerequisites"></div>
+                </div>
+                
+                <div class="node-section" id="derived-section">
+                    <div class="node-section-title">⬇️ 后续知识</div>
+                    <div class="node-section-content" id="detail-derived"></div>
+                </div>
+                
+                <div class="node-section" id="mistakes-section">
+                    <div class="node-section-title">⚠️ 常见错误</div>
+                    <div class="node-section-content" id="detail-mistakes"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 主图区域 -->
+        <div class="main-content">
+            <div id="graph-container"></div>
+            
+            <div class="controls">
+                <button class="control-btn" id="zoom-in" title="放大">+</button>
+                <button class="control-btn" id="zoom-out" title="缩小">−</button>
+                <button class="control-btn" id="reset-view" title="重置视图">⟲</button>
+            </div>
+            
+            <div class="legend">
+                <div class="legend-title">关系类型</div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #00d4ff;"></div>
+                    <span>前置依赖</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #7b2ff7;"></div>
+                    <span>逻辑推导</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #ff6b6b;"></div>
+                    <span>包含关联</span>
+                </div>
+            </div>
+            
+            <div class="tooltip" id="tooltip"></div>
+        </div>
+    </div>
+
+    <script src="knowledge_graph_data.js"></script>
+    <script src="visualizer.js"></script>
+</body>
+</html>
